@@ -2,15 +2,25 @@
 **Materia:** Lenguajes y Autómatas II (SCD-1016)  
 **Tema:** Encuadre, Diagnóstico de Punteros y Metodología IA  
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
-**Estudiante:** [Nombre Completo]  
-**Matrícula:** [No. de Control]  
-**Track:** [ C | Rust ]  
+**Estudiante:** [EDWIN ARMANDO TUZ YEH ]  
+**Matrícula:** [24531358]  
+**Track:** [ C ]  
 
 ---
 
 ## 1. Fase 1: El Artesano (Dificultad Manual)
 *Reto:* Inversión de buffer in-place (char*)  
 *Describe qué problema o restricción de memoria/sintaxis identificaste al codificar a mano:*
+> Lo más importante era hacerlo sin reservar memoria nueva, así que solo podía
+> usar dos índices y un `char` temporal. Lo que tuve que cuidar fue:
+> - Revisar que la cadena no fuera `NULL`, porque si la recorría directamente
+>   el programa se caía.
+> - Qué pasaba con la cadena vacía: como la longitud se guarda en `size_t`,
+>   restarle 1 cuando vale 0 da un número enorme, así que debía revisarlo antes.
+> - Dónde terminaba la cadena: el último carácter real está antes del `'\0'`,
+>   y no debía intercambiarlo.
+> - Cuándo detener el ciclo: cuando los dos índices se encuentran o se cruzan,
+>   para no volver a invertir lo que ya estaba invertido.
 > 
 
 ---
@@ -26,8 +36,29 @@
 | **Output (O)** | Solo código modular y análisis de complejidad |
 
 ### 2.2 Prompt Estructurado
-```text
-[Pega aquí el prompt formal que redactaste para la IA]
+```texto
+Necesito entender cómo se recorre un buffer en memoria con punteros o
+índices sin salirme de él. El código se compila con
+gcc -std=c11 -Wall -Wextra -Werror y se prueba con un harness que ya
+incluye api_sesion01.h, cuya única declaración es: void invertir(char *s);
+
+ROL:
+Actúa como programador de sistemas en C, experto en manejo seguro de
+memoria, que escribe código sin asignación dinámica.
+
+ESPECIFICACIÓN:
+- Implementa void invertir(char *s) con la firma EXACTA indicada.
+- Invierte la cadena in-place: sin malloc, sin arreglos auxiliares,
+  solo dos índices (o punteros) y un char temporal.
+- No devuelvas una copia: la misma dirección debe quedar invertida.
+- invertir(NULL) debe terminar sin fallo.
+- Debe funcionar con cadena vacía, de 1 carácter, de 2 y de longitud impar.
+- No incluyas main().
+- No debe generar advertencias con -Wall -Wextra -Werror.
+
+OUTPUT:
+Entrega solo el contenido de ia_sesion01_c.c en un único bloque de código
+C, con #include "api_sesion01.h", y sin explicaciones fuera del código.
 ```
 
 ---
@@ -35,6 +66,25 @@
 ## 3. Código Devuelto por el Modelo
 ```c
 // Código devuelto por el LLM
+#include "api_sesion01.h"
+#include <stddef.h>
+
+void invertir(char *s) {
+    if (s == NULL) return;
+
+    char *fin = s;
+    while (*fin != '\0') fin++;      /* fin apunta al '\0' */
+    if (fin == s) return;            /* cadena vacia */
+    fin--;                           /* ultimo caracter real */
+
+    while (s < fin) {
+        char tmp = *s;
+        *s = *fin;
+        *fin = tmp;
+        s++;
+        fin--;
+    }
+}
 ```
 
 ---
@@ -42,13 +92,15 @@
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 *Pruebas ejecutadas:* Valores NULL, buffers vacios y longitudes impares
 
-* [ ] Caso base y límites superados sin *Crash*.
-* [ ] No existen accesos fuera de límites ni *Memory Leaks*.
-* [ ] La complejidad teórica coincide con la implementada.
+* [*] Caso base y límites superados sin *Crash*.
+* [*] No existen accesos fuera de límites ni *Memory Leaks*.
+* [*] La complejidad teórica coincide con la implementada.
 
 ### Reporte Crítico
 *¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?*
+
+Que en cierta forma ponia codigos demas y que no era muy funcional y la solucion fue ir revisando y eliminar lo inecesario.
 > 
 
 ---
-**Firma digital:** [Usuario de GitHub]
+**Firma digital:** [EDWINTUZYEH]
