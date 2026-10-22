@@ -6,10 +6,7 @@
 **Estudiante:** [EDWIN ARMANDO TUZ YEH]  
 **Matrícula:** [24531358]  
 **Track:** [ C ]  
-=======
-**Estudiante:** [Nombre Completo]  
-**Matrícula:** [No. de Control]  
-**Track:** C (el harness evalúa C; la versión en Rust es opcional y no se califica con este harness)  
+=======  
 >>>>>>> main
 
 ---
