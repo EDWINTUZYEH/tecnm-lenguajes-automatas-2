@@ -3,7 +3,7 @@
 **Tema:** Encuadre, Diagnóstico de Punteros y Metodología IA  
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
 <<<<<<< EDWINTUZYEH-patch-1
-**Estudiante:** [EDWIN ARMANDO TUZ YEH ]  
+**Estudiante:** [EDWIN ARMANDO TUZ YEH]  
 **Matrícula:** [24531358]  
 **Track:** [ C ]  
 =======
