@@ -103,6 +103,14 @@ int ejecutar(const char *comando) {
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 *Pruebas ejecutadas:* Detección de errores de compilación GCC
+=== AUDITORIA SESION 03 - Archivos y codigos de salida ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] escribir_texto(...)==0             esperado: 0            obtenido: 0            OK
+[ 2] contar_lineas(3 lineas)            esperado: 3            obtenido: 3            OK
+[ 3] contar_lineas(sin salto final)     esperado: 2            obtenido: 2            OK
+[ 4] contar_lineas(inexistente)         esperado: -1           obtenido: -1           OK
+[ 5] ejecutar("true")                   esperado: 0            obtenido: 0            OK
+[ 6] ejecutar("false")                  esperado: 1            obtenido: 1            OK
 
 * [* ] Caso base y límites superados sin *Crash*.
 * [*] No existen accesos fuera de límites ni *Memory Leaks*.
@@ -110,7 +118,27 @@ int ejecutar(const char *comando) {
 
 ### Reporte Crítico
 *¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?
- en cierta forma la ia si ayuda en ciertas lineas de codigo, entonces la solucion es eliminar los codigos demas y verificar que realmente funcione. 
+> La IA cubrió los 6 casos del harness y también los casos borde adicionales que
+> probé por mi cuenta: archivo vacío (0 líneas), una línea sin `\n` (1), línea en
+> blanco intermedia (3), argumentos `NULL` (-1), ruta inválida (-1),
+> `ejecutar("exit 3")` (3), `exit 255` (255), comando inexistente (127) y
+> proceso terminado por señal con `kill -9 $$` (-1). Todos pasaron, así que no
+> encontré un fallo funcional respecto al contrato.
+>
+> Sí detecté limitaciones que la IA no mencionó ni documentó:
+> 1. `ejecutar` devuelve -1 tanto cuando `system()` falla como cuando el proceso
+>    muere por señal, así que el pipeline no distingue ambos casos. Se podría
+>    devolver `128 + WTERMSIG(estado)` para la señal.
+> 2. `contar_lineas` solo reconoce `'\n'`; un archivo con saltos `'\r'` solos
+>    contaría como una línea.
+> 3. `escribir_texto` con modo `"w"` trunca el archivo antes de escribir: si
+>    `fputs` falla a medias, se pierde el contenido anterior.
+> 4. `system()` pasa por el shell, por lo que sería riesgoso con comandos que
+>    vengan de entrada externa (inyección de comandos).
+>
+> No modifiqué el código porque el contrato de la sesión no exige esos
+> comportamientos y el harness queda en 6/6, pero quedan documentadas como
+> mejoras para el pipeline del Proyecto Integrador.
 
 ---
 **Firma digital:** [EDWINTUZYEH]
