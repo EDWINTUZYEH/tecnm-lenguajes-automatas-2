@@ -92,30 +92,35 @@ void invertir(char *s) {
 
 ---
 
+
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 *Pruebas ejecutadas:* Valores NULL, buffers vacios y longitudes impares
 
-<<<<<<< EDWINTUZYEH-patch-1
-* [*] Caso base y límites superados sin *Crash*.
-* [*] No existen accesos fuera de límites ni *Memory Leaks*.
-* [*] La complejidad teórica coincide con la implementada.
-=======
 ### Salida del harness
 ```text
-Pega aquí la salida de la celda del harness. Debe terminar con:
-RESULTADO: n/n pruebas superadas
+=== AUDITORIA SESION 01 - Inversion de buffer in-place ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] invertir("HOLA")                   esperado: ALOH         obtenido: ALOH         OK
+[ 2] invertir("abc")                    esperado: cba          obtenido: cba          OK
+[ 3] invertir("")                       esperado:              obtenido:              OK
+[ 4] invertir("AB")                     esperado: BA           obtenido: BA           OK
+[ 5] invertir("a")                      esperado: a            obtenido: a            OK
+[ 6] invertir(NULL)                     esperado: sin crash    obtenido: sin crash    OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion01.md
 ```
 
-* [ ] Caso base y límites superados sin *Crash*.
-* [ ] No existen accesos fuera de límites ni *Memory Leaks*.
-* [ ] La complejidad teórica coincide con la implementada.
->>>>>>> main
+* [x] Caso base y límites superados sin *Crash*.
+* [x] No existen accesos fuera de límites ni *Memory Leaks*.
+* [x] La complejidad teórica coincide con la implementada.
 
 ### Reporte Crítico
 *¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?*
-
-Que en cierta forma ponia codigos demas y que no era muy funcional y la solucion fue ir revisando y eliminar lo inecesario.
-> 
+> La IA no omitió ningún caso borde: pasó los 6 casos del harness. Su problema
+> fue que incluyó código de más que no era necesario para la función. Lo
+> solucioné revisando el código línea por línea y eliminando lo innecesario
+> hasta dejar solo lo que pide el contrato.
 
 ---
 **Firma digital:** [EDWINTUZYEH]
