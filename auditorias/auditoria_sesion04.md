@@ -137,6 +137,14 @@ int evaluar(ASTNode *n) {
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 *Pruebas ejecutadas:* Árbol vacío y evaluación de nodo raíz
+=== AUDITORIA SESION 04 - Nodo binario de AST ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] evaluar(nodo 42)                   esperado: 42           obtenido: 42           OK
+[ 2] evaluar(3+5*2)                     esperado: 13           obtenido: 13           OK
+[ 3] hijo izquierdo de (* 5 2)          esperado: 5            obtenido: 5            OK
+[ 4] operador guardado                  esperado: *            obtenido: *            OK
+[ 5] evaluar(NULL)                      esperado: -1           obtenido: -1           OK
+[ 6] evaluar(10-4)                      esperado: 6            obtenido: 6            OK
 
 * [ *] Caso base y límites superados sin *Crash*.
 * [* ] No existen accesos fuera de límites ni *Memory Leaks*.
@@ -144,7 +152,12 @@ int evaluar(ASTNode *n) {
 
 ### Reporte Crítico
 *¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?*
-> 
+>
+Problema omitido: La IA podía no comprobar si un nodo era NULL o si le faltaban hijos, provocando errores al evaluar el árbol.
+
+Solución: Agregué comprobaciones para devolver -1 si el nodo es nulo o si faltan hijos.
+
+Complejidad: Tiempo O(n) y espacio O(h), donde n es el número de nodos y h la altura del árbol.
 
 ---
 **Firma digital:** [EDWINTUZYE]
