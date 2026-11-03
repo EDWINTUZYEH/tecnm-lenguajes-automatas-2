@@ -4,8 +4,7 @@
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
 **Estudiante:** Edwin Armando Tuz Yeh  
 **Matrícula:** 24531358  
-**Track:** C (el harness evalúa C; la versión en Rust es opcional y no se califica con este harness)  
-
+**Track:** [C]
 ---
 
 ## 1. Fase 1: El Artesano (Dificultad Manual)
