@@ -2,7 +2,7 @@
 **Materia:** Lenguajes y Autómatas II (SCD-1016)  
 **Tema:** Gestión en GitHub Web y Nodos Dinámicos  
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
-**Estudiante:** [edwin armndo tuz yeh]  
+**Estudiante:** [Edwin Armando Tuz Yeh]  
 **Matrícula:** [24531358]  
 **Track:** [C]  
 
@@ -13,7 +13,7 @@
 *Describe qué problema o restricción de memoria/sintaxis identificaste al codificar a mano:*
 Lo más difícil fue manejar la memoria dinámica sin perder referencias. Identifiqué tres restricciones:
 
-Paso por doble puntero: agregar_token recibe NodoToken **cabeza porque, si la lista está vacía, la función debe modificar la cabeza que vive en quien la llama. Con un puntero simple, el cambio se perdería.
+Retorno de la cabeza: el contrato define agregar_token(NodoToken *cabeza, const char *lexema) y devuelve el nuevo inicio de la lista. Si la lista está vacía, el nodo creado se convierte en la cabeza; si malloc falla, se devuelve la cabeza original sin perder la lista.
 Use-after-free al liberar: si se hace free(actual) y luego actual = actual->siguiente, se lee memoria ya liberada. Hay que guardar siguiente en una variable temporal antes del free.
 Cadenas en char lexema[16]: strncpy no garantiza el '\0' cuando el texto llena el buffer, así que forcé el terminador en la última posición.
 
@@ -43,10 +43,11 @@ Rol: Actúa como ingeniero de software de sistemas y compiladores, en
 manejo seguro de memoria dinámica en C.
 
 Especificación: Implementa exactamente estas firmas:
-NodoToken *crear_nodo(const char *lexema);
-void agregar_token(NodoToken **cabeza, const char *lexema);
+NodoToken *agregar_token(NodoToken *cabeza, const char *lexema);
 int contar_tokens(NodoToken *cabeza);
 void liberar_lista(NodoToken *cabeza);
+Puedes apoyarte en una función auxiliar crear_nodo, pero la interfaz
+obligatoria es la que declara api_sesion02.h.
 Cada nodo se reserva con malloc, sin arreglos globales. El siguiente del
 último nodo debe ser NULL. contar_tokens(NULL) devuelve 0 y liberar_lista(NULL)
 no debe fallar. Al liberar, guarda el siguiente antes de hacer free, para
@@ -83,23 +84,20 @@ NodoToken *crear_nodo(const char *lexema) {
     return nodo;
 }
 
-void agregar_token(NodoToken **cabeza, const char *lexema) {
-    if (cabeza == NULL) {
-        return;
-    }
+NodoToken *agregar_token(NodoToken *cabeza, const char *lexema) {
     NodoToken *nuevo = crear_nodo(lexema);
     if (nuevo == NULL) {
-        return;
+        return cabeza;
     }
-    if (*cabeza == NULL) {
-        *cabeza = nuevo;
-        return;
+    if (cabeza == NULL) {
+        return nuevo;
     }
-    NodoToken *actual = *cabeza;
+    NodoToken *actual = cabeza;
     while (actual->siguiente != NULL) {
         actual = actual->siguiente;
     }
     actual->siguiente = nuevo;
+    return cabeza;
 }
 
 int contar_tokens(NodoToken *cabeza) {
@@ -126,7 +124,7 @@ void liberar_lista(NodoToken *cabeza) {
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 *Pruebas ejecutadas:* Prevención de Use-After-Free y cadenas nulas
-[ 1] crear_nodo("if")->lexema           esperado: if           obtenido: if           OK
+[ 1] agregar_token(NULL,"if")           esperado: if           obtenido: if           OK
 [ 2] contar_tokens(3 tokens)            esperado: 3            obtenido: 3            OK
 [ 3] orden: segundo token               esperado: dos          obtenido: dos          OK
 [ 4] ultimo->siguiente == NULL          esperado: 1            obtenido: 1            OK
@@ -135,13 +133,13 @@ void liberar_lista(NodoToken *cabeza) {
 
 RESULTADO: 6/6 pruebas superadas
 
-* [ *] Caso base y límites superados sin *Crash*.
-* [ *] No existen accesos fuera de límites ni *Memory Leaks*.
-* [ *] La complejidad teórica coincide con la implementada.
+* [x] Caso base y límites superados sin *Crash*.
+* [x] No existen accesos fuera de límites ni *Memory Leaks*.
+* [x] La complejidad teórica coincide con la implementada.
 
 ### Reporte Crítico
 *¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?*
-La IA pasó los 6 casos, pero tiene un problema: si el lexema tiene más de 15 caracteres, lo corta sin avisar. Lo probé con "identificador_muy_largo" y lo que se guardó fue identificador_m, o sea que el token queda distinto al original y nadie se entera. Tampoco avisa si malloc falla, porque agregar_token devuelve void. No cambié las firmas porque son parte del contrato; lo dejé anotado como limitación y como mejora (devolver un código de error o usar un buffer más grande). Valgrind marcó fugas, pero eran del harness, que no libera sus listas; liberar_lista está bien.
+La IA pasó los 6 casos, pero tiene un problema: si el lexema tiene más de 15 caracteres, lo corta sin avisar. Lo probé con "identificador_muy_largo" y lo que se guardó fue identificador_m, o sea que el token queda distinto al original y nadie se entera. Además, si malloc falla, agregar_token devuelve la lista sin cambios y el error se pierde en silencio porque la firma no reporta códigos de error. No cambié las firmas porque son parte del contrato; lo dejé anotado como limitación y como mejora (devolver un código de error o usar un buffer más grande). Valgrind marcó fugas, pero eran del harness, que no libera sus listas; liberar_lista está bien.
 > 
 
 ---
