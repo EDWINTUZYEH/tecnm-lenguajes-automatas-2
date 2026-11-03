@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,31 +165,88 @@
   </header>
 
   <main>
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 3: CÓDIGO INTERMEDIO Y OPTIMIZACIÓN</div>
       <h1>Optimización Local: Plegado de Constantes (Constant Folding)</h1>
-      <p class="lead">Sesión 28 del curso. Generación de código intermedio, aplanado de estructuras de control y optimizaciones locales con la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para comprender la manipulación de cuádruplos y temporales.</p>
-          <div class="card-details">Construcción directa de traductores de AST a instrucciones lineales de tres direcciones.</div>
+      <p class="pregunta">¿Para qué calcular en tiempo de ejecución algo que ya se sabe al compilar?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Reducir instrucciones TAC aplicando plegado de constantes e identidades algebraicas, sin cambiar el resultado del programa.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Especificación de requerimientos C-R-E-O para la emisión atómica de instrucciones intermedias.</p>
-          <div class="card-details">Definición de invariantes en grafos de control, etiquetas y preservación semántica en optimizaciones.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Test Harness automatizado para auditar la equivalencia funcional del código optimizado.</p>
-          <div class="card-details">Pruebas destructivas sobre cortocircuito booleano, ciclos anidados y eliminación de código inalcanzable.</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Una función en C que pliega constantes, aplica identidades y deja intactas las operaciones que no puede resolver.</p>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — Reducción Estática y Propagación de Constantes</h2>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Plegado de constantes</span></div>
+          <p>Calcular en compilación una operación cuyos dos operandos ya son literales.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como resolver 2 + 2 en tu cabeza antes de escribir la receta, en lugar de esperar a tener los ingredientes en la mano.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Propagación de constantes</span></div>
+          <p>Sustituir una variable por el valor constante que se le asignó, para habilitar más plegados.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como cambiar el nombre de una persona por su apodo en una lista: el significado no cambia y la lista queda más corta.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. Identidad algebraica</span></div>
+          <p>Regla que elimina una operación redundante, como sumar cero o multiplicar por uno.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como quitar de una receta el paso 'agrega nada': no aporta y solo hace ruido.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Punto fijo</span></div>
+          <p>Repetir el pase de optimización hasta que ninguna instrucción cambie.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como sacar brillo a un vidrio: repites la pasada hasta que ya no aparece nueva suciedad.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">Cada operación que el compilador resuelve hoy es una operación que el procesador no ejecutará mañana. El plegado también simplifica el código que ven los pases posteriores, pero debe ser conservador: una división entre cero o un operando desconocido no se tocan.</p>
+      <div class="timeline">
+        
+        <div class="tl-item done">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Hito 1 · Sesión 10</div>
+        </div>
+        <div class="tl-item done">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Hito 2 · Sesión 20</div>
+        </div>
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Hito 4 · Sesión 40</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Una función en C que pliega constantes, aplica identidades y deja intactas las operaciones que no puede resolver.
+        <br><strong>Siguiente:</strong> Optimización: Eliminación de Código Muerto (Dead Code Elimination) (sesión 29)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — Reducción Estática y Propagación de Constantes</h2>
       <p class="lead">El optimizador simplifica expresiones constantes en tiempo de compilación para ahorrar instrucciones de CPU.</p>
       <div class="grid-3">
         
@@ -165,17 +262,15 @@
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">03. Identidades Algebraicas</span><span class="expand-hint">[+]</span></div>
-          <p>Simplificación de operaciones redundantes: 'x + 0 -> x', 'x * 1 -> x', 'x * 0 -> 0', 'x * 2 -> x + x'.</p>
+          <p>Simplificación de operaciones redundantes: 'x + 0 -&gt; x', 'x * 1 -&gt; x', 'x * 0 -&gt; 0', 'x * 2 -&gt; x + x'.</p>
           <div class="card-details">Sustituye operaciones costosas (multiplicaciones) por operaciones más rápidas o las elimina.</div>
         </div>
       </div>
-      <div class="interactive-box">
-        <strong>Invariante de Código Intermedio:</strong> Toda operación compleja debe aplanarse a instrucciones con a lo sumo dos operandos y un resultado.
-      </div>
     </section>
 
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Estructuras de Datos: Algoritmo de Paso Local sobre Cuádruplos</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: Algoritmo de Paso Local sobre Cuádruplos</h2>
       <p class="lead">Transformación iterativa de la lista de instrucciones:</p>
       <div class="grid-2">
         
@@ -192,34 +287,71 @@
       </div>
     </section>
 
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Puntos Críticos en Plegado</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la generación de TAC y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Intentar plegar una división entre cero ('_t0 = 10 / 0') provocando la caída del propio compilador.</strong></li><li><strong>Propagar constantes a través de etiquetas de salto donde la variable podría haber sido modificada por otra ruta.</strong></li><li><strong>Divergencia de precisión en operaciones de punto flotante entre host y target.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Intentar plegar una división entre cero ('_t0 = 10 / 0') provocando la caída del propio compilador.</li><li>Propagar constantes a través de etiquetas de salto donde la variable podría haber sido modificada por otra ruta.</li><li>Divergencia de precisión en operaciones de punto flotante entre host y target.</li>
         </ul>
       </div>
     </section>
 
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Recibes el nombre del resultado, el operador y los dos operandos de una instrucción TAC. Debes escribir en dst la versión más simple que conserve el significado: un literal calculado, una identidad resuelta o la instrucción original.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tu función plegar() en artesano_sesion28_c.c, el harness en verde y la bitácora en auditorias/auditoria_sesion28.md</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>Solo pliega cuando ambos operandos son enteros completos; nada de prefijos ni texto sobrante.</li><li>x + 0 y x * 1 se reducen a x; x * 0 se reduce a 0.</li><li>Si el divisor es cero, no pliegues: deja la instrucción original y no provoques una excepción.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>Dos literales enteros se sustituyen por un solo literal con el resultado calculado.</li><li>Las identidades x + 0, x * 1 y x * 0 se resuelven sin emitir la operación.</li><li>Una división entre cero se conserva intacta y no aborta el programa.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 28</div>
+          <pre>=== AUDITORIA SESION 28 - Plegado de constantes e identidades ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] 3 + 5                              esperado: _t0 = 8      obtenido: _t0 = 8      OK
+[ 2] 2 * 3                              esperado: _t0 = 6      obtenido: _t0 = 6      OK
+[ 3] 7 - 10                             esperado: _t0 = -3     obtenido: _t0 = -3     OK
+[ 4] x + 0                              esperado: _t0 = x      obtenido: _t0 = x      OK
+[ 5] x + y (sin plegar)                 esperado: _t0 = x + y  obtenido: _t0 = x + y  OK
+[ 6] 10 / 0 (no plegar)                 esperado: _t0 = 10 / 0 obtenido: _t0 = 10 / 0 OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion28.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Fundamento teórico y aplanado de estructuras.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Verifica que las pruebas del Test Harness pasen al 100% antes de subir tu bitácora.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion28.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">La entrega de la Sesión 30 concluye formalmente el Hito 3 del Proyecto Integrador.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 6 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -229,7 +361,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -251,6 +383,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';

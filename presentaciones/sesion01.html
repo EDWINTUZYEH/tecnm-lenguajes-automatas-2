@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,33 +165,88 @@
   </header>
 
   <main>
-    <!-- Slide 1: Portada y Propósito -->
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 1: ANÁLISIS SEMÁNTICO Y AST</div>
       <h1>Encuadre, Diagnóstico de Punteros y Metodología IA</h1>
-      <p class="lead">Sesión 01 del curso. Exploración conceptual, diseño de estructuras en memoria y auditoría técnica mediante la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para experimentar las restricciones de bajo nivel del compilador.</p>
-          <div class="card-details">Desarrolla intuición técnica de punteros, registros y manejo de memoria dinámica.</div>
+      <p class="pregunta">¿Por qué un compilador necesita mirar la memoria del programa que analiza?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Entender cómo vive el código fuente en memoria y recorrerlo con punteros sin salirse del buffer, implementando una inversión in-place y auditándola con pruebas automáticas.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Formalización de especificaciones técnicas mediante el contrato estructurado C-R-E-O.</p>
-          <div class="card-details">Define precondiciones, postcondiciones e invariantes formales antes de consultar al LLM.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Batería de pruebas automatizadas (*Test Harness*) para detectar fallos y fugas de memoria.</p>
-          <div class="card-details">Somete el código de la IA a pruebas destructivas y registra la bitácora en GitHub.</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Una función en C que invierte cualquier cadena en su mismo espacio de memoria y un harness en verde que lo demuestra con seis casos.</p>
         </div>
       </div>
     </section>
 
-    <!-- Slide 2: Fundamentos Teóricos -->
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — El Código Fuente como Flujo Continuo de Memoria</h2>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Buffer</span></div>
+          <p>Un tramo de memoria contiguo que guarda el texto de entrada; cada carácter ocupa la dirección siguiente.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como los vagones de un tren: uno pegado al otro, y el puntero es el boleto que dice en qué vagón estás.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Puntero</span></div>
+          <p>Una variable que guarda una dirección de memoria en lugar de un valor.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como el número de página de un libro: el puntero dice dónde buscar; lo que hay escrito es otra cosa.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. Inversión in-place</span></div>
+          <p>Dar vuelta al contenido del buffer sin reservar un segundo buffer.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como voltear una fila de sillas sin moverlas a otro cuarto: dos personas en los extremos se intercambian hasta encontrarse.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Harness de pruebas</span></div>
+          <p>Un programa que ejecuta casos de prueba y reporta cuáles pasan y cuáles no.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como un examen de manejo con ruta fija: no importa tu estilo, hay que pasar cada caseta.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">Todo lo que sigue en el curso (tokens, árbol sintáctico, tabla de símbolos) se construye recorriendo memoria con punteros. Si un puntero se sale del buffer no hay mensaje de error: el programa se cae. Por eso empezamos aquí, antes de compilar nada.</p>
+      <div class="timeline">
+        
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Hito 2 · Sesión 20</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Hito 3 · Sesión 30</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Hito 4 · Sesión 40</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Una función en C que invierte cualquier cadena en su mismo espacio de memoria y un harness en verde que lo demuestra con seis casos.
+        <br><strong>Siguiente:</strong> Gestión en GitHub Web y Nodos Dinámicos en Heap (sesión 02)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — El Código Fuente como Flujo Continuo de Memoria</h2>
       <p class="lead">Todo compilador trata al programa de entrada como una secuencia contigua de bytes. Manipular punteros es la base del escaneo léxico y semántico.</p>
       <div class="grid-3">
         
@@ -162,69 +257,101 @@
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">02. Aritmética de Punteros</span><span class="expand-hint">[+]</span></div>
-          <p>Avanzar `ptr++` incrementa la dirección en `sizeof(*ptr)` bytes. En `char*`, el salto es de 1 byte exacto.</p>
+          <p>Avanzar <code>ptr++</code> incrementa la dirección en <code>sizeof(*ptr)</code> bytes. En <code>char*</code>, el salto es de 1 byte exacto.</p>
           <div class="card-details">Permite calcular distancias entre lexemas y offsets sin copias auxiliares en memoria.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">03. Invariante de Terminación</span><span class="expand-hint">[+]</span></div>
-          <p>Toda cadena en C finaliza en el byte nulo `\0` (0x00). Si se sobreescribe, el compilador leerá memoria no asignada.</p>
-          <div class="card-details">El cálculo de longitud `strlen()` recorre hasta encontrar `\0`, con complejidad O(n).</div>
+          <p>Toda cadena en C finaliza en el byte nulo <code>\0</code> (0x00). Si se sobreescribe, el compilador leerá memoria no asignada.</p>
+          <div class="card-details">El cálculo de longitud <code>strlen()</code> recorre hasta encontrar <code>\0</code>, con complejidad O(n).</div>
         </div>
-      </div>
-      <div class="interactive-box">
-        <strong>Invariante Conceptual:</strong> El análisis semántico comprueba que las construcciones sintácticas obedezcan las reglas lógicas del lenguaje.
       </div>
     </section>
 
-    <!-- Slide 3: Arquitectura de Memoria -->
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Estructuras de Datos: Inversión In-Place: Stack vs Heap</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: Inversión In-Place: Stack vs Heap</h2>
       <p class="lead">Modelado del intercambio de punteros en los extremos del buffer:</p>
       <div class="grid-2">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Punteros Contrapuestos</span><span class="expand-hint">[+]</span></div>
-          <p>Un puntero `inicio` en `str` y un puntero `fin` en `str + len - 1` convergen al centro en O(n/2) pasos.</p>
-          <div class="card-details">Requiere verificar que `inicio < fin` en cada iteración.</div>
+          <p>Un puntero <code>inicio</code> en <code>str</code> y un puntero <code>fin</code> en <code>str + len - 1</code> convergen al centro en O(n/2) pasos.</p>
+          <div class="card-details">Requiere verificar que <code>inicio &lt; fin</code> en cada iteración.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Memoria Auxiliar O(1)</span><span class="expand-hint">[+]</span></div>
-          <p>El intercambio usa un solo byte temporal en el registro/pila sin invocar `malloc()` ni duplicar el buffer.</p>
+          <p>El intercambio usa un solo byte temporal en el registro/pila sin invocar <code>malloc()</code> ni duplicar el buffer.</p>
           <div class="card-details">Garantiza eficiencia máxima en entornos restringidos de compilación.</div>
         </div>
       </div>
     </section>
 
-    <!-- Slide 4: Casos Borde y Antipatrones -->
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Antipatrones y Casos Límite a Proteger</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la codificación y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Puntero `NULL`: Intentar desreferenciar `*str` cuando `str == NULL` causa terminación abrupta.</strong></li><li><strong>Buffer de solo lectura: Intentar mutar un literal `char *s = "HOLA";` causa violación de segmento en el segmento `.rodata`.</strong></li><li><strong>Cadenas vacías `""`: `fin` apuntaría a `str - 1`, una dirección ilegal previa al inicio del buffer.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Puntero <code>NULL</code>: Intentar desreferenciar <code>*str</code> cuando <code>str == NULL</code> causa terminación abrupta.</li><li>Buffer de solo lectura: Intentar mutar un literal <code>char *s = "HOLA";</code> causa violación de segmento en el segmento <code>.rodata</code>.</li><li>Cadenas vacías <code>""</code>: <code>fin</code> apuntaría a <code>str - 1</code>, una dirección ilegal previa al inicio del buffer.</li>
         </ul>
       </div>
     </section>
 
-    <!-- Slide 5: El Reto y Entregables -->
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Recibes una cadena mutable y debes darle vuelta sin reservar memoria nueva. Al terminar, la misma dirección de memoria contiene los caracteres al revés.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tu función invertir() en artesano_sesion01_c.c, el harness en verde y la bitácora en auditorias/auditoria_sesion01.md</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>Sin malloc ni arreglos auxiliares: solo dos índices y un char temporal.</li><li>La cadena se modifica en su lugar; no devuelvas una copia.</li><li>invertir(NULL) debe terminar sin caerse.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>El buffer original queda invertido: no hay copia ni malloc.</li><li>Los seis casos del harness salen OK con código de salida 0.</li><li>invertir(NULL) y la cadena vacía no provocan fallo de segmentación.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 01</div>
+          <pre>=== AUDITORIA SESION 01 - Inversion de buffer in-place ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] invertir("HOLA")                   esperado: ALOH         obtenido: ALOH         OK
+[ 2] invertir("abc")                    esperado: cba          obtenido: cba          OK
+[ 3] invertir("")                       esperado:              obtenido:              OK
+[ 4] invertir("AB")                     esperado: BA           obtenido: BA           OK
+[ 5] invertir("a")                      esperado: a            obtenido: a            OK
+[ 6] invertir(NULL)                     esperado: sin crash    obtenido: sin crash    OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion01.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Estudio inicial e invariantes teóricas.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Verifica que el Test Harness termine en verde antes de hacer commit.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion01.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 6 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -234,7 +361,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -256,6 +383,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';

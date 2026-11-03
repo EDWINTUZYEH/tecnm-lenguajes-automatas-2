@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,39 +165,94 @@
   </header>
 
   <main>
-    <!-- Slide 1: Portada y Propósito -->
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 1: ANÁLISIS SEMÁNTICO Y AST</div>
       <h1>Recorridos del AST y Notación Polaca Inversa</h1>
-      <p class="lead">Sesión 05 del curso. Exploración conceptual, diseño de estructuras en memoria y auditoría técnica mediante la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para experimentar las restricciones de bajo nivel del compilador.</p>
-          <div class="card-details">Desarrolla intuición técnica de punteros, registros y manejo de memoria dinámica.</div>
+      <p class="pregunta">¿En qué orden hay que visitar un árbol para poder calcularlo?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Recorrer un AST en postorden y producir la notación polaca inversa (RPN), el formato que usa una máquina de pila para evaluar.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Formalización de especificaciones técnicas mediante el contrato estructurado C-R-E-O.</p>
-          <div class="card-details">Define precondiciones, postcondiciones e invariantes formales antes de consultar al LLM.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Batería de pruebas automatizadas (*Test Harness*) para detectar fallos y fugas de memoria.</p>
-          <div class="card-details">Somete el código de la IA a pruebas destructivas y registra la bitácora en GitHub.</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Una función que convierte cualquier AST en su RPN y la escribe en un buffer, sin imprimir directamente.</p>
         </div>
       </div>
     </section>
 
-    <!-- Slide 2: Fundamentos Teóricos -->
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — Patrones de Recorrido y Orden Topológico</h2>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Recorrido</span></div>
+          <p>Una regla fija para visitar todos los nodos de un árbol sin saltarte ninguno.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como el orden de revisar los cuartos de una casa: siempre el mismo, para no dejar ninguno sin revisar.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Postorden</span></div>
+          <p>Primero el hijo izquierdo, luego el derecho y al final el nodo actual.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como pagar la cuenta: primero se consumen los platillos y al final llega la cuenta.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. RPN</span></div>
+          <p>Escribir la operación después de sus operandos: 3 5 + en vez de 3 + 5.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como una calculadora de pila: escribes los números y luego la operación.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Pila</span></div>
+          <p>Estructura donde lo último que entra es lo primero que sale.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como una pila de platos: el que pusiste al final es el que tomas primero.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">Un árbol se puede leer de varias formas y cada una sirve para algo: preorden para declarar, inorden para reconstruir la expresión escrita, postorden para calcular. El postorden entrega los operandos antes que el operador, justo lo que necesita una pila.</p>
+      <div class="timeline">
+        
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Hito 2 · Sesión 20</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Hito 3 · Sesión 30</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Hito 4 · Sesión 40</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Una función que convierte cualquier AST en su RPN y la escribe en un buffer, sin imprimir directamente.
+        <br><strong>Siguiente:</strong> Sistema de Tipos Primitivos y Verificación Semántica (sesión 06)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — Patrones de Recorrido y Orden Topológico</h2>
       <p class="lead">Para procesar un AST, debemos visitar sus nodos en un orden determinista según la tarea requerida.</p>
       <div class="grid-3">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">01. Preorden (Raíz, Izq, Der)</span><span class="expand-hint">[+]</span></div>
-          <p>Útil para emitir declaraciones, copiar árboles o procesar estructuras de control como `if/while`.</p>
+          <p>Útil para emitir declaraciones, copiar árboles o procesar estructuras de control como <code>if/while</code>.</p>
           <div class="card-details">Visita el nodo padre antes que a cualquiera de sus operandos.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
@@ -171,60 +266,94 @@
           <div class="card-details">Genera directamente la Notación Polaca Inversa (RPN), base de las máquinas de pila.</div>
         </div>
       </div>
-      <div class="interactive-box">
-        <strong>Invariante Conceptual:</strong> El análisis semántico comprueba que las construcciones sintácticas obedezcan las reglas lógicas del lenguaje.
-      </div>
     </section>
 
-    <!-- Slide 3: Arquitectura de Memoria -->
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Estructuras de Datos: Consumo de Stack en Recorridos Recursivos</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: Consumo de Stack en Recorridos Recursivos</h2>
       <p class="lead">Gestión del marco de pila durante la evaluación profunda:</p>
       <div class="grid-2">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Profundidad de Árbol h</span><span class="expand-hint">[+]</span></div>
           <p>Cada nivel del árbol añade un marco de función al Stack del sistema operativo. Complejidad espacial O(h).</p>
-          <div class="card-details">Árboles degenerados lineales muy profundos (>10,000 nodos) provocan desbordamiento del Stack.</div>
+          <div class="card-details">Árboles degenerados lineales muy profundos (&gt;10,000 nodos) provocan desbordamiento del Stack.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Evaluación con Pila Explícita</span><span class="expand-hint">[+]</span></div>
-          <p>En RPN, cada hoja se apila (`push`); cada operador desapila dos valores (`pop`), calcula y apila el resultado.</p>
+          <p>En RPN, cada hoja se apila (<code>push</code>); cada operador desapila dos valores (<code>pop</code>), calcula y apila el resultado.</p>
           <div class="card-details">Permite evaluar expresiones complejas sin llamadas recursivas adicionales.</div>
         </div>
       </div>
     </section>
 
-    <!-- Slide 4: Casos Borde y Antipatrones -->
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Puntos de Falla en Recorridos</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la codificación y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Inversión de operandos en operadores no conmutativos: Restar `der - izq` en lugar de `izq - der`.</strong></li><li><strong>No validar punteros `NULL` antes de invocar la llamada recursiva izquierda o derecha.</strong></li><li><strong>Modificación del árbol durante el recorrido sin actualizar los punteros padre.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Inversión de operandos en operadores no conmutativos: Restar <code>der - izq</code> en lugar de <code>izq - der</code>.</li><li>No validar punteros <code>NULL</code> antes de invocar la llamada recursiva izquierda o derecha.</li><li>Modificación del árbol durante el recorrido sin actualizar los punteros padre.</li>
         </ul>
       </div>
     </section>
 
-    <!-- Slide 5: El Reto y Entregables -->
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Dado un árbol, escribes su recorrido postorden separado por espacios en el buffer que te dan; el harness compara el texto exacto.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tu función postorden en artesano_sesion05_c.c, el harness en verde y la bitácora</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>No imprimas con printf dentro de la función: escribe en el buffer.</li><li>Respeta la capacidad: nunca escribas más de cap-1 caracteres más el terminador.</li><li>Un árbol nulo debe producir cadena vacía.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>El recorrido respeta el orden izquierdo, derecho, raíz.</li><li>Los tokens quedan separados por un solo espacio y sin espacio final.</li><li>Un árbol nulo produce cadena vacía y el buffer siempre termina en '\0'.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 05</div>
+          <pre>=== AUDITORIA SESION 05 - Recorrido postorden y RPN ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] hoja 42                            esperado: 42           obtenido: 42           OK
+[ 2] 3+(5*2)                            esperado: 3 5 2 * +    obtenido: 3 5 2 * +    OK
+[ 3] arbol NULL                         esperado:              obtenido:              OK
+[ 4] (1+2)*(3+4)
+     esperado: 1 2 + 3 4 + *
+     obtenido: 1 2 + 3 4 + *
+     -&gt; OK
+[ 5] 8-3                                esperado: 8 3 -        obtenido: 8 3 -        OK
+
+RESULTADO: 5/5 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion05.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Estudio inicial e invariantes teóricas.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Verifica que el Test Harness termine en verde antes de hacer commit.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion05.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 5 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -234,7 +363,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -256,6 +385,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';

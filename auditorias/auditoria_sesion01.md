@@ -1,18 +1,15 @@
 # Bitácora de Requerimientos y Auditoría IA — Sesión 01
-**Materia:** Lenguajes y Autómatas II (SCD-1016)  
-**Tema:** Encuadre, Diagnóstico de Punteros y Metodología IA  
-**Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
-<<<<<<< EDWINTUZYEH-patch-1
-**Estudiante:** [EDWIN ARMANDO TUZ YEH]  
-**Matrícula:** [24531358]  
-**Track:** [ C ]  
-=======  
->>>>>>> main
+**Materia:** Lenguajes y Autómatas II (SCD-1016)
+**Tema:** Encuadre, Diagnóstico de Punteros y Metodología IA
+**Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)
+**Estudiante:** [EDWIN ARMANDO TUZ YEH]
+**Matrícula:** [24531358]
+**Track:** [ C ]
 
 ---
 
 ## 1. Fase 1: El Artesano (Dificultad Manual)
-*Reto:* Inversión de buffer in-place (char*)  
+*Reto:* Inversión de buffer in-place (char*)
 *Describe qué problema o restricción de memoria/sintaxis identificaste al codificar a mano:*
 > Lo más importante era hacerlo sin reservar memoria nueva, así que solo podía
 > usar dos índices y un `char` temporal. Lo que tuve que cuidar fue:
@@ -24,7 +21,7 @@
 >   y no debía intercambiarlo.
 > - Cuándo detener el ciclo: cuando los dos índices se encuentran o se cruzan,
 >   para no volver a invertir lo que ya estaba invertido.
-> 
+>
 
 ---
 

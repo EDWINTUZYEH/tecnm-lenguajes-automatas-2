@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,33 +165,88 @@
   </header>
 
   <main>
-    <!-- Slide 1: Portada y Propósito -->
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 1: ANÁLISIS SEMÁNTICO Y AST</div>
       <h1>Sistema de Tipos Primitivos y Verificación Semántica</h1>
-      <p class="lead">Sesión 06 del curso. Exploración conceptual, diseño de estructuras en memoria y auditoría técnica mediante la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para experimentar las restricciones de bajo nivel del compilador.</p>
-          <div class="card-details">Desarrolla intuición técnica de punteros, registros y manejo de memoria dinámica.</div>
+      <p class="pregunta">¿Cómo decide el compilador si una operación entre dos tipos tiene sentido?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Aplicar una tabla de compatibilidad de tipos y explicar por qué asignar un tipo más ancho a uno más angosto exige una conversión explícita.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Formalización de especificaciones técnicas mediante el contrato estructurado C-R-E-O.</p>
-          <div class="card-details">Define precondiciones, postcondiciones e invariantes formales antes de consultar al LLM.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Batería de pruebas automatizadas (*Test Harness*) para detectar fallos y fugas de memoria.</p>
-          <div class="card-details">Somete el código de la IA a pruebas destructivas y registra la bitácora en GitHub.</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Una tabla de compatibilidad en C que acepta asignaciones seguras, rechaza las que pierden datos y nombra cada tipo.</p>
         </div>
       </div>
     </section>
 
-    <!-- Slide 2: Fundamentos Teóricos -->
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — El Rol del Analizador Semántico</h2>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Tipo</span></div>
+          <p>La etiqueta que dice qué clase de valor es algo y qué operaciones admite.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como el género en una biblioteca: no es el libro, pero dice dónde va y cómo se usa.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Compatibilidad</span></div>
+          <p>Regla que dice si un valor de un tipo puede usarse donde se espera otro.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como un adaptador de enchufe: si no encaja, o usas adaptador o no hay corriente.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. Ensanchamiento y estrechamiento</span></div>
+          <p>Pasar a un tipo que guarda más información (seguro) o menos (con pérdida).</p>
+          <p class="analogia"><strong>Analogía:</strong> Como vaciar una cubeta en un vaso: cabe, pero algo se derrama.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Tipo centinela</span></div>
+          <p>Un tipo especial que marca un nodo inválido para no encadenar falsos errores.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como una ficha roja en un inventario: dice este no cuenta y evita seguir contando mal.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">La sintaxis acepta x = y con cualquier cosa; la semántica decide si esos tipos pueden convivir. Esa decisión evita que el programa genere instrucciones imposibles, como sumar una estructura con un número.</p>
+      <div class="timeline">
+        
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Hito 2 · Sesión 20</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Hito 3 · Sesión 30</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Hito 4 · Sesión 40</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Una tabla de compatibilidad en C que acepta asignaciones seguras, rechaza las que pierden datos y nombra cada tipo.
+        <br><strong>Siguiente:</strong> Evaluación de Expresiones Aritméticas y Casos Límite (sesión 07)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — El Rol del Analizador Semántico</h2>
       <p class="lead">La sintaxis valida que la estructura sea legal; la semántica valida que las operaciones tengan sentido lógico y de tipos.</p>
       <div class="grid-3">
         
@@ -162,30 +257,27 @@
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">02. Tabla de Compatibilidad</span><span class="expand-hint">[+]</span></div>
-          <p>Una matriz booleana que define qué tipos pueden operar entre sí (ej. `int + int -> int`, `int + float -> float`).</p>
+          <p>Una matriz booleana que define qué tipos pueden operar entre sí (ej. <code>int + int -&gt; int</code>, <code>int + float -&gt; float</code>).</p>
           <div class="card-details">Determina si una operación es legal, requiere conversión o es un error semántico.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">03. Equivalencia de Tipos</span><span class="expand-hint">[+]</span></div>
           <p>Equivalencia nominal (mismo nombre de tipo) vs estructural (misma disposición de bytes interna).</p>
-          <div class="card-details">C utiliza equivalencia nominal para `struct` y estructural para tipos básicos vía `typedef`.</div>
+          <div class="card-details">C utiliza equivalencia nominal para <code>struct</code> y estructural para tipos básicos vía <code>typedef</code>.</div>
         </div>
-      </div>
-      <div class="interactive-box">
-        <strong>Invariante Conceptual:</strong> El análisis semántico comprueba que las construcciones sintácticas obedezcan las reglas lógicas del lenguaje.
       </div>
     </section>
 
-    <!-- Slide 3: Arquitectura de Memoria -->
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Estructuras de Datos: Atributos Sintetizados de Tipo en el AST</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: Atributos Sintetizados de Tipo en el AST</h2>
       <p class="lead">Decoración del árbol con información de tipo durante el postorden:</p>
       <div class="grid-2">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Propagación Ascendente</span><span class="expand-hint">[+]</span></div>
           <p>El tipo de un nodo operador se sintetiza a partir de los tipos ya validados de sus dos ramas hijas.</p>
-          <div class="card-details">Si `izq->tipo == INT` y `der->tipo == INT`, el nodo actual sintetiza `tipo = INT`.</div>
+          <div class="card-details">Si <code>izq-&gt;tipo == INT</code> y <code>der-&gt;tipo == INT</code>, el nodo actual sintetiza <code>tipo = INT</code>.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Tipo ERROR_TYPE</span><span class="expand-hint">[+]</span></div>
@@ -195,36 +287,71 @@
       </div>
     </section>
 
-    <!-- Slide 4: Casos Borde y Antipatrones -->
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Errores Semánticos Típicos</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la codificación y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Asignación de tipos incompatibles: Asignar un puntero a una variable entera sin casteo explícito.</strong></li><li><strong>Operadores incompatibles: Intentar aplicar operaciones aritméticas a estructuras o cadenas.</strong></li><li><strong>Cascada infinita de errores por no usar un tipo centinela al detectar el primer fallo.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Asignación de tipos incompatibles: Asignar un puntero a una variable entera sin casteo explícito.</li><li>Operadores incompatibles: Intentar aplicar operaciones aritméticas a estructuras o cadenas.</li><li>Cascada infinita de errores por no usar un tipo centinela al detectar el primer fallo.</li>
         </ul>
       </div>
     </section>
 
-    <!-- Slide 5: El Reto y Entregables -->
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Implementas compatible(destino, origen) y nombre_tipo(t); el harness prueba asignaciones legales e ilegales y el nombre de cada tipo.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tu tabla en artesano_sesion06_c.c, el harness en verde y la bitácora</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>La jerarquía es CHAR &lt; INT &lt; FLOAT.</li><li>Asignar a un tipo más angosto se rechaza: requiere cast explícito.</li><li>TIPO_ERROR nunca es compatible con nada.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>La compatibilidad solo acepta destinos de igual o mayor rango.</li><li>TIPO_ERROR se rechaza siempre y se nombra como error.</li><li>Los seis casos del harness salen OK con código de salida 0.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 06</div>
+          <pre>=== AUDITORIA SESION 06 - Tabla de compatibilidad de tipos ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] compatible(INT,INT)                esperado: 1            obtenido: 1            OK
+[ 2] compatible(FLOAT,INT)              esperado: 1            obtenido: 1            OK
+[ 3] compatible(INT,FLOAT)              esperado: 0            obtenido: 0            OK
+[ 4] compatible(INT,ERROR)              esperado: 0            obtenido: 0            OK
+[ 5] nombre_tipo(INT)                   esperado: int          obtenido: int          OK
+[ 6] nombre_tipo(ERROR)                 esperado: error        obtenido: error        OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion06.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Estudio inicial e invariantes teóricas.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Verifica que el Test Harness termine en verde antes de hacer commit.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion06.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 6 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -234,7 +361,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -256,6 +383,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';

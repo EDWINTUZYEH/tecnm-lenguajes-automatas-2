@@ -4,7 +4,7 @@
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
 **Estudiante:** [Nombre Completo]  
 **Matrícula:** [No. de Control]  
-**Track:** [ C | Rust ]  
+**Track:** C (el harness evalúa C; la versión en Rust es opcional y no se califica con este harness)  
 
 ---
 
@@ -41,6 +41,12 @@
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 *Pruebas ejecutadas:* Compilación de programas largos
+
+### Salida del harness
+```text
+Pega aquí la salida de la celda del harness. Debe terminar con:
+RESULTADO: n/n pruebas superadas
+```
 
 * [ ] Caso base y límites superados sin *Crash*.
 * [ ] No existen accesos fuera de límites ni *Memory Leaks*.

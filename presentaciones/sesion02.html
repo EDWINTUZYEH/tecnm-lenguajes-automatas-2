@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,106 +165,193 @@
   </header>
 
   <main>
-    <!-- Slide 1: Portada y Propósito -->
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 1: ANÁLISIS SEMÁNTICO Y AST</div>
       <h1>Gestión en GitHub Web y Nodos Dinámicos en Heap</h1>
-      <p class="lead">Sesión 02 del curso. Exploración conceptual, diseño de estructuras en memoria y auditoría técnica mediante la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para experimentar las restricciones de bajo nivel del compilador.</p>
-          <div class="card-details">Desarrolla intuición técnica de punteros, registros y manejo de memoria dinámica.</div>
+      <p class="pregunta">¿Cómo guarda un compilador una cantidad de datos que no conoce de antemano?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Construir una lista enlazada de tokens en el heap, reservando y liberando memoria nodo por nodo sin fugas ni accesos a memoria liberada.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Formalización de especificaciones técnicas mediante el contrato estructurado C-R-E-O.</p>
-          <div class="card-details">Define precondiciones, postcondiciones e invariantes formales antes de consultar al LLM.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Batería de pruebas automatizadas (*Test Harness*) para detectar fallos y fugas de memoria.</p>
-          <div class="card-details">Somete el código de la IA a pruebas destructivas y registra la bitácora en GitHub.</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Una lista enlazada de tokens que crece token por token, se cuenta, se recorre y se libera sin fugas.</p>
         </div>
       </div>
     </section>
 
-    <!-- Slide 2: Fundamentos Teóricos -->
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — Estructuras Dinámicas para Tokens y Símbolos</h2>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Heap</span></div>
+          <p>La zona de memoria donde el programa pide espacio en tiempo de ejecución y decide cuándo devolverlo.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como una bodega que rentas por caja: nadie la limpia por ti cuando te vas.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Nodo enlazado</span></div>
+          <p>Una estructura con dos partes: el dato que guarda y la dirección del siguiente nodo.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como una cadena de pistas: cada tarjeta trae una pista y la ubicación de la siguiente.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. Fuga de memoria</span></div>
+          <p>Reservar memoria y perder la única dirección que permitía liberarla.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como dejar cajas en la bodega sin el recibo: ya no puedes recogerlas, pero siguen ocupando lugar.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Use-after-free</span></div>
+          <p>Seguir usando un nodo después de liberarlo: el contenido ya no es tuyo y puede cambiar sin aviso.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como usar el boleto de un vuelo que ya despegó: ese asiento ya es de otra persona.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">El compilador no sabe cuántos tokens tendrá el programa hasta que lo lee: no puede usar un arreglo fijo. Crea un nodo por token y los encadena. Si olvida liberarlos, el proceso crece hasta agotar la memoria; si libera y sigue usando, el programa se corrompe.</p>
+      <div class="timeline">
+        
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Hito 2 · Sesión 20</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Hito 3 · Sesión 30</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Hito 4 · Sesión 40</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Una lista enlazada de tokens que crece token por token, se cuenta, se recorre y se libera sin fugas.
+        <br><strong>Siguiente:</strong> Google Colab, Mágicos y Flujo de Entrega (sesión 03)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — Estructuras Dinámicas para Tokens y Símbolos</h2>
       <p class="lead">El compilador no conoce a priori el tamaño del programa. Cada token o nodo debe instanciarse dinámicamente en el Heap.</p>
       <div class="grid-3">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">01. Asignación Dinámica</span><span class="expand-hint">[+]</span></div>
-          <p>`malloc(sizeof(Token))` reserva memoria contigua en el Heap y devuelve un puntero genérico `void*`.</p>
+          <p><code>malloc(sizeof(Token))</code> reserva memoria contigua en el Heap y devuelve un puntero genérico <code>void*</code>.</p>
           <div class="card-details">El sistema operativo marca el bloque como ocupado en la tabla de páginas.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">02. Tiempo de Vida (Lifetime)</span><span class="expand-hint">[+]</span></div>
-          <p>A diferencia del Stack (que se limpia al salir de la función), la memoria en Heap persiste hasta invocar `free()`.</p>
+          <p>A diferencia del Stack (que se limpia al salir de la función), la memoria en Heap persiste hasta invocar <code>free()</code>.</p>
           <div class="card-details">Olvidar liberar memoria genera *Memory Leaks* que saturan la compilación de programas extensos.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">03. Enlazamiento Simple</span><span class="expand-hint">[+]</span></div>
-          <p>Cada nodo contiene su carga útil (lexema, tipo) y un puntero autoreferenciado `struct Token *siguiente`.</p>
+          <p>Cada nodo contiene su carga útil (lexema, tipo) y un puntero autoreferenciado <code>struct Token *siguiente</code>.</p>
           <div class="card-details">Permite construir flujos de tokens de longitud arbitraria O(n).</div>
         </div>
       </div>
-      <div class="interactive-box">
-        <strong>Invariante Conceptual:</strong> El análisis semántico comprueba que las construcciones sintácticas obedezcan las reglas lógicas del lenguaje.
-      </div>
     </section>
 
-    <!-- Slide 3: Arquitectura de Memoria -->
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Estructuras de Datos: El Ciclo de Liberación Segura</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: El Ciclo de Liberación Segura</h2>
       <p class="lead">Prevención del fallo crítico *Use-After-Free*:</p>
       <div class="grid-2">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Puntero Auxiliar Temporal</span><span class="expand-hint">[+]</span></div>
-          <p>Antes de ejecutar `free(actual)`, es indispensable respaldar `actual->siguiente` en una variable temporal.</p>
-          <div class="card-details">Acceder a `actual->siguiente` después de liberar `actual` es comportamiento indefinido (UB).</div>
+          <p>Antes de ejecutar <code>free(actual)</code>, es indispensable respaldar <code>actual-&gt;siguiente</code> en una variable temporal.</p>
+          <div class="card-details">Acceder a <code>actual-&gt;siguiente</code> después de liberar <code>actual</code> es comportamiento indefinido (UB).</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Modelo RAII en Rust</span><span class="expand-hint">[+]</span></div>
-          <p>`Box<Token>` transfiere la propiedad; cuando el nodo sale de ámbito, Rust invoca `drop()` automáticamente.</p>
+          <p><code>Box&lt;Token&gt;</code> transfiere la propiedad; cuando el nodo sale de ámbito, Rust invoca <code>drop()</code> automáticamente.</p>
           <div class="card-details">Elimina por completo fugas de memoria y punteros colgantes en tiempo de compilación.</div>
         </div>
       </div>
     </section>
 
-    <!-- Slide 4: Casos Borde y Antipatrones -->
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Antipatrones en la Gestión de Nodos</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la codificación y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Desbordamiento en copia de lexema: Usar `strcpy` en lugar de `strncpy` provocando buffer overflow.</strong></li><li><strong>Fallo de asignación: No verificar si `malloc` retornó `NULL` por agotamiento de memoria del sistema.</strong></li><li><strong>Liberación de lista vacía: No proteger la función de liberación cuando la cabeza de la lista es `NULL`.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Desbordamiento en copia de lexema: Usar <code>strcpy</code> en lugar de <code>strncpy</code> provocando buffer overflow.</li><li>Fallo de asignación: No verificar si <code>malloc</code> retornó <code>NULL</code> por agotamiento de memoria del sistema.</li><li>Liberación de lista vacía: No proteger la función de liberación cuando la cabeza de la lista es <code>NULL</code>.</li>
         </ul>
       </div>
     </section>
 
-    <!-- Slide 5: El Reto y Entregables -->
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Recibes la cabeza de una lista y un lexema, y devuelves la lista con el token agregado al final. El harness comprueba el orden, el final de la cadena y que liberar no reviente.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tu lista enlazada en artesano_sesion02_c.c, el harness en verde y la bitácora de la sesión</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>Cada nodo se reserva con malloc; el campo siguiente del último vale NULL.</li><li>agregar_token devuelve la cabeza: si la lista estaba vacía, la nueva cabeza es el nodo creado.</li><li>liberar_lista(NULL) no debe caerse.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>Cada token ocupa un nodo reservado con malloc y encadenado con siguiente.</li><li>agregar_token devuelve la lista completa aunque la cabeza cambie.</li><li>contar_tokens(NULL) devuelve 0 y liberar_lista(NULL) no se cae.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 02</div>
+          <pre>=== AUDITORIA SESION 02 - Lista enlazada de tokens en heap ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] agregar_token(NULL,"if")           esperado: if           obtenido: if           OK
+[ 2] contar_tokens(3 tokens)            esperado: 3            obtenido: 3            OK
+[ 3] orden: segundo token               esperado: dos          obtenido: dos          OK
+[ 4] ultimo-&gt;siguiente == NULL          esperado: 1            obtenido: 1            OK
+[ 5] contar_tokens(NULL)                esperado: 0            obtenido: 0            OK
+[ 6] liberar_lista(NULL)                esperado: sin crash    obtenido: sin crash    OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion02.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Estudio inicial e invariantes teóricas.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Verifica que el Test Harness termine en verde antes de hacer commit.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion02.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 6 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -234,7 +361,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -256,6 +383,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';

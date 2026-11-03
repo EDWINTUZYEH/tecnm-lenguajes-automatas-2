@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,31 +165,88 @@
   </header>
 
   <main>
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 2: TABLA DE SÍMBOLOS Y ÁMBITOS</div>
       <h1>Manejo de Ámbitos (Scope Global vs Local)</h1>
-      <p class="lead">Sesión 13 del curso. Arquitectura interna de tablas de símbolos, resolución de ámbitos y análisis de tipos con la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para comprender los límites de memoria y estructuras jerárquicas.</p>
-          <div class="card-details">Construcción directa de tablas hash, listas enlazadas de buckets y pilas de scopes.</div>
+      <p class="pregunta">¿Cómo sabe el compilador cuál variable "x" estás usando si hay varias con ese nombre?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Construir una pila de ámbitos enlazados y buscar un identificador desde el bloque actual hacia la raíz, respetando el ocultamiento.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Especificación de requerimientos C-R-E-O y formalización de contratos de visibilidad.</p>
-          <div class="card-details">Definición formal de invariantes de scope, firmas de función y alineación de bytes.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Test Harness automatizado para detectar colisiones no resueltas y variables huérfanas.</p>
-          <div class="card-details">Auditoría destructiva sobre casos de shadowing profundo y redeclaraciones ilegales.</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Una pila de ámbitos enlazada que declara nombres y los busca desde el bloque actual hasta la raíz, con el harness en verde.</p>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — Visibilidad de Identificadores y Ámbitos Anidados</h2>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Ámbito</span></div>
+          <p>Región del programa donde un nombre declarado es visible.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como el reglamento de un edificio: cada piso tiene sus reglas y las de arriba siguen aplicando hasta que una regla local diga otra cosa.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Ocultamiento</span></div>
+          <p>Declarar un nombre en un ámbito interno tapa la versión del ámbito externo sin borrarla.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como poner una calcomanía nueva sobre una etiqueta vieja: la de abajo sigue ahí, pero ya no se ve ni se usa.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. Pila de ámbitos</span></div>
+          <p>Cadena de bloques donde cada uno apunta al que lo contiene.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como una muñeca rusa: al abrir el bloque actual encuentras el siguiente y así hasta el más grande.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Búsqueda jerárquica</span></div>
+          <p>Recorrido que empieza en el ámbito actual y sube hasta el global hasta encontrar el nombre.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como buscar una herramienta: primero en tu cajón, luego en el taller y al final en el almacén.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">Un programa real tiene nombres repetidos en funciones y bloques distintos, y cada uno puede tener tipo y offset diferentes. Si la búsqueda no prioriza el ámbito más cercano, el compilador asigna la variable equivocada y el binario hace algo que el programador nunca escribió. La búsqueda jerárquica es la operación que conecta la sintaxis de llaves con la semántica de visibilidad.</p>
+      <div class="timeline">
+        
+        <div class="tl-item done">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Hito 1 · Sesión 10</div>
+        </div>
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Hito 3 · Sesión 30</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Hito 4 · Sesión 40</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Una pila de ámbitos enlazada que declara nombres y los busca desde el bloque actual hasta la raíz, con el harness en verde.
+        <br><strong>Siguiente:</strong> Declaración vs Uso de Variables (sesión 14)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — Visibilidad de Identificadores y Ámbitos Anidados</h2>
       <p class="lead">El alcance léxico determina en qué regiones del código fuente un identificador es accesible.</p>
       <div class="grid-3">
         
@@ -165,61 +262,96 @@
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">03. Pila de Tablas de Símbolos</span><span class="expand-hint">[+]</span></div>
-          <p>Cada ámbito nuevo (`{ ... }`) crea su propia tabla de símbolos enlazada a la tabla de su ámbito padre.</p>
+          <p>Cada ámbito nuevo (<code>{ ... }</code>) crea su propia tabla de símbolos enlazada a la tabla de su ámbito padre.</p>
           <div class="card-details">Forma un árbol de ámbitos con la tabla global en la raíz.</div>
         </div>
       </div>
-      <div class="interactive-box">
-        <strong>Invariante de la Tabla:</strong> Todo identificador debe resolverse en tiempo determinista hacia sus atributos de tipo y memoria.
-      </div>
     </section>
 
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Estructuras de Datos: Estructura Enlazada de Scopes (Scope Stack)</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: Estructura Enlazada de Scopes (Scope Stack)</h2>
       <p class="lead">Cadena estática de resolución de identificadores:</p>
       <div class="grid-2">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Puntero Padre (Enlace Estático)</span><span class="expand-hint">[+]</span></div>
-          <p>Cada `Scope` contiene su propia tabla hash y un puntero `struct Scope *padre`.</p>
-          <div class="card-details">La búsqueda (`lookup`) revisa el scope actual; si no lo halla, sube recursivamente por `padre`.</div>
+          <p>Cada <code>Scope</code> contiene su propia tabla hash y un puntero <code>struct Scope *padre</code>.</p>
+          <div class="card-details">La búsqueda (<code>lookup</code>) revisa el scope actual; si no lo halla, sube recursivamente por <code>padre</code>.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Ciclo de Vida de Scope</span><span class="expand-hint">[+]</span></div>
-          <p>Al entrar a `{`, se ejecuta `push_scope()`; al salir en `}`, se ejecuta `pop_scope()`.</p>
+          <p>Al entrar a <code>{</code>, se ejecuta <code>push_scope()</code>; al salir en <code>}</code>, se ejecuta <code>pop_scope()</code>.</p>
           <div class="card-details">Garantiza que las variables locales dejen de ser visibles al terminar su bloque.</div>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Antipatrones en Gestión de Ámbitos</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la implementación y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Búsqueda invertida: Buscar en ámbitos hijos en lugar de subir hacia el ámbito global.</strong></li><li><strong>Destruir la tabla local en `pop_scope()` si las fases posteriores de backend aún requieren consultar offsets de variables locales.</strong></li><li><strong>Confundir shadowing con redeclaración ilegal en el mismo ámbito.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Búsqueda invertida: Buscar en ámbitos hijos en lugar de subir hacia el ámbito global.</li><li>Destruir la tabla local en <code>pop_scope()</code> si las fases posteriores de backend aún requieren consultar offsets de variables locales.</li><li>Confundir shadowing con redeclaración ilegal en el mismo ámbito.</li>
         </ul>
       </div>
     </section>
 
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Recibes ámbitos enlazados ya inicializados y una lista de nombres; declarar() los guarda solo en el ámbito actual y buscar() devuelve el nombre del ámbito donde se encontró, empezando por el actual. Si el nombre no existe devuelve NULL.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tus funciones declarar() y buscar() en artesano_sesion13_c.c, la salida del harness y la bitácora en auditorias/auditoria_sesion13.md</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>declarar() no consulta los ámbitos padre: el mismo nombre puede existir una vez en cada nivel.</li><li>declarar() devuelve 1 si insertó, 0 si el nombre ya estaba en ese ámbito y -1 si el ámbito está lleno o recibe NULL o un nombre vacío.</li><li>buscar() devuelve el nombre del ámbito más cercano, no el símbolo encontrado.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>Cada nombre queda registrado solo en el ámbito donde se declara.</li><li>buscar() devuelve el ámbito más interno que declara el nombre y sube hasta la raíz cuando hace falta.</li><li>Un nombre inexistente devuelve NULL sin modificar los ámbitos.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 13</div>
+          <pre>=== AUDITORIA SESION 13 - Pila de ambitos y busqueda jerarquica ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] declarar(&amp;g, "x")                  esperado: 1            obtenido: 1            OK
+[ 2] buscar en el mismo ambito          esperado: global       obtenido: global       OK
+[ 3] buscar subiendo al padre           esperado: global       obtenido: global       OK
+[ 4] shadowing en el hijo               esperado: bloque       obtenido: bloque       OK
+[ 5] tres niveles hasta la raiz         esperado: raiz         obtenido: raiz         OK
+[ 6] nombre no declarado                esperado: (nulo)       obtenido: (nulo)       OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion13.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Fundamento teórico y arquitectura de memoria.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Asegúrate de ejecutar todas las pruebas unitarias antes de guardar tu bitácora.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion13.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">La entrega de la Sesión 20 concluye formalmente el Hito 2 del Proyecto Integrador.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 6 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -229,7 +361,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -251,6 +383,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';

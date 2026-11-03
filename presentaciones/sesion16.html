@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,31 +165,88 @@
   </header>
 
   <main>
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 2: TABLA DE SÍMBOLOS Y ÁMBITOS</div>
       <h1>Firmas de Función y Parámetros Formales</h1>
-      <p class="lead">Sesión 16 del curso. Arquitectura interna de tablas de símbolos, resolución de ámbitos y análisis de tipos con la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para comprender los límites de memoria y estructuras jerárquicas.</p>
-          <div class="card-details">Construcción directa de tablas hash, listas enlazadas de buckets y pilas de scopes.</div>
+      <p class="pregunta">¿Cómo comprueba el compilador que llamaste a una función con los argumentos correctos?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Registrar firmas con nombre y aridad, y verificar cada llamada contra ese registro devolviendo el diagnóstico adecuado.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Especificación de requerimientos C-R-E-O y formalización de contratos de visibilidad.</p>
-          <div class="card-details">Definición formal de invariantes de scope, firmas de función y alineación de bytes.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Test Harness automatizado para detectar colisiones no resueltas y variables huérfanas.</p>
-          <div class="card-details">Auditoría destructiva sobre casos de shadowing profundo y redeclaraciones ilegales.</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Un verificador de firmas que distingue llamada válida, aridad incorrecta y función inexistente.</p>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — Contrato de Invocación, Aridad y Tipado de Argumentos</h2>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Firma</span></div>
+          <p>Nombre de la función más la cantidad y el tipo de sus parámetros.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como la ficha técnica de un electrodoméstico: dice cuántas entradas necesita y de qué tipo antes de encenderlo.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Aridad</span></div>
+          <p>Número exacto de argumentos que una función espera.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como los asientos de un coche: si viajan más o menos de los que hay, algo se rompe.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. Prototipo</span></div>
+          <p>Declaración adelantada de la firma antes del cuerpo.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como el menú de un restaurante: te dice qué hay antes de que entres a la cocina.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Argumento</span></div>
+          <p>Valor concreto que se pasa en una llamada.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como los ingredientes que entregas en la ventanilla: deben ser los que pide la receta.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">Una llamada con menos argumentos de los declarados produce un desajuste silencioso en la pila que en C se convierte en comportamiento indefinido. El analizador semántico no ejecuta la función: compara la lista de argumentos con el prototipo guardado y detiene el programa antes de generar código. Esta verificación depende de que la firma se haya registrado correctamente en la tabla de símbolos.</p>
+      <div class="timeline">
+        
+        <div class="tl-item done">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Hito 1 · Sesión 10</div>
+        </div>
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Hito 3 · Sesión 30</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Hito 4 · Sesión 40</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Un verificador de firmas que distingue llamada válida, aridad incorrecta y función inexistente.
+        <br><strong>Siguiente:</strong> Comprobación Semántica de Retornos y Rutas de Control (sesión 17)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — Contrato de Invocación, Aridad y Tipado de Argumentos</h2>
       <p class="lead">Las funciones son símbolos especiales que transportan una lista ordenada de tipos de entrada y un tipo de retorno.</p>
       <div class="grid-3">
         
@@ -169,57 +266,92 @@
           <div class="card-details">Permite llamadas recursivas y dependencias mutuas entre funciones.</div>
         </div>
       </div>
-      <div class="interactive-box">
-        <strong>Invariante de la Tabla:</strong> Todo identificador debe resolverse en tiempo determinista hacia sus atributos de tipo y memoria.
-      </div>
     </section>
 
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Estructuras de Datos: Modelado de Firmas de Función en C</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: Modelado de Firmas de Función en C</h2>
       <p class="lead">Estructura enlazada de tipos de parámetros:</p>
       <div class="grid-2">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Estructura FunctionSignature</span><span class="expand-hint">[+]</span></div>
-          <p>Contiene `Type *tipo_retorno`, `int num_params` y una lista de `ParamEntry *params`.</p>
-          <div class="card-details">Cada `ParamEntry` tiene el nombre del parámetro y su tipo formal verificado.</div>
+          <p>Contiene <code>Type *tipo_retorno</code>, <code>int num_params</code> y una lista de <code>ParamEntry *params</code>.</p>
+          <div class="card-details">Cada <code>ParamEntry</code> tiene el nombre del parámetro y su tipo formal verificado.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Mapeo a Registros de Argumentos</span><span class="expand-hint">[+]</span></div>
           <p>En x86-64 System V, los primeros 6 parámetros se pasan en registros: RDI, RSI, RDX, RCX, R8, R9.</p>
-          <div class="card-details">Los parámetros 7 en adelante se apilan en memoria antes del `call`.</div>
+          <div class="card-details">Los parámetros 7 en adelante se apilan en memoria antes del <code>call</code>.</div>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Errores Semánticos en Funciones</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la implementación y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Discrepancia de aridad: Invocar una función `suma(int a, int b)` pasando un solo argumento.</strong></li><li><strong>Incompatibilidad de tipos en argumentos: Pasar un puntero donde se requiere un entero.</strong></li><li><strong>Redefinir una función con una firma incompatible con su prototipo previo.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Discrepancia de aridad: Invocar una función <code>suma(int a, int b)</code> pasando un solo argumento.</li><li>Incompatibilidad de tipos en argumentos: Pasar un puntero donde se requiere un entero.</li><li>Redefinir una función con una firma incompatible con su prototipo previo.</li>
         </ul>
       </div>
     </section>
 
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Recibes un catálogo de firmas ya registradas y una llamada descrita por nombre y número de argumentos; busca el nombre y compara la aridad. La función devuelve 1 si la llamada es válida, 0 si la aridad no coincide y -1 si el nombre no existe.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tu función verificar_llamada() en artesano_sesion16_c.c, la salida del harness y la bitácora en auditorias/auditoria_sesion16.md</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>La búsqueda del nombre es exacta y recorre el catálogo completo.</li><li>Una función registrada con cero parámetros solo acepta cero argumentos.</li><li>Un catálogo NULL, un nombre NULL o una aridad negativa devuelven -1.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>La aridad declarada se compara con la aridad de la llamada, no con el número de firmas del catálogo.</li><li>Una función con cero parámetros se acepta únicamente con cero argumentos.</li><li>Un nombre inexistente devuelve -1 sin confundirse con una aridad incorrecta.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 16</div>
+          <pre>=== AUDITORIA SESION 16 - Registro de prototipos y aridad ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] suma con 3 argumentos              esperado: 1            obtenido: 1            OK
+[ 2] suma con 2 argumentos              esperado: 0            obtenido: 0            OK
+[ 3] suma con 4 argumentos              esperado: 0            obtenido: 0            OK
+[ 4] funcion no registrada              esperado: -1           obtenido: -1           OK
+[ 5] main sin argumentos                esperado: 1            obtenido: 1            OK
+[ 6] nombre NULL                        esperado: -1           obtenido: -1           OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion16.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Fundamento teórico y arquitectura de memoria.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Asegúrate de ejecutar todas las pruebas unitarias antes de guardar tu bitácora.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion16.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">La entrega de la Sesión 20 concluye formalmente el Hito 2 del Proyecto Integrador.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 6 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -229,7 +361,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -251,6 +383,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';

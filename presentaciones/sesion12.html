@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,43 +165,100 @@
   </header>
 
   <main>
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 2: TABLA DE SÍMBOLOS Y ÁMBITOS</div>
       <h1>Atributos de Símbolos y Cálculo de Memoria</h1>
-      <p class="lead">Sesión 12 del curso. Arquitectura interna de tablas de símbolos, resolución de ámbitos y análisis de tipos con la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para comprender los límites de memoria y estructuras jerárquicas.</p>
-          <div class="card-details">Construcción directa de tablas hash, listas enlazadas de buckets y pilas de scopes.</div>
+      <p class="pregunta">¿Cuántos bytes ocupa cada variable y por qué el compilador no puede sumar tamaños sin más?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Calcular el ancho de cada tipo y el desplazamiento que le corresponde a la siguiente variable dentro del marco de pila, respetando la alineación natural de la arquitectura.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Especificación de requerimientos C-R-E-O y formalización de contratos de visibilidad.</p>
-          <div class="card-details">Definición formal de invariantes de scope, firmas de función y alineación de bytes.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Test Harness automatizado para detectar colisiones no resueltas y variables huérfanas.</p>
-          <div class="card-details">Auditoría destructiva sobre casos de shadowing profundo y redeclaraciones ilegales.</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Un calculador que llena el registro de un símbolo con su offset alineado y devuelve el cursor para el siguiente, con pruebas de char, short, int y double.</p>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — Metadatos Semánticos, Ancho de Tipos y Desplazamientos</h2>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Ancho de tipo</span></div>
+          <p>Número de bytes que ocupa un valor de ese tipo cuando se guarda en memoria.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como el tamaño de la caja que pides en una mudanza: un libro va en caja chica y un televisor en caja grande.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Alineación</span></div>
+          <p>Regla que exige que el inicio de un dato sea múltiplo de su tamaño.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como los postes de una barda: si quieres atravesar una tabla, los soportes deben caer en posiciones exactas y no a medio metro.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. Desplazamiento</span></div>
+          <p>Distancia en bytes desde el inicio del marco de pila hasta la variable.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como el número de asiento de un avión: la fila y la letra te dicen exactamente dónde sentarte sin contar desde la puerta.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Relleno</span></div>
+          <p>Bytes vacíos que se dejan entre dos variables para respetar la alineación.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como el espacio libre que dejas entre platos en una caja para que no se rompan: no guarda nada, pero permite que todo quepa bien.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">El backend necesita una dirección concreta para cada variable, y esa dirección no es una suma directa: la CPU lee más rápido cuando un dato de 4 bytes empieza en un múltiplo de 4. El analizador semántico resuelve los offsets en tiempo de compilación, así que un error de alineación se convierte en código que funciona a medias o que falla solo en ciertas máquinas. Esta sesión produce el cálculo que después usarán todos los accesos a memoria del programa.</p>
+      <div class="timeline">
+        
+        <div class="tl-item done">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Hito 1 · Sesión 10</div>
+        </div>
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Hito 3 · Sesión 30</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Hito 4 · Sesión 40</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Un calculador que llena el registro de un símbolo con su offset alineado y devuelve el cursor para el siguiente, con pruebas de char, short, int y double.
+        <br><strong>Siguiente:</strong> Manejo de Ámbitos (Scope Global vs Local) (sesión 13)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — Metadatos Semánticos, Ancho de Tipos y Desplazamientos</h2>
       <p class="lead">Cada variable declarada debe tener una ubicación relativa calculada en el registro de activación o segmento de datos.</p>
       <div class="grid-3">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">01. Ancho de Tipos (Type Width)</span><span class="expand-hint">[+]</span></div>
-          <p>Tamaño en bytes requerido por el tipo de dato: `char: 1`, `short: 2`, `int/float: 4`, `double/ptr: 8`.</p>
+          <p>Tamaño en bytes requerido por el tipo de dato: <code>char: 1</code>, <code>short: 2</code>, <code>int/float: 4</code>, <code>double/ptr: 8</code>.</p>
           <div class="card-details">Determina cuánto espacio debe reservar el compilador para cada variable.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">02. Cálculo de Offset (Desplazamiento)</span><span class="expand-hint">[+]</span></div>
-          <p>Distancia en bytes desde la dirección base del marco de pila (`RBP - offset`).</p>
-          <div class="card-details">Las variables locales se acumulan consecutivamente: `offset_actual += ancho_variable`.</div>
+          <p>Distancia en bytes desde la dirección base del marco de pila (<code>RBP - offset</code>).</p>
+          <div class="card-details">Las variables locales se acumulan consecutivamente: <code>offset_actual += ancho_variable</code>.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">03. Alineación de Memoria (Data Alignment)</span><span class="expand-hint">[+]</span></div>
@@ -169,57 +266,92 @@
           <div class="card-details">Requiere insertar bytes de relleno (*padding*) entre variables adyacentes.</div>
         </div>
       </div>
-      <div class="interactive-box">
-        <strong>Invariante de la Tabla:</strong> Todo identificador debe resolverse en tiempo determinista hacia sus atributos de tipo y memoria.
-      </div>
     </section>
 
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Estructuras de Datos: Alineación y Padding en el Stack Frame</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: Alineación y Padding en el Stack Frame</h2>
       <p class="lead">Disposición en el registro de activación de la función:</p>
       <div class="grid-2">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Alineación por Palabras</span><span class="expand-hint">[+]</span></div>
-          <p>Una variable `int` (4 bytes) declarada después de un `char` (1 byte) requiere 3 bytes de padding intermedio.</p>
-          <div class="card-details">Fórmula de alineación: `offset = (offset + align - 1) & ~(align - 1)`.</div>
+          <p>Una variable <code>int</code> (4 bytes) declarada después de un <code>char</code> (1 byte) requiere 3 bytes de padding intermedio.</p>
+          <div class="card-details">Fórmula de alineación: <code>offset = (offset + align - 1) &amp; ~(align - 1)</code>.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Alineación del Stack a 16 Bytes</span><span class="expand-hint">[+]</span></div>
-          <p>La especificación ABI x86-64 System V exige que el Stack Pointer (RSP) esté alineado a 16 bytes antes de un `call`.</p>
+          <p>La especificación ABI x86-64 System V exige que el Stack Pointer (RSP) esté alineado a 16 bytes antes de un <code>call</code>.</p>
           <div class="card-details">Previene fallos de protección general en instrucciones vectoriales SSE.</div>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Puntos de Falla en Asignación de Memoria</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la implementación y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Offsets superpuestos por omitir el tamaño real del tipo de dato previo.</strong></li><li><strong>Ignorar el padding de alineación provocando lecturas no alineadas y caídas de rendimiento en CPU.</strong></li><li><strong>Desbordamiento de entero en el cálculo del tamaño total de estructuras grandes.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Offsets superpuestos por omitir el tamaño real del tipo de dato previo.</li><li>Ignorar el padding de alineación provocando lecturas no alineadas y caídas de rendimiento en CPU.</li><li>Desbordamiento de entero en el cálculo del tamaño total de estructuras grandes.</li>
         </ul>
       </div>
     </section>
 
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Recibes un registro de símbolo con su nombre y su tipo, más el cursor donde terminó la variable anterior; asignar_offset() redondea el cursor, escribe el offset en el registro y devuelve dónde empieza el siguiente. ancho_de_tipo() devuelve el tamaño en bytes o -1 si el tipo no existe.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tus funciones ancho_de_tipo() y asignar_offset() en artesano_sesion12_c.c, la salida del harness y la bitácora en auditorias/auditoria_sesion12.md</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>Los tipos válidos son char, short, int, float, double y puntero; cualquier otro devuelve -1.</li><li>El cursor nunca retrocede y el offset guardado siempre es múltiplo del ancho del tipo.</li><li>Un registro NULL, un cursor negativo o un tipo desconocido se rechazan con -1.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>ancho_de_tipo() respeta la tabla char=1, short=2, int=4, float=4, double=8, puntero=8.</li><li>asignar_offset() guarda en el registro el offset ya alineado y devuelve el cursor del siguiente.</li><li>El registro NULL devuelve -1 y no escribe memoria inválida.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 12</div>
+          <pre>=== AUDITORIA SESION 12 - Registro de simbolo y offsets alineados ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] ancho_de_tipo("int")               esperado: 4            obtenido: 4            OK
+[ 2] ancho_de_tipo("double")            esperado: 8            obtenido: 8            OK
+[ 3] int en cursor 0                    esperado: 4            obtenido: 4            OK
+[ 4] char e int: offset de b            esperado: 4            obtenido: 4            OK
+[ 5] double desde cursor 4              esperado: 8            obtenido: 8            OK
+[ 6] registro NULL                      esperado: -1           obtenido: -1           OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion12.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Fundamento teórico y arquitectura de memoria.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Asegúrate de ejecutar todas las pruebas unitarias antes de guardar tu bitácora.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion12.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">La entrega de la Sesión 20 concluye formalmente el Hito 2 del Proyecto Integrador.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 6 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -229,7 +361,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -251,6 +383,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';

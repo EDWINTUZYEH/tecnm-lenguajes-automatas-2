@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,31 +165,88 @@
   </header>
 
   <main>
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 4: CÓDIGO OBJETO Y BACKEND</div>
       <h1>Introducción a Ensamblador x86-64 y Arquitectura de CPU</h1>
-      <p class="lead">Sesión 31 del curso. Generación de código ensamblador x86-64, asignación de registros, stack frames y enlace ELF con la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para comprender los modos de direccionamiento y registros de hardware.</p>
-          <div class="card-details">Construcción directa de instrucciones máquina, prólogos y epílogos de funciones.</div>
+      <p class="pregunta">¿Cómo se convierte una operación abstracta como t3 = t1 + t2 en instrucciones que la CPU entiende?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Traducir un cuádruplo TAC a la secuencia x86-64 que lo ejecuta y comprobar que el valor calculado coincide con la operación original.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Especificación de requerimientos C-R-E-O para el backend y convenciones de llamada ABI.</p>
-          <div class="card-details">Formalización de alineación de pila a 16 bytes y preservación de registros callee-saved.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Test Harness automatizado con ejecución nativa y verificación de memoria con Valgrind.</p>
-          <div class="card-details">Pruebas destructivas sobre desalineación de stack, derramamiento de registros y código de salida ($?).</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Dos funciones en C: una que nombra la instrucción x86-64 de cada operador TAC y otra que ejecuta el cuádruplo con la semántica de la CPU.</p>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — Mapeo de Código Intermedio a Instrucciones Máquina</h2>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Registro</span></div>
+          <p>Una ranura de memoria dentro de la CPU, mucho más rápida que la RAM, que guarda un valor mientras se opera con él.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como la libreta pequeña que usas en una suma: no vas al archivo cada vez que necesitas un número.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Sufijo de tamaño</span></div>
+          <p>El final del mnemónico (movb, movw, movl, movq) indica cuántos bytes mueve la instrucción.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como las tallas de una caja: si pides la equivocada, el contenido no cabe o se sale.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. Sintaxis AT&amp;T</span></div>
+          <p>Convención de GNU donde el origen va primero y el destino después, con % para registros y $ para literales.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como una receta escrita de ingrediente a plato: primero lo que echas, luego dónde lo pones.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Operación destructiva</span></div>
+          <p>addq %rbx, %rax guarda el resultado en %rax y borra el valor anterior de ese registro.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como sumar en la misma hoja donde tenías el primer número: el borrador anterior ya no existe.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">El backend existe para que el programa deje de ser texto y se vuelva instrucciones. Antes de emitir un archivo .s completo hay que dominar la pieza mínima: cargar un operando, aplicar la operación y dejar el resultado donde la siguiente instrucción lo encuentre. Si esa traducción está mal, todo el compilador produce binarios que calculan otra cosa.</p>
+      <div class="timeline">
+        
+        <div class="tl-item done">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Hito 1 · Sesión 10</div>
+        </div>
+        <div class="tl-item done">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Hito 2 · Sesión 20</div>
+        </div>
+        <div class="tl-item done">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Hito 3 · Sesión 30</div>
+        </div>
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Dos funciones en C: una que nombra la instrucción x86-64 de cada operador TAC y otra que ejecuta el cuádruplo con la semántica de la CPU.
+        <br><strong>Siguiente:</strong> Asignación Ingenua de Registros (Naive Allocation) (sesión 32)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — Mapeo de Código Intermedio a Instrucciones Máquina</h2>
       <p class="lead">El backend traduce cuádruplos abstractos a instrucciones x86-64 reales que operan sobre registros y memoria.</p>
       <div class="grid-3">
         
@@ -159,9 +256,9 @@
           <div class="card-details">Permiten realizar operaciones aritméticas a la velocidad del reloj del procesador sin tocar la RAM.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">02. Sintaxis GNU Assembler (AT&T vs Intel)</span><span class="expand-hint">[+]</span></div>
-          <p>AT&T: 'movl %eax, %ebx' (origen -> destino). Intel: 'mov ebx, eax' (destino <- origen).</p>
-          <div class="card-details">GCC utiliza por defecto la convención AT&T con prefijos '%' para registros y '$' para literales.</div>
+          <div class="card-header"><span style="color: var(--accent);">02. Sintaxis GNU Assembler (AT&amp;T vs Intel)</span><span class="expand-hint">[+]</span></div>
+          <p>AT&amp;T: 'movl %eax, %ebx' (origen -&gt; destino). Intel: 'mov ebx, eax' (destino &lt;- origen).</p>
+          <div class="card-details">GCC utiliza por defecto la convención AT&amp;T con prefijos '%' para registros y '$' para literales.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">03. Instrucciones Aritméticas Básicas</span><span class="expand-hint">[+]</span></div>
@@ -169,13 +266,11 @@
           <div class="card-details">Operan destructivamente sobre el registro destino: 'addq %rbx, %rax' calcula RAX = RAX + RBX.</div>
         </div>
       </div>
-      <div class="interactive-box">
-        <strong>Invariante del Backend:</strong> Toda instrucción de alto nivel debe traducirse a una secuencia equivalente y segura de operaciones de hardware.
-      </div>
     </section>
 
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Hardware: Jerarquía de Registros y Sub-Registros</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: Jerarquía de Registros y Sub-Registros</h2>
       <p class="lead">Acceso a partes de 8, 16, 32 y 64 bits del mismo registro físico:</p>
       <div class="grid-2">
         
@@ -192,34 +287,71 @@
       </div>
     </section>
 
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Antipatrones en Ensamblador</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la generación de ensamblador y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Mover memoria a memoria directamente ('movq -8(%rbp), -16(%rbp)'), operación ilegal en la arquitectura x86-64.</strong></li><li><strong>Confundir sufijos de tamaño ('movb', 'movw', 'movl', 'movq') corrompiendo registros adyacentes.</strong></li><li><strong>No extender el signo en divisiones enteras ('cdq' / 'cqo') provocando interrupciones de punto flotante.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Mover memoria a memoria directamente ('movq -8(%rbp), -16(%rbp)'), operación ilegal en la arquitectura x86-64.</li><li>Confundir sufijos de tamaño ('movb', 'movw', 'movl', 'movq') corrompiendo registros adyacentes.</li><li>No extender el signo en divisiones enteras ('cdq' / 'cqo') provocando interrupciones de punto flotante.</li>
         </ul>
       </div>
     </section>
 
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Recibes un operador (+, -, *) o un cuádruplo con la forma tN = A op B, y devuelves el mnemónico AT&amp;T correspondiente o el valor que la CPU obtendría al ejecutarlo.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tu implementación de mnemonico() y ejecutar_tac() en artesano_sesion31_c.c, el harness en verde y la bitácora en auditorias/auditoria_sesion31.md</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>Los operandos del cuádruplo son literales decimales con signo; no hay variables ni acceso a memoria.</li><li>Un operador desconocido se responde con nop, y un cuádruplo mal formado vale cero.</li><li>Nada de main(): el harness ya trae el suyo y compila con -Werror.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>mnemonico devuelve exactamente el mnemónico AT&amp;T de cada operador, sin prefijos ni sufijos extra.</li><li>ejecutar_tac aplica la operación del cuádruplo y devuelve el mismo valor que produciría la CPU.</li><li>Los seis casos del harness salen OK y el programa termina con código de salida 0.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 31</div>
+          <pre>=== AUDITORIA SESION 31 - Mapeo de TAC a instrucciones mov/add/sub ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] mnemonico('+')                     esperado: addq         obtenido: addq         OK
+[ 2] mnemonico('*')                     esperado: imulq        obtenido: imulq        OK
+[ 3] mnemonico('?')                     esperado: nop          obtenido: nop          OK
+[ 4] ejecutar_tac("t0 = 4 + 5")         esperado: 9            obtenido: 9            OK
+[ 5] ejecutar_tac("t1 = 10 - 25")       esperado: -15          obtenido: -15          OK
+[ 6] ejecutar_tac("t2 = 7 * 6")         esperado: 42           obtenido: 42           OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion31.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Fundamento conceptual y arquitectura x86-64.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness y Valgrind).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Verifica que el binario generado pase todas las pruebas automáticas.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion31.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">La entrega de la Sesión 40 concluye formalmente el Hito 4 y la acreditación final del curso.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 6 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -229,7 +361,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -251,6 +383,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';

@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,43 +165,100 @@
   </header>
 
   <main>
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 2: TABLA DE SÍMBOLOS Y ÁMBITOS</div>
       <h1>Estructuras (struct) y Offsets de Miembros</h1>
-      <p class="lead">Sesión 19 del curso. Arquitectura interna de tablas de símbolos, resolución de ámbitos y análisis de tipos con la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para comprender los límites de memoria y estructuras jerárquicas.</p>
-          <div class="card-details">Construcción directa de tablas hash, listas enlazadas de buckets y pilas de scopes.</div>
+      <p class="pregunta">¿Dónde queda cada campo de una estructura dentro de su bloque de memoria?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Calcular los offsets de los miembros de una estructura aplicando alineación y padding, y obtener el tamaño total del tipo.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Especificación de requerimientos C-R-E-O y formalización de contratos de visibilidad.</p>
-          <div class="card-details">Definición formal de invariantes de scope, firmas de función y alineación de bytes.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Test Harness automatizado para detectar colisiones no resueltas y variables huérfanas.</p>
-          <div class="card-details">Auditoría destructiva sobre casos de shadowing profundo y redeclaraciones ilegales.</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Un calculador de offsets y tamaños de struct que respeta alineación y padding, verificado con cuatro disposiciones distintas.</p>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — Tipos Compuestos Heterogéneos y Sub-Tablas de Símbolos</h2>
-      <p class="lead">Las estructuras agrupan campos de distintos tipos. Cada `struct` posee su propia tabla de símbolos interna para sus miembros.</p>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Estructura</span></div>
+          <p>Tipo compuesto que agrupa campos de distinto tipo en un solo bloque.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como una ficha de registro con casillas de distintos tamaños: nombre, edad y dirección viven en la misma hoja.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Miembro</span></div>
+          <p>Cada campo declarado dentro de una estructura.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como cada casilla de la ficha: tiene su nombre y su lugar fijo.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. Offset de miembro</span></div>
+          <p>Distancia en bytes desde el inicio de la estructura hasta ese campo.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como la dirección de una casa dentro de una colonia: el número que dice cuántas calles avanzar desde la entrada.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Padding</span></div>
+          <p>Bytes vacíos insertados para que el siguiente campo quede alineado.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como el relleno de burbujas en una caja: no es parte del producto, pero evita que se golpee.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">Un struct no se guarda campo tras campo sin más: entre un char y un int hay huecos que la CPU exige para leer alineado. El compilador calcula esos offsets una sola vez y los guarda en la tabla de miembros; el backend los usa como desplazamientos constantes. Si calcularas el offset sumando tamaños, el acceso al segundo campo leería bytes del relleno y el programa trabajaría con basura.</p>
+      <div class="timeline">
+        
+        <div class="tl-item done">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Hito 1 · Sesión 10</div>
+        </div>
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Hito 3 · Sesión 30</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Hito 4 · Sesión 40</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Un calculador de offsets y tamaños de struct que respeta alineación y padding, verificado con cuatro disposiciones distintas.
+        <br><strong>Siguiente:</strong> Hito 2: Analizador Semántico Completo y Scopes (sesión 20)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — Tipos Compuestos Heterogéneos y Sub-Tablas de Símbolos</h2>
+      <p class="lead">Las estructuras agrupan campos de distintos tipos. Cada <code>struct</code> posee su propia tabla de símbolos interna para sus miembros.</p>
       <div class="grid-3">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">01. Tabla de Miembros (Member Table)</span><span class="expand-hint">[+]</span></div>
           <p>Cada definición de estructura contiene una sub-tabla de símbolos con el nombre y offset de cada campo.</p>
-          <div class="card-details">Al evaluar `p.edad`, el compilador consulta la tabla de miembros del tipo de `p`.</div>
+          <div class="card-details">Al evaluar <code>p.edad</code>, el compilador consulta la tabla de miembros del tipo de <code>p</code>.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">02. Operador de Acceso a Miembro (`.` y `->`)</span><span class="expand-hint">[+]</span></div>
-          <p>El operador `.` accede sobre variables directas; el operador `->` desreferencia primero un puntero a estructura.</p>
-          <div class="card-details">Requiere validar que el operando izquierdo sea efectivamente de tipo `struct`.</div>
+          <div class="card-header"><span style="color: var(--accent);">02. Operador de Acceso a Miembro (<code>.</code> y <code>-&gt;</code>)</span><span class="expand-hint">[+]</span></div>
+          <p>El operador <code>.</code> accede sobre variables directas; el operador <code>-&gt;</code> desreferencia primero un puntero a estructura.</p>
+          <div class="card-details">Requiere validar que el operando izquierdo sea efectivamente de tipo <code>struct</code>.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">03. Tamaño y Padding Total de Estructura</span><span class="expand-hint">[+]</span></div>
@@ -169,19 +266,17 @@
           <div class="card-details">Garantiza que en arreglos de estructuras todos los elementos queden correctamente alineados.</div>
         </div>
       </div>
-      <div class="interactive-box">
-        <strong>Invariante de la Tabla:</strong> Todo identificador debe resolverse en tiempo determinista hacia sus atributos de tipo y memoria.
-      </div>
     </section>
 
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Estructuras de Datos: Alineación y Disposición de Campos en Memoria</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: Alineación y Disposición de Campos en Memoria</h2>
       <p class="lead">Cálculo paso a paso de offsets y padding interno:</p>
       <div class="grid-2">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Ejemplo de Disposición</span><span class="expand-hint">[+]</span></div>
-          <p>`struct { char a; int b; short c; };` -> `a` en offset 0, 3 bytes padding, `b` en offset 4, `c` en offset 8, 2 bytes padding final. Total: 12 bytes.</p>
+          <p><code>struct { char a; int b; short c; };</code> -&gt; <code>a</code> en offset 0, 3 bytes padding, <code>b</code> en offset 4, <code>c</code> en offset 8, 2 bytes padding final. Total: 12 bytes.</p>
           <div class="card-details">El orden de declaración afecta directamente la memoria consumida.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
@@ -192,34 +287,71 @@
       </div>
     </section>
 
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Antipatrones en Estructuras</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la implementación y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Acceso a campos inexistentes (`p.telefono` cuando el campo no fue definido en el struct).</strong></li><li><strong>Uso del operador `.` sobre un puntero en lugar de `->` o viceversa.</strong></li><li><strong>Estructuras autorreferenciadas sin puntero (`struct Nodo { struct Nodo sig; };`) que generan tipos de tamaño infinito.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Acceso a campos inexistentes (<code>p.telefono</code> cuando el campo no fue definido en el struct).</li><li>Uso del operador <code>.</code> sobre un puntero en lugar de <code>-&gt;</code> o viceversa.</li><li>Estructuras autorreferenciadas sin puntero (<code>struct Nodo { struct Nodo sig; };</code>) que generan tipos de tamaño infinito.</li>
         </ul>
       </div>
     </section>
 
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Recibes una lista ordenada de campos con su tipo; offset_campo() devuelve la posición del campo pedido y tamano_struct() el total con padding final. El harness compara contra la disposición real de la arquitectura.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tus funciones offset_campo() y tamano_struct() en artesano_sesion19_c.c, la salida del harness y la bitácora en auditorias/auditoria_sesion19.md</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>Cada campo se alinea a su propio ancho antes de asignarle offset.</li><li>El tamaño total se redondea al múltiplo del campo más grande.</li><li>Un campo inexistente, una lista NULL o un tipo desconocido devuelven -1.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>Cada offset coincide con la posición real del campo después de aplicar el relleno.</li><li>El tamaño total incluye el padding final hasta el múltiplo de la alineación mayor.</li><li>Un miembro inexistente devuelve -1 y una estructura sin campos devuelve 0.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 19</div>
+          <pre>=== AUDITORIA SESION 19 - Offsets de miembros y tamano de struct ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] struct char e int: b               esperado: 4            obtenido: 4            OK
+[ 2] struct de tres campos: c           esperado: 8            obtenido: 8            OK
+[ 3] tamano total con padding           esperado: 12           obtenido: 12           OK
+[ 4] double seguido de char             esperado: 16           obtenido: 16           OK
+[ 5] miembro inexistente                esperado: -1           obtenido: -1           OK
+[ 6] struct sin campos                  esperado: 0            obtenido: 0            OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion19.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Fundamento teórico y arquitectura de memoria.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Asegúrate de ejecutar todas las pruebas unitarias antes de guardar tu bitácora.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion19.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">La entrega de la Sesión 20 concluye formalmente el Hito 2 del Proyecto Integrador.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 6 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -229,7 +361,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -251,6 +383,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';

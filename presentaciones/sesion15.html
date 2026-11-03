@@ -53,7 +53,7 @@
     .slide {
       position: absolute;
       inset: 0;
-      padding: 30px 60px;
+      padding: 26px 56px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -61,40 +61,80 @@
       visibility: hidden;
       transform: translateX(30px);
       transition: all 0.3s ease;
+      overflow-y: auto;
     }
     .slide.active { opacity: 1; visibility: visible; transform: translateX(0); }
-    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 12px; }
-    h2 { font-size: 1.5rem; color: var(--text-bright); margin-bottom: 16px; }
-    p.lead { font-size: 1.05rem; line-height: 1.5; max-width: 900px; margin-bottom: 18px; color: #475569; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    h1 { font-size: 2rem; color: var(--text-bright); margin-bottom: 10px; }
+    h2 { font-size: 1.45rem; color: var(--text-bright); margin-bottom: 14px; }
+    p.lead { font-size: 1.02rem; line-height: 1.5; max-width: 1000px; margin-bottom: 16px; color: #475569; }
+    .pregunta {
+      font-size: 1.2rem;
+      line-height: 1.45;
+      color: var(--text-bright);
+      font-weight: 600;
+      border-left: 4px solid var(--accent);
+      padding: 8px 0 8px 16px;
+      margin-bottom: 18px;
+      max-width: 980px;
+    }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .grid-lab { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 16px; }
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 18px;
+      padding: 16px;
       cursor: pointer;
       transition: all 0.25s ease;
       display: flex;
       flex-direction: column;
     }
     .card:hover { background: var(--card-bg-hover); border-color: var(--border-focus); transform: translateY(-2px); }
+    .card.static { cursor: default; }
+    .card.static:hover { background: var(--card-bg); border-color: var(--border); transform: none; }
     .card.expanded { border-color: var(--accent); background: #ffffff; }
     .card-header { font-weight: 600; color: var(--text-bright); margin-bottom: 8px; display: flex; justify-content: space-between; }
     .expand-hint { font-size: 0.75rem; color: var(--accent); font-family: var(--font-mono); }
-    .card p, .card li { font-size: 0.88rem; line-height: 1.45; color: var(--text); }
-    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.82rem; color: #475569; }
-    .card.expanded .card-details { max-height: 240px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .card p, .card li { font-size: 0.86rem; line-height: 1.45; color: var(--text); }
+    .card ul { padding-left: 18px; }
+    .card li { margin-bottom: 4px; }
+    .card-details { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.3s ease; font-size: 0.8rem; color: #475569; }
+    .card.expanded .card-details { max-height: 260px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+    .analogia {
+      margin-top: 10px;
+      padding-left: 10px;
+      border-left: 3px solid var(--accent-orange);
+      font-size: 0.82rem !important;
+      color: #475569 !important;
+    }
     .interactive-box {
-      margin-top: 18px;
-      padding: 14px 18px;
+      margin-top: 16px;
+      padding: 13px 18px;
       background: #ffffff;
       border: 1px solid var(--border);
       border-left: 4px solid var(--accent);
       border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
+      font-size: 0.86rem;
+      line-height: 1.5;
     }
+    .interactive-box code, .card code, li code, p code {
+      background: #eef2f7;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.86em;
+    }
+    .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 4px; }
+    .tl-item { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; background: #ffffff; }
+    .tl-item.current { border-color: var(--accent); box-shadow: 0 0 0 2px #ddf4ff; }
+    .tl-item.done { opacity: 0.6; }
+    .tl-unit { font-size: 0.68rem; font-family: var(--font-mono); color: var(--accent-silver); }
+    .tl-title { font-size: 0.8rem; font-weight: 600; color: var(--text-bright); margin: 3px 0; line-height: 1.25; }
+    .tl-hito { font-size: 0.68rem; color: var(--accent-orange); font-family: var(--font-mono); }
+    .terminal { align-self: start; background: #0d1117; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+    .terminal-bar { background: #161b22; color: #8b949e; font-family: var(--font-mono); font-size: 0.68rem; padding: 6px 12px; border-bottom: 1px solid #30363d; }
+    .terminal pre { margin: 0; padding: 12px 14px; color: #7ee787; font-family: var(--font-mono); font-size: 0.62rem; line-height: 1.45; white-space: pre; overflow-x: auto; }
     footer {
       padding: 12px 28px;
       background: rgba(255, 255, 255, 0.85);
@@ -125,38 +165,95 @@
   </header>
 
   <main>
+    <!-- Lámina 1: de qué trata la sesión -->
     <section class="slide active">
       <div class="tag" style="width: fit-content; margin-bottom: 10px;">UNIDAD 2: TABLA DE SÍMBOLOS Y ÁMBITOS</div>
       <h1>Bloques Anidados y Ciclo de Vida de Identificadores</h1>
-      <p class="lead">Sesión 15 del curso. Arquitectura interna de tablas de símbolos, resolución de ámbitos y análisis de tipos con la Tríada Metodológica.</p>
-      <div class="grid-3">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent);">01. El Artesano</span><span class="expand-hint">[+]</span></div>
-          <p>Codificación manual sin IA para comprender los límites de memoria y estructuras jerárquicas.</p>
-          <div class="card-details">Construcción directa de tablas hash, listas enlazadas de buckets y pilas de scopes.</div>
+      <p class="pregunta">¿Qué pasa con las variables de un bloque cuando el programa cierra la llave y sale de él?</p>
+      <div class="grid-2">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Objetivo de hoy</span></div>
+          <p>Implementar push y pop de ámbitos enlazados, comprobando que al cerrar un bloque el cursor vuelve al padre y las variables del bloque dejan de ser visibles.</p>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-silver);">02. El Científico</span><span class="expand-hint">[+]</span></div>
-          <p>Especificación de requerimientos C-R-E-O y formalización de contratos de visibilidad.</p>
-          <div class="card-details">Definición formal de invariantes de scope, firmas de función y alineación de bytes.</div>
-        </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span style="color: var(--accent-green);">03. El Auditor</span><span class="expand-hint">[+]</span></div>
-          <p>Test Harness automatizado para detectar colisiones no resueltas y variables huérfanas.</p>
-          <div class="card-details">Auditoría destructiva sobre casos de shadowing profundo y redeclaraciones ilegales.</div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent-green);">Al terminar tendrás</span></div>
+          <p>Dos operaciones push y pop que construyen y deshacen la cadena de ámbitos sin perder el padre.</p>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 2: conceptos básicos antes de los tecnicismos -->
     <section class="slide">
-      <h2>00–20 min: Fundamentos Teóricos — Gestión Temporal de Bloques y Reutilización de Pila</h2>
-      <p class="lead">Los bloques `{ ... }` crean contextos temporales. Variables en bloques paralelos pueden compartir el mismo espacio de pila.</p>
+      <h2>Antes de los tecnicismos: los conceptos básicos</h2>
+      <p class="lead">Si te quedas con estas ideas, el resto de la sesión se entiende solo.</p>
+      <div class="grid-2">
+        
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">01. Entrar a un bloque</span></div>
+          <p>Crear un ámbito nuevo cuyo padre es el bloque activo.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como abrir una puerta hacia un cuarto interior: sigues dentro de la casa, pero ahora manda la luz de ese cuarto.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">02. Salir de un bloque</span></div>
+          <p>Cerrar el ámbito actual y volver al padre.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como salir del cuarto interior y cerrar la puerta: lo que estaba adentro deja de estar a la vista.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">03. Ciclo de vida</span></div>
+          <p>Periodo durante el cual una variable existe y puede usarse.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como la vigencia de un pase de estacionamiento: sirve mientras estés dentro y deja de servir al salir.</p>
+        </div>
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">04. Cursor de ámbito</span></div>
+          <p>Puntero que indica cuál es el bloque activo en cada momento.</p>
+          <p class="analogia"><strong>Analogía:</strong> Como el cursor de un documento: marca el lugar donde estás trabajando ahora mismo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lámina 3: mapa del curso -->
+    <section class="slide">
+      <h2>¿Dónde estamos y a dónde vamos?</h2>
+      <p class="lead">Los bloques no son decoración: delimitan el tiempo de vida de los nombres. Si el compilador no retrocede el cursor al encontrar la llave de cierre, sigue viendo variables que ya no existen y acepta código inválido. Al mismo tiempo, los datos del bloque hay que conservarlos para el backend, así que pop no puede limitarse a borrar la memoria: debe devolver el control al ámbito padre.</p>
+      <div class="timeline">
+        
+        <div class="tl-item done">
+          <div class="tl-unit">Sesiones 01–10</div>
+          <div class="tl-title">Unidad 1: Análisis Semántico y AST</div>
+          <div class="tl-hito">Hito 1 · Sesión 10</div>
+        </div>
+        <div class="tl-item current">
+          <div class="tl-unit">Sesiones 11–20</div>
+          <div class="tl-title">Unidad 2: Tabla de Símbolos y Ámbitos</div>
+          <div class="tl-hito">Aquí estás</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 21–30</div>
+          <div class="tl-title">Unidad 3: Código Intermedio y Optimización</div>
+          <div class="tl-hito">Hito 3 · Sesión 30</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-unit">Sesiones 31–40</div>
+          <div class="tl-title">Unidad 4: Código Objeto y Backend</div>
+          <div class="tl-hito">Hito 4 · Sesión 40</div>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Hoy:</strong> Dos operaciones push y pop que construyen y deshacen la cadena de ámbitos sin perder el padre.
+        <br><strong>Siguiente:</strong> Firmas de Función y Parámetros Formales (sesión 16)
+      </div>
+    </section>
+
+    <!-- Lámina 4: fundamentos teóricos -->
+    <section class="slide">
+      <h2>00–20 min: Fundamentos teóricos — Gestión Temporal de Bloques y Reutilización de Pila</h2>
+      <p class="lead">Los bloques <code>{ ... }</code> crean contextos temporales. Variables en bloques paralelos pueden compartir el mismo espacio de pila.</p>
       <div class="grid-3">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">01. Bloques Paralelos</span><span class="expand-hint">[+]</span></div>
-          <p>Dos bloques `{ int a; }` y `{ int b; }` dentro de la misma función nunca están activos al mismo tiempo.</p>
-          <div class="card-details">Un compilador optimizador puede asignar a `a` y a `b` el mismo offset de memoria en el Stack.</div>
+          <p>Dos bloques <code>{ int a; }</code> y <code>{ int b; }</code> dentro de la misma función nunca están activos al mismo tiempo.</p>
+          <div class="card-details">Un compilador optimizador puede asignar a <code>a</code> y a <code>b</code> el mismo offset de memoria en el Stack.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent);">02. Profundidad de Ámbito (Scope Depth)</span><span class="expand-hint">[+]</span></div>
@@ -169,57 +266,92 @@
           <div class="card-details">Solo se desapila el puntero de búsqueda activa, no se destruyen los metadatos.</div>
         </div>
       </div>
-      <div class="interactive-box">
-        <strong>Invariante de la Tabla:</strong> Todo identificador debe resolverse en tiempo determinista hacia sus atributos de tipo y memoria.
-      </div>
     </section>
 
+    <!-- Lámina 5: arquitectura de memoria -->
     <section class="slide">
-      <h2>Arquitectura de Memoria y Estructuras de Datos: Árbol Completo de Scopes (Scope Tree)</h2>
+      <h2>Arquitectura de memoria y estructuras de datos: Árbol Completo de Scopes (Scope Tree)</h2>
       <p class="lead">Estructura persistente para todo el análisis:</p>
       <div class="grid-2">
         
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Estructura de Árbol</span><span class="expand-hint">[+]</span></div>
-          <p>El scope raíz apunta a sus hijos mediante una lista de sub-scopes: `Scope *primer_hijo, *sig_hermano`.</p>
+          <p>El scope raíz apunta a sus hijos mediante una lista de sub-scopes: <code>Scope *primer_hijo, *sig_hermano</code>.</p>
           <div class="card-details">Permite al backend recorrer todas las variables de todos los bloques al dimensionar el stack frame.</div>
         </div>
         <div class="card" onclick="toggleCard(this)">
           <div class="card-header"><span style="color: var(--accent-silver);">Puntero Scope Actual (Cursor)</span><span class="expand-hint">[+]</span></div>
-          <p>Una variable global `Scope *scope_actual` que sube y baja por el árbol de scopes durante el parsing.</p>
+          <p>Una variable global <code>Scope *scope_actual</code> que sube y baja por el árbol de scopes durante el parsing.</p>
           <div class="card-details">Garantiza contexto correcto en cada nodo procesado.</div>
         </div>
       </div>
     </section>
 
+    <!-- Lámina 6: casos borde -->
     <section class="slide">
       <h2>Antipatrones en Bloques Anidados</h2>
-      <p class="lead">Puntos críticos de falla que deben protegerse en la implementación y auditarse en las respuestas del LLM:</p>
-      <div class="card" style="padding: 24px;">
-        <ul style="padding-left: 20px; line-height: 2;">
-          <li><strong>Acceder a variables locales de un bloque `{ ... }` después de haber cerrado la llave `}`.</strong></li><li><strong>Fuga de memoria por no enlazar los scopes hijos al árbol general antes de hacer pop del cursor.</strong></li><li><strong>Calcular mal el tamaño total de la función al sumar bloques paralelos en lugar de superponerlos.</strong></li>
+      <p class="lead">Puntos críticos de falla que debes proteger en tu código y auditar en las respuestas del LLM:</p>
+      <div class="card static" style="padding: 22px;">
+        <ul style="padding-left: 20px; line-height: 1.9;">
+          <li>Acceder a variables locales de un bloque <code>{ ... }</code> después de haber cerrado la llave <code>}</code>.</li><li>Fuga de memoria por no enlazar los scopes hijos al árbol general antes de hacer pop del cursor.</li><li>Calcular mal el tamaño total de la función al sumar bloques paralelos en lugar de superponerlos.</li>
         </ul>
       </div>
     </section>
 
+    <!-- Lámina 7: lo que vas a construir hoy -->
     <section class="slide">
-      <h2>Dinámica del Laboratorio y Protocolo de Entrega</h2>
+      <h2>Lo que vas a construir hoy</h2>
+      <p class="lead">Recibes el ámbito activo y un nombre; push_ambito() reserva un ámbito nuevo enlazado al actual y pop_ambito() libera el actual y devuelve el padre. El harness revisa nombres, profundidad y que pop sobre la raíz no destruya el programa.</p>
+      <div class="grid-lab">
+        <div class="card static">
+          <div class="card-header"><span style="color: var(--accent);">Entregable</span></div>
+          <p style="margin-bottom: 10px;">tus funciones push_ambito() y pop_ambito() en artesano_sesion15_c.c, la salida del harness y la bitácora en auditorias/auditoria_sesion15.md</p>
+          <div class="card-header" style="margin-top: 6px;"><span style="color: var(--accent-silver);">Reglas del reto</span></div>
+          <ul><li>push_ambito() devuelve NULL si el ámbito actual o el nombre son NULL.</li><li>pop_ambito() devuelve NULL sobre la raíz y no libera memoria que no le pertenece.</li><li>Cada push se empareja con un pop: no se dejan ámbitos colgando en la cadena.</li></ul>
+          <div class="card-header" style="margin-top: 8px;"><span style="color: var(--accent-green);">Se acepta cuando</span></div>
+          <ul><li>push_ambito() enlaza el nuevo ámbito con el padre y conserva el nombre recibido.</li><li>pop_ambito() devuelve exactamente el padre y libera solo el ámbito que recibe.</li><li>La profundidad de la cadena sube con cada push y baja con cada pop.</li></ul>
+        </div>
+        <div class="terminal">
+          <div class="terminal-bar">salida esperada del harness — sesión 15</div>
+          <pre>=== AUDITORIA SESION 15 - Push y pop de ambitos ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] nombre del ambito nuevo            esperado: if           obtenido: if           OK
+[ 2] profundidad con dos push           esperado: 3            obtenido: 3            OK
+[ 3] pop devuelve el padre              esperado: 1            obtenido: 1            OK
+[ 4] pop sobre la raiz                  esperado: 1            obtenido: 1            OK
+[ 5] push con padre NULL                esperado: 1            obtenido: 1            OK
+[ 6] profundidad tras pop               esperado: 2            obtenido: 2            OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion15.md</pre>
+        </div>
+      </div>
+      <div class="interactive-box">
+        <strong>Mientras no implementes, esta salida será roja:</strong> el harness imprime <code>FALLA</code> en cada caso pendiente y termina con código de salida 1. No hay «verde» gratis.
+      </div>
+    </section>
+
+    <!-- Lámina 8: dinámica y entrega -->
+    <section class="slide">
+      <h2>Dinámica de la clase y protocolo de entrega</h2>
       <div class="grid-2">
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Estructura de la Clase (60 min)</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Estructura de la clase (60 min)</span></div>
           <ul>
-            <li><strong>00–20 min:</strong> Fundamento teórico y arquitectura de memoria.</li>
-            <li><strong>20–35 min:</strong> Fase 1: El Artesano (Código manual sin IA).</li>
-            <li><strong>35–45 min:</strong> Fase 2: El Científico (Prompt C-R-E-O).</li>
-            <li><strong>45–55 min:</strong> Fase 3: El Auditor (Test Harness).</li>
+            <li><strong>00–20 min:</strong> Conceptos, teoría e invariantes.</li>
+            <li><strong>20–35 min:</strong> Fase 1: El Artesano (código manual, sin IA).</li>
+            <li><strong>35–45 min:</strong> Fase 2: El Científico (prompt C-R-E-O).</li>
+            <li><strong>45–55 min:</strong> Fase 3: El Auditor (harness en verde).</li>
             <li><strong>55–60 min:</strong> Sincronización y commit en GitHub.</li>
           </ul>
-          <div class="card-details">Asegúrate de ejecutar todas las pruebas unitarias antes de guardar tu bitácora.</div>
         </div>
-        <div class="card" onclick="toggleCard(this)">
-          <div class="card-header"><span>Evidencia Evaluada</span><span class="expand-hint">[+]</span></div>
+        <div class="card static">
+          <div class="card-header"><span>Evidencia evaluada</span></div>
           <p>Tu archivo <code>auditorias/auditoria_sesion15.md</code> debe contener la matriz C-R-E-O y el reporte crítico.</p>
-          <div class="card-details">La entrega de la Sesión 20 concluye formalmente el Hito 2 del Proyecto Integrador.</div>
+          <p style="margin-top: 8px;">Adjunta también la salida del harness: es la prueba de que tu implementación pasó los 6 casos.</p>
+          <div class="card-details" style="max-height: none; opacity: 1; border-top: none; margin-top: 10px; padding-top: 0;">
+            Cada entrega diaria acumula para el 40% de laboratorios y alimenta tu Proyecto Integrador.
+          </div>
         </div>
       </div>
       <div class="interactive-box">
@@ -229,7 +361,7 @@
   </main>
 
   <footer>
-    <div class="progress" id="slideIndicator">SLIDE 1 / 5</div>
+    <div class="progress" id="slideIndicator">SLIDE 1 / 8</div>
     <div class="controls">
       <button id="prevBtn" onclick="prevSlide()" disabled>&larr; Anterior</button>
       <button id="nextBtn" onclick="nextSlide()">Siguiente &rarr;</button>
@@ -251,6 +383,7 @@
     function nextSlide() { if (currentSlide < slides.length - 1) { currentSlide++; updateSlides(); } }
     function prevSlide() { if (currentSlide > 0) { currentSlide--; updateSlides(); } }
     function toggleCard(card) {
+      if (card.classList.contains('static')) return;
       card.classList.toggle('expanded');
       const hint = card.querySelector('.expand-hint');
       if (hint) hint.textContent = card.classList.contains('expanded') ? '[-]' : '[+]';
