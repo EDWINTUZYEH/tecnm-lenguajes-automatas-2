@@ -16,7 +16,7 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 | 1 | Léxico, sintaxis y AST (`--tokens`, `--ast`, `--check`) | ✅ terminado |
 | 2 | Sentencias, ámbitos y diagnósticos (`E01`, `E02`, `E04`) | ✅ terminado |
 | 3 | TAC con plegado de constantes y código muerto | ✅ terminado |
-| 4 | Backend x86-64, enlace y binario ELF | ⏳ pendiente |
+| 4 | Backend x86-64, enlace y binario ELF | ✅ terminado |
 
 > Esta tabla se actualiza en cada entrega. Ver `docs/entrega_hitoN.md`.
 
@@ -28,6 +28,7 @@ make test        # ejecuta todas las pruebas del curso
 make test-hito1 # solo las del Hito 1
 make test-hito2 # solo las del Hito 2
 make test-hito3 # solo las del Hito 3
+make test-hito4 # solo las del Hito 4
 make test-propias # pruebas propias del equipo (tests/propias/)
 ./lenguajito programa.lj --tokens
 ./lenguajito programa.lj --ast
@@ -51,20 +52,31 @@ make test-propias # pruebas propias del equipo (tests/propias/)
   - `E04` división entre cero constante (incluye expresiones como `1 - 1`);
   - `S01` de sintaxis con recuperación: se reportan varios errores por pasada
     (máximo 20) y el compilador sale con código 1.
-- `--run`: ejecuta el programa. En este hito interpreta el AST (permitido por
-  la guía); en el Hito 4 pasará a ejecutar el binario generado.
 - `--tac`: genera código de tres direcciones optimizado:
   - temporales únicos `_t0`, `_t1`, ... sin reutilizar;
   - `ifFalso`, `goto`, etiquetas `L1`, `L2`, ..., `print`;
   - plegado de constantes (no queda ninguna operación entre constantes);
   - propagación de constantes a nivel TAC y eliminación de código muerto:
     no quedan temporales asignados que nadie lea.
+- `--asm`: genera ensamblador x86-64 (AT&T) con `.text`, `.globl main`,
+  prólogo, cuerpo y epílogo; `print` se implementa con `printf(3)`.
+- `--run`: compila el programa al binario generado (`as --64` y `gcc`), lo
+  ejecuta y reenvía su salida; es un ELF de 64 bits (verificado con
+  `file`/`readelf`).
+- Las pruebas doradas pasan completas: `make test` → `20/20 pruebas
+  superadas`, y las pruebas propias: `make test-propias` → `9/9`.
 
-## Qué no funciona todavía
+## Qué no funciona / límites conocidos
 
-- `--asm` responde `modo aún no implementado` (Hito 4).
-- `--run` todavía no usa el binario ELF (llega en el Hito 4).
-- Los literales mayores que `INT_MAX` se truncan con `strtol`.
+- Los literales enteros mayores que `INT_MAX` se truncan con `strtol`.
+- La división entre cero en tiempo de ejecución (divisor no constante) no
+  está verificada: la semántica solo detecta el caso constante (`E04`),
+  como indica la especificación.
+- El compilador genera código para la ABI de Linux x86-64 (probado con
+  `gcc` y `as` de GNU); no genera binarios para otros sistemas.
+- Las extensiones del lenguaje (`for`, `float`, funciones, etc.) **no**
+  están implementadas: no forman parte del contrato base y requieren
+  autorización previa.
 
 ## Arquitectura
 
@@ -79,8 +91,8 @@ src/
 ├── ast.[ch]        # nodos, liberación, impresión y plegado de constantes
 ├── parser.[ch]     # descendente recursivo, recuperación con ';' y '}'
 ├── semantica.[ch]  # tabla de símbolos con ámbitos y diagnósticos
-├── interprete.[ch] # ejecución del AST para --run (Hito 2)
-└── tac.[ch]        # TAC: generación, propagación/plegado y código muerto
+├── tac.[ch]        # TAC: generación, propagación/plegado y código muerto
+└── codegen.[ch]    # backend x86-64 (AT&T) y enlace mediante as + gcc
 ```
 
 ## Reparto de trabajo
@@ -90,6 +102,7 @@ src/
 | Edwin Armando Tuz Yeh | `util`, `diagnosticos`, `lexer`, `ast`, `parser`, `compilador` | Hito 1 |
 | Edwin Armando Tuz Yeh | `semantica`, `interprete`, pruebas propias | Hito 2 |
 | Edwin Armando Tuz Yeh | `tac`, plegado de constantes, código muerto | Hito 3 |
+| Edwin Armando Tuz Yeh | `codegen`, `compilador` (ejecutar con `as`+`gcc`), Hito 4 | Hito 4 |
 
 ## Bitácora de IA
 
