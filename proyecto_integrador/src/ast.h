@@ -59,4 +59,9 @@ void nodo_liberar(Nodo *nodo);
  * Devuelve una cadena reservada con malloc que el llamador debe liberar. */
 char *ast_a_texto(const Nodo *nodo);
 
+/* Devuelve 1 y escribe `valor` si la expresión es constante (números,
+ * negación y operaciones con ambos lados constantes). Una división entre
+ * cero constante no es evaluable: devuelve 0. */
+int evaluar_constante(const Nodo *expr, int *valor);
+
 #endif /* AST_H */

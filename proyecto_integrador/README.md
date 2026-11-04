@@ -13,8 +13,8 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 
 | Hito | Tema | Estado |
 | :--- | :--- | :--- |
-| 1 | Léxico, sintaxis y AST de expresiones (`--tokens`, `--ast`, `--check`) | ✅ terminado |
-| 2 | Sentencias, ámbitos y diagnósticos (`E01`, `E02`, `E04`) | ⏳ pendiente |
+| 1 | Léxico, sintaxis y AST (`--tokens`, `--ast`, `--check`) | ✅ terminado |
+| 2 | Sentencias, ámbitos y diagnósticos (`E01`, `E02`, `E04`) | ✅ terminado |
 | 3 | TAC con plegado de constantes y código muerto | ⏳ pendiente |
 | 4 | Backend x86-64, enlace y binario ELF | ⏳ pendiente |
 
@@ -23,12 +23,15 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 ## Cómo se construye y se prueba
 
 ```bash
-make            # construye ./lenguajito
-make test       # ejecuta todas las pruebas del curso
-make test-hito1 # solo las del Hito 1
+make             # construye ./lenguajito
+make test        # ejecuta todas las pruebas del curso
+make test-hito1  # solo las del Hito 1
+make test-hito2  # solo las del Hito 2
+make test-propias # pruebas propias del equipo (tests/propias/)
 ./lenguajito programa.lj --tokens
 ./lenguajito programa.lj --ast
 ./lenguajito programa.lj --check
+./lenguajito programa.lj --run
 ```
 
 ## Qué funciona hoy
@@ -39,15 +42,21 @@ make test-hito1 # solo las del Hito 1
 - `--ast`: imprime el árbol en el formato de la especificación (una sola
   línea). Cubre declaraciones, asignaciones, `if/else`, `while`, `print`,
   bloques y expresiones con la precedencia de la gramática.
-- `--check`: por ahora valida **sintaxis**; reporta `S01` con
-  `archivo:línea:columna: error S01: mensaje`, recupera y sigue analizando, y
-  sale con código 1 si hay errores.
+- `--check`: análisis léxico, sintáctico y semántico completo:
+  - ámbitos anidados por bloque y shadowing;
+  - `E01` variable no declarada / leída antes de asignar valor;
+  - `E02` redeclaración en el mismo ámbito;
+  - `E04` división entre cero constante (incluye expresiones como `1 - 1`);
+  - `S01` de sintaxis con recuperación: se reportan varios errores por pasada
+    (máximo 20) y el compilador sale con código 1.
+- `--run`: ejecuta el programa. En este hito interpreta el AST (permitido por
+  la guía); en el Hito 4 pasará a ejecutar el binario generado.
 
 ## Qué no funciona todavía
 
-- `--check` no analiza semántica (variables no declaradas, ámbitos,
-  redeclaración, división entre cero constante): llega en el Hito 2.
-- `--tac`, `--asm` y `--run` responden `modo aún no implementado` (Hitos 3 y 4).
+- `--tac` y `--asm` responden `modo aún no implementado` (Hitos 3 y 4).
+- `--run` todavía no usa el binario ELF (llega en el Hito 4).
+- Los literales mayores que `INT_MAX` se truncan con `strtol`.
 
 ## Arquitectura
 
@@ -57,10 +66,12 @@ src/
 ├── compilador.c    # orquesta las etapas según el modo
 ├── compilador.h
 ├── util.[ch]       # buffer dinámico y utilidades
-├── diagnosticos.[ch] # registro de errores con formato e límite de 20
+├── diagnosticos.[ch] # registro de errores con formato y límite de 20
 ├── lexer.[ch]      # tokens con línea y columna
-├── ast.[ch]        # nodos, liberación e impresión del AST
-└── parser.[ch]     # descendente recursivo, recuperación con ';' y '}'
+├── ast.[ch]        # nodos, liberación, impresión y evaluación constante
+├── parser.[ch]     # descendente recursivo, recuperación con ';' y '}'
+├── semantica.[ch]  # tabla de símbolos con ámbitos y diagnósticos
+└── interprete.[ch] # ejecución del AST para --run (Hito 2)
 ```
 
 ## Reparto de trabajo
@@ -68,6 +79,7 @@ src/
 | Integrante | Archivos / etapas | Commits |
 | :--- | :--- | :--- |
 | Edwin Armando Tuz Yeh | `util`, `diagnosticos`, `lexer`, `ast`, `parser`, `compilador` | Hito 1 |
+| Edwin Armando Tuz Yeh | `semantica`, `interprete`, pruebas propias | Hito 2 |
 
 ## Bitácora de IA
 
