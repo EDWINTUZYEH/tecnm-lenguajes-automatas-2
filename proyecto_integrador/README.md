@@ -13,10 +13,10 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 
 | Hito | Tema | Estado |
 | :--- | :--- | :--- |
-| 1 | Léxico, sintaxis y AST (`--tokens`, `--ast`, `--check`) | ✅ terminado |
-| 2 | Sentencias, ámbitos y diagnósticos (`E01`, `E02`, `E04`) | ✅ terminado |
-| 3 | TAC con plegado de constantes y código muerto | ✅ terminado |
-| 4 | Backend x86-64, enlace y binario ELF | ✅ terminado |
+| 1 | Léxico, sintaxis y AST (`--tokens`, `--ast`, `--check`) | Completo |
+| 2 | Sentencias, ámbitos y diagnósticos (`E01`, `E02`, `E04`) | Completo |
+| 3 | TAC con plegado de constantes y código muerto | Completo |
+| 4 | Backend x86-64, enlace y binario ELF | Completo |
 
 > Esta tabla se actualiza en cada entrega. Ver `docs/entrega_hitoN.md`.
 

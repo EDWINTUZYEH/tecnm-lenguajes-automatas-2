@@ -76,7 +76,7 @@ def main() -> int:
             )
 
     for error in errores:
-        print(f"❌ {error}")
+        print(f"ERROR: {error}")
     print(f"\nPruebas propias: {total - len(errores)}/{total} superadas")
     return 0 if not errores else 1
 
