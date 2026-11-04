@@ -15,7 +15,7 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 | :--- | :--- | :--- |
 | 1 | Léxico, sintaxis y AST (`--tokens`, `--ast`, `--check`) | ✅ terminado |
 | 2 | Sentencias, ámbitos y diagnósticos (`E01`, `E02`, `E04`) | ✅ terminado |
-| 3 | TAC con plegado de constantes y código muerto | ⏳ pendiente |
+| 3 | TAC con plegado de constantes y código muerto | ✅ terminado |
 | 4 | Backend x86-64, enlace y binario ELF | ⏳ pendiente |
 
 > Esta tabla se actualiza en cada entrega. Ver `docs/entrega_hitoN.md`.
@@ -25,12 +25,14 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 ```bash
 make             # construye ./lenguajito
 make test        # ejecuta todas las pruebas del curso
-make test-hito1  # solo las del Hito 1
-make test-hito2  # solo las del Hito 2
+make test-hito1 # solo las del Hito 1
+make test-hito2 # solo las del Hito 2
+make test-hito3 # solo las del Hito 3
 make test-propias # pruebas propias del equipo (tests/propias/)
 ./lenguajito programa.lj --tokens
 ./lenguajito programa.lj --ast
 ./lenguajito programa.lj --check
+./lenguajito programa.lj --tac
 ./lenguajito programa.lj --run
 ```
 
@@ -51,10 +53,16 @@ make test-propias # pruebas propias del equipo (tests/propias/)
     (máximo 20) y el compilador sale con código 1.
 - `--run`: ejecuta el programa. En este hito interpreta el AST (permitido por
   la guía); en el Hito 4 pasará a ejecutar el binario generado.
+- `--tac`: genera código de tres direcciones optimizado:
+  - temporales únicos `_t0`, `_t1`, ... sin reutilizar;
+  - `ifFalso`, `goto`, etiquetas `L1`, `L2`, ..., `print`;
+  - plegado de constantes (no queda ninguna operación entre constantes);
+  - propagación de constantes a nivel TAC y eliminación de código muerto:
+    no quedan temporales asignados que nadie lea.
 
 ## Qué no funciona todavía
 
-- `--tac` y `--asm` responden `modo aún no implementado` (Hitos 3 y 4).
+- `--asm` responde `modo aún no implementado` (Hito 4).
 - `--run` todavía no usa el binario ELF (llega en el Hito 4).
 - Los literales mayores que `INT_MAX` se truncan con `strtol`.
 
@@ -68,10 +76,11 @@ src/
 ├── util.[ch]       # buffer dinámico y utilidades
 ├── diagnosticos.[ch] # registro de errores con formato y límite de 20
 ├── lexer.[ch]      # tokens con línea y columna
-├── ast.[ch]        # nodos, liberación, impresión y evaluación constante
+├── ast.[ch]        # nodos, liberación, impresión y plegado de constantes
 ├── parser.[ch]     # descendente recursivo, recuperación con ';' y '}'
 ├── semantica.[ch]  # tabla de símbolos con ámbitos y diagnósticos
-└── interprete.[ch] # ejecución del AST para --run (Hito 2)
+├── interprete.[ch] # ejecución del AST para --run (Hito 2)
+└── tac.[ch]        # TAC: generación, propagación/plegado y código muerto
 ```
 
 ## Reparto de trabajo
@@ -80,6 +89,7 @@ src/
 | :--- | :--- | :--- |
 | Edwin Armando Tuz Yeh | `util`, `diagnosticos`, `lexer`, `ast`, `parser`, `compilador` | Hito 1 |
 | Edwin Armando Tuz Yeh | `semantica`, `interprete`, pruebas propias | Hito 2 |
+| Edwin Armando Tuz Yeh | `tac`, plegado de constantes, código muerto | Hito 3 |
 
 ## Bitácora de IA
 

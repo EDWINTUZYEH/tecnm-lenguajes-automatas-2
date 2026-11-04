@@ -9,6 +9,7 @@ Cada programa puede ser:
   - valido:   archivo.lj + archivo.out  -> se ejecuta con --run y se compara.
   - invalido: archivo.lj + archivo.err  -> --check debe salir con 1 y el
               diagnóstico esperado ("LINEA CODIGO") debe aparecer.
+  - tac:      archivo.lj + archivo.tac  -> --tac debe coincidir exacto.
 """
 from __future__ import annotations
 
@@ -38,6 +39,19 @@ def main() -> int:
     total = 0
     for prog in sorted(RAIZ.glob("*.lj")):
         total += 1
+        archivo_tac = prog.with_suffix(".tac")
+        if archivo_tac.exists():
+            esperado = archivo_tac.read_text(encoding="utf-8")
+            r = ejecutar(prog, "--tac")
+            if r.returncode != 0:
+                errores.append(f"{prog.name}: --tac terminó con {r.returncode}")
+            elif r.stdout != esperado:
+                errores.append(
+                    f"{prog.name}: TAC distinto\n"
+                    f"  esperado: {esperado!r}\n  obtenido: {r.stdout!r}"
+                )
+            continue
+
         archivo_err = prog.with_suffix(".err")
         if archivo_err.exists():
             linea, codigo = archivo_err.read_text(encoding="utf-8").split()

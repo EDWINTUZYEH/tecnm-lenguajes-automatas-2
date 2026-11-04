@@ -14,6 +14,7 @@
 #include "lexer.h"
 #include "parser.h"
 #include "semantica.h"
+#include "tac.h"
 
 /* Lee el archivo completo. Devuelve NULL si no se puede abrir. */
 static char *leer_archivo(const char *ruta) {
@@ -96,6 +97,14 @@ int compilar(const char *ruta, const char *modo) {
     }
 
     if (strcmp(modo, "--check") == 0) {
+        nodo_liberar(programa);
+        return 0;
+    }
+
+    if (strcmp(modo, "--tac") == 0) {
+        char *tac = tac_generar(programa);
+        fputs(tac, stdout);
+        free(tac);
         nodo_liberar(programa);
         return 0;
     }

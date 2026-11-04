@@ -225,3 +225,63 @@ int evaluar_constante(const Nodo *n, int *valor) {
             return 0;
     }
 }
+
+static void plegar(Nodo *n) {
+    if (n == NULL) return;
+
+    switch (n->tipo) {
+        case N_PROGRAMA:
+        case N_BLOQUE:
+            for (int i = 0; i < n->n_sentencias; i++) {
+                plegar(n->sentencias[i]);
+            }
+            break;
+        case N_DECLARAR:
+            if (n->tiene_init) plegar(n->expr);
+            break;
+        case N_ASIGNAR:
+        case N_IMPRIMIR:
+            plegar(n->expr);
+            break;
+        case N_SI:
+            plegar(n->expr);
+            plegar(n->cuerpo);
+            plegar(n->sino);
+            break;
+        case N_MIENTRAS:
+            plegar(n->expr);
+            plegar(n->cuerpo);
+            break;
+        case N_BIN: {
+            plegar(n->izq);
+            plegar(n->der);
+            int v;
+            if (evaluar_constante(n, &v)) {
+                nodo_liberar(n->izq);
+                nodo_liberar(n->der);
+                n->izq = NULL;
+                n->der = NULL;
+                n->tipo = N_NUM;
+                n->numero = v;
+            }
+            break;
+        }
+        case N_NEG: {
+            plegar(n->expr);
+            int v;
+            if (evaluar_constante(n, &v)) {
+                nodo_liberar(n->expr);
+                n->expr = NULL;
+                n->tipo = N_NUM;
+                n->numero = v;
+            }
+            break;
+        }
+        default:
+            break;
+    }
+}
+
+void ast_plegar_constantes(Nodo *nodo) {
+    plegar(nodo);
+}
