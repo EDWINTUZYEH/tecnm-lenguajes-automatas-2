@@ -54,8 +54,6 @@ Sin espacios extra ni punto final. Reglas obligatorias:
 5. Aceptar línea y columna 0 (se imprimen como 0).
 6. No incluir main().
 
-OUTPUT: Entrega solo el código C, sin explicaciones, y al final indica en una
-línea la complejidad en tiempo y espacio.
 ```
 
 ---
