@@ -63,7 +63,7 @@ del Hito 2, cuando `--run` esté disponible.
 | Blanca | `diagnosticos`, recuperación de errores (`S01`) | commit del Hito 1 |
 | Jimena | `ast`, impresión del árbol e integración `--ast` | commit del Hito 1 |
 
-## 5. Bitácora C-R-E-O (IA)
+## 5. Bitácora C-R-E-O 
 
 | Contexto | Rol | Especificación | Output | ¿Qué se aceptó, corrigió o rechazó? |
 | :--- | :--- | :--- | :--- | :--- |
