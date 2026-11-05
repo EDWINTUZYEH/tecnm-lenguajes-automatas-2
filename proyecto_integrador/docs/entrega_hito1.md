@@ -1,6 +1,6 @@
 # Entrega · Hito 1
 
-**Equipo:** Edwin Armando Tuz Yeh  
+**Equipo:** Edwin, Blanca y Jimena  
 **Repositorio:** https://github.com/EDWINTUZYEH/tecnm-lenguajes-automatas-2  
 **Tag:** `v0.1-hito1`  
 **Fecha:** 2026-11-04
@@ -59,7 +59,9 @@ del Hito 2, cuando `--run` esté disponible.
 
 | Integrante | Archivos / etapas | Commits principales |
 | :--- | :--- | :--- |
-| Edwin Armando Tuz Yeh | `util`, `diagnosticos`, `lexer.c`, `ast.c`, `parser.c`, `compilador.c` | commit del Hito 1 |
+| Edwin | `util`, `lexer`, `parser`, `compilador` | commit del Hito 1 |
+| Blanca | `diagnosticos`, recuperación de errores (`S01`) | commit del Hito 1 |
+| Jimena | `ast`, impresión del árbol e integración `--ast` | commit del Hito 1 |
 
 ## 5. Bitácora C-R-E-O (IA)
 

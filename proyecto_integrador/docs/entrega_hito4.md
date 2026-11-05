@@ -1,6 +1,6 @@
 # Entrega · Hito 4
 
-**Equipo:** Edwin Armando Tuz Yeh  
+**Equipo:** Edwin, Blanca y Jimena  
 **Repositorio:** https://github.com/EDWINTUZYEH/tecnm-lenguajes-automatas-2  
 **Tag:** `v1.0-hito4`  
 **Fecha:** 2026-11-04
@@ -74,7 +74,9 @@ Pruebas propias: 9/9 superadas
 
 | Integrante | Archivos / etapas | Commits principales |
 | :--- | :--- | :--- |
-| Edwin Armando Tuz Yeh | `codegen.[ch]`, `compilador.c` (modo `--asm`, `ejecutar_binario()`), eliminación del intérprete | commit del Hito 4 |
+| Edwin | `codegen.[ch]`, `compilador.c` (modo `--asm`, `ejecutar_binario()`), eliminación del intérprete | commit del Hito 4 |
+| Blanca | Verificación del binario ELF (`file`, `readelf`), pruebas `--run` de los 9 programas válidos | commit del Hito 4 |
+| Jimena | `README` final, documentación de arquitectura y demo de 5 minutos | commit del Hito 4 |
 
 ## 5. Bitácora C-R-E-O (IA)
 

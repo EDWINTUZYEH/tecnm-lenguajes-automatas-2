@@ -1,6 +1,6 @@
 # Avances del proyecto
 
-**Equipo:** Edwin Armando Tuz Yeh  
+**Equipo:** Edwin, Blanca y Jimena  
 **Repositorio:** https://github.com/EDWINTUZYEH/tecnm-lenguajes-automatas-2  
 **Tag actual:** `v1.0-hito4`
 

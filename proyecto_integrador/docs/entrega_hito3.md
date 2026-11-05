@@ -1,6 +1,6 @@
 # Entrega · Hito 3
 
-**Equipo:** Edwin Armando Tuz Yeh  
+**Equipo:** Edwin, Blanca y Jimena  
 **Repositorio:** https://github.com/EDWINTUZYEH/tecnm-lenguajes-automatas-2  
 **Tag:** `v0.3-hito3`  
 **Fecha:** 2026-11-04
@@ -95,7 +95,9 @@ antes de optimizar, y `a = 2; b = 6;` después.
 
 | Integrante | Archivos / etapas | Commits principales |
 | :--- | :--- | :--- |
-| Edwin Armando Tuz Yeh | `tac.[ch]`, `ast_plegar_constantes()` en `ast.c`, `compilador.c`, `tests/propias/revisar.py` | commit del Hito 3 |
+| Jimena | `tac.[ch]`, propagación de constantes y eliminación de código muerto | commit del Hito 3 |
+| Edwin | `ast_plegar_constantes()` en `ast.c`, `compilador.c` (`--tac`) | commit del Hito 3 |
+| Blanca | `tests/propias/revisar.py`, verificación de `09_optimizacion.lj` | commit del Hito 3 |
 
 ## 5. Bitácora C-R-E-O (IA)
 

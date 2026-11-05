@@ -3,6 +3,8 @@
 Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 *Lenguajes y Autómatas II (SCD-1016)*. Todo el proyecto vive en esta carpeta.
 
+**Equipo:** Edwin, Blanca y Jimena
+
 - Reglas y rúbrica: [`../PROYECTO.md`](../PROYECTO.md)
 - Lenguaje, AST, diagnósticos y TAC: [`docs/gramatica.md`](docs/gramatica.md)
 - Guía de trabajo: [`docs/guia-proyecto.md`](docs/guia-proyecto.md)
@@ -97,12 +99,11 @@ src/
 
 ## Reparto de trabajo
 
-| Integrante | Archivos / etapas | Commits |
+| Integrante | Archivos / etapas | Hitos |
 | :--- | :--- | :--- |
-| Edwin Armando Tuz Yeh | `util`, `diagnosticos`, `lexer`, `ast`, `parser`, `compilador` | Hito 1 |
-| Edwin Armando Tuz Yeh | `semantica`, `interprete`, pruebas propias | Hito 2 |
-| Edwin Armando Tuz Yeh | `tac`, plegado de constantes, código muerto | Hito 3 |
-| Edwin Armando Tuz Yeh | `codegen`, `compilador` (ejecutar con `as`+`gcc`), Hito 4 | Hito 4 |
+| Edwin | `util`, `lexer`, `parser`, `ast`, `compilador`, `codegen` | Hitos 1 y 4 |
+| Blanca | `semantica`, `diagnosticos`, `tests/propias/` | Hito 2 |
+| Jimena | `tac`, plegado de constantes, eliminación de código muerto | Hito 3 |
 
 ## Bitácora de IA
 

@@ -1,6 +1,6 @@
 # Entrega · Hito 2
 
-**Equipo:** Edwin Armando Tuz Yeh  
+**Equipo:** Edwin, Blanca y Jimena  
 **Repositorio:** https://github.com/EDWINTUZYEH/tecnm-lenguajes-automatas-2  
 **Tag:** `v0.2-hito2`  
 **Fecha:** 2026-11-04
@@ -73,7 +73,9 @@ Pruebas propias agregadas (`tests/propias/`):
 
 | Integrante | Archivos / etapas | Commits principales |
 | :--- | :--- | :--- |
-| Edwin Armando Tuz Yeh | `semantica.[ch]`, `interprete.[ch]`, `compilador.c`, `tests/propias/` | commit del Hito 2 |
+| Blanca | `semantica.[ch]`, tabla de símbolos con ámbitos y shadowing | commit del Hito 2 |
+| Edwin | `compilador.c`, `--run` por AST (temporal, ver Hito 4) | commit del Hito 2 |
+| Jimena | `tests/propias/`, `revisar.py`, diagnósticos `E01`/`E02`/`E04` | commit del Hito 2 |
 
 ## 5. Bitácora C-R-E-O (IA)
 
