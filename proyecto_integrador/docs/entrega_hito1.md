@@ -14,7 +14,7 @@ Comandos exactos que se pueden ejecutar (desde `proyecto_integrador/`):
 ```bash
 make                                      # construye ./lenguajito (sin warnings, -Wall -Wextra -Werror)
 make test-hito1                           # Hito 1: 4/4 pruebas superadas
-make test-propias                         # pruebas propias: 13/13
+python3 tests/propias/revisar.py          # pruebas propias: 13/13
 ./lenguajito tests/validos/01_suma.lj --tokens
 ./lenguajito tests/hito1/01_expresion.lj --ast
 ./lenguajito tests/hito1/04_invalida.lj --check
@@ -99,7 +99,7 @@ Salida de `make test-hito1` (tal como la imprime el runner):
 Hito 1: 4/4 pruebas superadas
 ```
 
-Salida de `make test-propias`:
+Salida de `python3 tests/propias/revisar.py`:
 
 ```text
 Hito 1 propias: 13/13 pruebas superadas
@@ -148,7 +148,7 @@ Pruebas propias agregadas (ruta y qué cubren), en `tests/propias/`:
 | Hito 1: lexer con `LINEA:COLUMNA` y errores léxicos. | Ingeniero de compiladores experto en C. | `docs/gramatica.md` §2 (tokens y formato `--tokens`); `-Wall -Wextra -Werror`, solo libc. | `lexer.[ch]` | **Aceptada** tras auditar tipos (`KW`, `ID`, `NUM`, `OP`, `DELIM`, `EOF`), columnas y el manejo de CRLF; se verificó `6:1 EOF` en archivos con comentario final. |
 | Hito 1: parser descendente y AST exacto. | Ingeniero de compiladores experto en C. | `docs/gramatica.md` §3 (EBNF LL(1)) y §4 (formato del AST); sin flex/bison. | `parser.[ch]`, `ast.[ch]` | **Rechazada** la primera versión que imprimía el AST con saltos/espacios extra (las pruebas doradas comparan la cadena exacta). **Aceptada** tras comparar la salida con `tests/hito1/*.ast` (3/3 exactos) y `04_invalida.err` (`S01` en línea 1). |
 | Hito 1: `--check` semántico básico. | Ingeniero de compiladores experto en C. | `docs/gramatica.md` §5–6 (declaración obligatoria, ámbitos, formato de diagnósticos). | `semantica.[ch]` (pila de ámbitos, shadowing, `E01`) | **Aceptada** tras comprobar que los 9 programas de `tests/validos/` pasan `--check` sin errores; se limitó el alcance a `E01` y se documentó que `E02`/`E04` y el análisis por caminos llegan en el Hito 2. |
-| Cierre del entregable. | Auditor. | Rúbrica del hito y checklist de 10 puntos; `tests/` intocable. | `make`, `make test-hito1` (4/4), `make test-propias` (13/13) | **Aceptada** la entrega: sin warnings con `-Werror`, doradas sin modificar (`git status`), diagnósticos con el formato exacto de `docs/gramatica.md` §6. |
+| Cierre del entregable. | Auditor. | Rúbrica del hito y checklist de 10 puntos; `tests/` intocable. | `make`, `make test-hito1` (4/4), `tests/propias/revisar.py` (13/13) | **Aceptada** la entrega: sin warnings con `-Werror`, doradas sin modificar (`git status`), diagnósticos con el formato exacto de `docs/gramatica.md` §6. |
 
 ## 6. Demo
 
@@ -164,4 +164,4 @@ Guion sugerido (3 minutos):
    la especificación.
 4. `./lenguajito tests/propias/11_ambito_bloque.lj --check` → `E01` con
    el ámbito del bloque (aparece `5:7 ... variable no declarada 'y'`).
-5. `make test-hito1` → `4/4`; `make test-propias` → `13/13`.
+5. `make test-hito1` → `4/4`; `python3 tests/propias/revisar.py` → `13/13`.

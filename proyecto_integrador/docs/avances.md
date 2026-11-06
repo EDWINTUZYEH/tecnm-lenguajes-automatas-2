@@ -4,9 +4,10 @@
 **Repositorio:** https://github.com/EDWINTUZYEH/tecnm-lenguajes-automatas-2
 **Tag actual:** `v0.1-hito1`
 
-Formato de cada avance: qué compila hoy (comando exacto), qué falla y por
-qué, qué sigue, y el commit. Los avances de los Hitos 2, 3 y 4 se
-documentarán en las sesiones 15, 25 y 35 respectivamente; aún no existen.
+Completa una sección antes de cada clase de avance. Tres bullets y el commit.
+
+Los avances de los Hitos 2, 3 y 4 se documentarán en las sesiones 15, 25 y
+35 respectivamente; aún no existen (el Hito 2 no ha sido trabajado).
 
 ---
 

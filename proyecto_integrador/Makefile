@@ -4,7 +4,7 @@ SRC     := $(wildcard src/*.c)
 HDR     := $(wildcard src/*.h)
 BIN     := lenguajito
 
-.PHONY: all test test-hito1 test-hito2 test-hito3 test-hito4 test-propias clean
+.PHONY: all test test-hito1 test-hito2 test-hito3 test-hito4 clean
 
 all: $(BIN)
 
@@ -25,9 +25,6 @@ test-hito3: $(BIN)
 
 test-hito4: $(BIN)
 	python3 tests/run.py --hito4
-
-test-propias: $(BIN)
-	python3 tests/propias/revisar.py
 
 clean:
 	rm -f $(BIN)

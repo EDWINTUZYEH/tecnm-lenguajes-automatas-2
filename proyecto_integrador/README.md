@@ -1,5 +1,8 @@
 # Proyecto Integrador · Lenguajito
 
+Empieza por la **[guía del proyecto](docs/guia-proyecto.md)**: explica cómo se
+trabaja, qué se entrega en cada hito y cómo se evalúa.
+
 Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 *Lenguajes y Autómatas II (SCD-1016)*. Todo el proyecto vive en esta carpeta.
 
@@ -27,7 +30,7 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 ```bash
 make             # construye ./lenguajito
 make test-hito1  # pruebas del Hito 1 → 4/4
-make test-propias # pruebas propias del equipo → 13/13
+python3 tests/propias/revisar.py  # pruebas propias del equipo → 13/13
 ./lenguajito programa.lj --tokens
 ./lenguajito programa.lj --ast
 ./lenguajito programa.lj --check
@@ -61,7 +64,7 @@ make test-propias # pruebas propias del equipo → 13/13
 - Códigos de salida del compilador: `0` sin errores, `1` errores de
   compilación, `2` uso incorrecto de la línea de comandos.
 - `make test-hito1` → `4/4 pruebas superadas`;
-  `make test-propias` → `13/13 pruebas superadas`.
+  `python3 tests/propias/revisar.py` → `13/13 pruebas superadas`.
 
 ## Qué no funciona todavía
 
