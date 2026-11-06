@@ -6,9 +6,6 @@
 
 Completa una sección antes de cada clase de avance. Tres bullets y el commit.
 
-Los avances de los Hitos 2, 3 y 4 se documentarán en las sesiones 15, 25 y
-35 respectivamente; aún no existen (el Hito 2 no ha sido trabajado).
-
 ---
 
 ## Avance 0 · Sesión 05 · Hito 0
