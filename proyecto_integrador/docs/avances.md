@@ -33,9 +33,9 @@ Completa una sección antes de cada clase de avance. Tres bullets y el commit.
    Hito 1).
 3. **Qué sigue**: `--ast` con el formato de la especificación, `--check`
    con `S01`/`E01` básico y `make test-hito1` en verde para la sesión 10.
-4. **Commit**: `9154b05` (Hito 1, tag `v0.1-hito1`, `make test-hito1` →
-   4/4). El cierre del entregable se consolida en el commit del tag
-   `v0.1-hito1` re-creado al terminar la verificación de esta entrega.
+4. **Commit**: `9154b05` (Hito 1 original); el entregable se consolida en
+   el tag `v0.1-hito1` (incluye la restauración de los archivos del
+   maestro y la verificación en clon limpio: `make test-hito1` → 4/4).
 
 ---
 
