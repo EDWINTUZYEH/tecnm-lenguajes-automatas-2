@@ -1,0 +1,18 @@
+2:1 KW int
+2:5 ID a
+2:7 OP =
+2:9 NUM 1
+2:10 DELIM ;
+3:1 KW int
+3:5 ID b
+3:7 OP =
+3:9 NUM 2
+3:10 DELIM ;
+5:1 KW print
+5:6 DELIM (
+5:7 ID a
+5:9 OP +
+5:11 ID b
+5:12 DELIM )
+5:13 DELIM ;
+6:1 EOF

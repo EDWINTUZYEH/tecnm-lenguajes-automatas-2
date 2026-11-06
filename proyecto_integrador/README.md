@@ -15,10 +15,10 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 
 | Hito | Tema | Estado |
 | :--- | :--- | :--- |
-| 1 | Léxico, sintaxis y AST (`--tokens`, `--ast`, `--check`) | Completo |
-| 2 | Sentencias, ámbitos y diagnósticos (`E01`, `E02`, `E04`) | Completo |
-| 3 | TAC con plegado de constantes y código muerto | Completo |
-| 4 | Backend x86-64, enlace y binario ELF | Completo |
+| 1 | Léxico, sintaxis y AST (`--tokens`, `--ast`, `--check`) | ✅ terminado (tag `v0.1-hito1`) |
+| 2 | Sentencias, ámbitos y diagnósticos completos (`E02`, `E04`, `--run`) | ⏳ pendiente (sesión 20) |
+| 3 | TAC con plegado de constantes y código muerto | ⏳ pendiente (sesión 30) |
+| 4 | Backend x86-64, enlace y binario ELF | ⏳ pendiente (sesión 40) |
 
 > Esta tabla se actualiza en cada entrega. Ver `docs/entrega_hitoN.md`.
 
@@ -26,85 +26,79 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 
 ```bash
 make             # construye ./lenguajito
-make test        # ejecuta todas las pruebas del curso
-make test-hito1 # solo las del Hito 1
-make test-hito2 # solo las del Hito 2
-make test-hito3 # solo las del Hito 3
-make test-hito4 # solo las del Hito 4
-make test-propias # pruebas propias del equipo (tests/propias/)
+make test-hito1  # pruebas del Hito 1 → 4/4
+make test-propias # pruebas propias del equipo → 13/13
 ./lenguajito programa.lj --tokens
 ./lenguajito programa.lj --ast
 ./lenguajito programa.lj --check
-./lenguajito programa.lj --tac
-./lenguajito programa.lj --run
 ```
+
+> `make test` (toda la suite) **todavía no está en verde**: incluye las
+> pruebas doradas de los Hitos 2, 3 y 4, que se entregan en las sesiones
+> siguientes. La evidencia del Hito 1 es `make test-hito1`.
 
 ## Qué funciona hoy
 
 - `--tokens`: imprime `LINEA:COLUMNA TIPO lexema`, un token por línea; el
-  último token es `LINEA:COLUMNA EOF`. Los comentarios `//`, los espacios, los
-  tabuladores y los saltos de línea se ignoran.
-- `--ast`: imprime el árbol en el formato de la especificación (una sola
-  línea). Cubre declaraciones, asignaciones, `if/else`, `while`, `print`,
-  bloques y expresiones con la precedencia de la gramática.
-- `--check`: análisis léxico, sintáctico y semántico completo:
-  - ámbitos anidados por bloque y shadowing;
-  - `E01` variable no declarada / leída antes de asignar valor;
-  - `E02` redeclaración en el mismo ámbito;
-  - `E04` división entre cero constante (incluye expresiones como `1 - 1`);
-  - `S01` de sintaxis con recuperación: se reportan varios errores por pasada
-    (máximo 20) y el compilador sale con código 1.
-- `--tac`: genera código de tres direcciones optimizado:
-  - temporales únicos `_t0`, `_t1`, ... sin reutilizar;
-  - `ifFalso`, `goto`, etiquetas `L1`, `L2`, ..., `print`;
-  - plegado de constantes (no queda ninguna operación entre constantes);
-  - propagación de constantes a nivel TAC y eliminación de código muerto:
-    no quedan temporales asignados que nadie lea.
-- `--asm`: genera ensamblador x86-64 (AT&T) con `.text`, `.globl main`,
-  prólogo, cuerpo y epílogo; `print` se implementa con `printf(3)`.
-- `--run`: compila el programa al binario generado (`as --64` y `gcc`), lo
-  ejecuta y reenvía su salida; es un ELF de 64 bits (verificado con
-  `file`/`readelf`).
-- Las pruebas doradas pasan completas: `make test` → `20/20 pruebas
-  superadas`, y las pruebas propias: `make test-propias` → `9/9`.
+  último token es `LINEA:COLUMNA EOF`. Los comentarios `//`, los espacios,
+  los tabuladores y los saltos de línea se ignoran (los archivos CRLF
+  funcionan igual).
+- `--ast`: imprime el árbol en una sola línea con el formato de la
+  especificación (sección 4 de `docs/gramatica.md`). Cubre declaraciones,
+  asignaciones, `if/else`, `while`, `print`, bloques y expresiones con la
+  precedencia de la gramática (asociatividad izquierda).
+- `--check`: análisis léxico, sintáctico y semántico básico:
+  - `S01` de sintaxis y de carácter inválido; el parser recupera en `;` y
+    `}` y reporta varios errores por pasada (máximo 20);
+  - `E01` **variable no declarada** (lectura o asignación) y
+    **leída antes de asignar valor**, con ámbitos anidados por bloque y
+    shadowing (el ámbito interno oculta al externo mientras el bloque
+    esté activo; al cerrarlo, sus variables dejan de existir);
+  - el análisis es conservador por ámbito: no distingue caminos de
+    `if`/`while` (se afina en el Hito 2);
+  - los diagnósticos usan el formato `archivo:línea:columna: error EXX:
+    mensaje` y el compilador sale con código 1 si hay errores.
+- Códigos de salida del compilador: `0` sin errores, `1` errores de
+  compilación, `2` uso incorrecto de la línea de comandos.
+- `make test-hito1` → `4/4 pruebas superadas`;
+  `make test-propias` → `13/13 pruebas superadas`.
 
-## Qué no funciona / límites conocidos
+## Qué no funciona todavía
 
-- Los literales enteros mayores que `INT_MAX` se truncan con `strtol`.
-- La división entre cero en tiempo de ejecución (divisor no constante) no
-  está verificada: la semántica solo detecta el caso constante (`E04`),
-  como indica la especificación.
-- El compilador genera código para la ABI de Linux x86-64 (probado con
-  `gcc` y `as` de GNU); no genera binarios para otros sistemas.
-- Las extensiones del lenguaje (`for`, `float`, funciones, etc.) **no**
-  están implementadas: no forman parte del contrato base y requieren
-  autorización previa.
+- `E02` (redeclaración en el mismo ámbito) y `E04` (división entre cero
+  constante): llegan en el **Hito 2**, junto con el análisis semántico
+  completo y `--run`.
+- Lectura antes de asignar por caminos (`if`/`while`): hoy el análisis es
+  conservador; el diagnóstico exacto en todos los caminos es del Hito 2.
+- `--tac`, `--asm` y `--run` responden `modo ... aún no implementado`
+  (Hitos 3 y 4).
+- Los literales enteros mayores que `INT_MAX` se truncan con `strtol`
+  (el lenguaje base no exige otro comportamiento).
 
 ## Arquitectura
 
 ```text
 src/
-├── main.c          # interfaz de línea de comandos (proporcionada)
-├── compilador.c    # orquesta las etapas según el modo
+├── main.c            # interfaz de línea de comandos (proporcionada)
+├── compilador.c      # orquesta las etapas según el modo
 ├── compilador.h
-├── util.[ch]       # buffer dinámico y utilidades
+├── util.[ch]         # buffer dinámico y utilidades
 ├── diagnosticos.[ch] # registro de errores con formato y límite de 20
-├── lexer.[ch]      # tokens con línea y columna
-├── ast.[ch]        # nodos, liberación, impresión y plegado de constantes
-├── parser.[ch]     # descendente recursivo, recuperación con ';' y '}'
-├── semantica.[ch]  # tabla de símbolos con ámbitos y diagnósticos
-├── tac.[ch]        # TAC: generación, propagación/plegado y código muerto
-└── codegen.[ch]    # backend x86-64 (AT&T) y enlace mediante as + gcc
+├── lexer.[ch]        # tokens con línea y columna
+├── ast.[ch]          # nodos, liberación e impresión del AST
+├── parser.[ch]       # descendente recursivo, recuperación con ';' y '}'
+└── semantica.[ch]    # ámbitos por bloque, shadowing y E01 (variable no declarada)
 ```
 
 ## Reparto de trabajo
 
-| Integrante | Archivos / etapas | Hitos |
+| Integrante | Archivos / etapas | Entrega |
 | :--- | :--- | :--- |
-| Edwin | `util`, `lexer`, `parser`, `ast`, `compilador`, `codegen` | Hitos 1 y 4 |
-| Blanca | `semantica`, `diagnosticos`, `tests/propias/` | Hito 2 |
-| Jimena | `tac`, plegado de constantes, eliminación de código muerto | Hito 3 |
+| Edwin | `util`, `lexer`, `parser`, `ast`, `compilador` (léxico, sintaxis, AST, CLI) | Hito 1 (tag `v0.1-hito1`) |
+| Blanca | `diagnosticos`, `semantica` (ámbito y E01), `tests/propias/` | Hito 1 (tag `v0.1-hito1`) |
+| Jimena | Documentación del entregable (`README`, `docs/avances.md`, `docs/entrega_hito1.md`) y preparación de la demo | Hito 1 (tag `v0.1-hito1`) |
 
 ## Bitácora de IA
 
-Cada entrega incluye su bitácora C-R-E-O en `docs/entrega_hitoN.md`.
+Cada entrega incluye su bitácora C-R-E-O en `docs/entrega_hitoN.md`
+([`docs/entrega_hito1.md`](docs/entrega_hito1.md) para el Hito 1).

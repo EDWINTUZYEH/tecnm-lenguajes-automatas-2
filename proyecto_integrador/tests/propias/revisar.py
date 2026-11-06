@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
-"""Ejecuta las pruebas propias del equipo (tests/propias/).
+"""Ejecuta las pruebas propias del Hito 1 de Lenguajito.
 
 Uso (desde proyecto_integrador/):
     python3 tests/propias/revisar.py
-    make test-propias
 
-Cada programa puede ser:
-  - valido:   archivo.lj + archivo.out  -> se ejecuta con --run y se compara.
-  - invalido: archivo.lj + archivo.err  -> --check debe salir con 1 y el
-              diagnóstico esperado ("LINEA CODIGO") debe aparecer.
-  - tac:      archivo.lj + archivo.tac  -> --tac debe coincidir exacto.
+Convención de archivos, junto a cada `caso.lj`:
+
+- `caso.tokens` : salida exacta esperada de `./lenguajito caso.lj --tokens`
+- `caso.ast`    : salida exacta esperada de `./lenguajito caso.lj --ast`
+- `caso.err`    : una línea `LINEA CODIGO` por diagnóstico esperado en
+                  `./lenguajito caso.lj --check`; el programa debe salir
+                  con código 1 y cada diagnóstico debe aparecer en stdout
+- (nada)        : `--check` debe terminar con código 0 y sin diagnósticos
 """
 from __future__ import annotations
 
@@ -22,6 +24,10 @@ RAIZ = Path(__file__).resolve().parent
 BIN = RAIZ.parent.parent / "lenguajito"
 
 
+def normalizar(texto: str) -> str:
+    return texto.replace("\r\n", "\n").strip()
+
+
 def ejecutar(archivo: Path, modo: str) -> subprocess.CompletedProcess:
     return subprocess.run(
         [str(BIN), str(archivo), modo],
@@ -30,54 +36,83 @@ def ejecutar(archivo: Path, modo: str) -> subprocess.CompletedProcess:
     )
 
 
+def revisar(errores: list[str]) -> tuple[int, int]:
+    casos = sorted(RAIZ.glob("*.lj"))
+    fallos = 0
+    for prog in casos:
+        nombre = prog.name
+        fallo = False
+
+        esperado_tokens = prog.with_suffix(".tokens")
+        if esperado_tokens.exists():
+            r = ejecutar(prog, "--tokens")
+            esperado = normalizar(esperado_tokens.read_text(encoding="utf-8"))
+            if r.returncode != 0:
+                errores.append(f"{nombre}: --tokens terminó con {r.returncode}")
+                fallo = True
+            elif normalizar(r.stdout) != esperado:
+                errores.append(
+                    f"{nombre}: tokens distintos\n"
+                    f"  esperado: {esperado!r}\n  obtenido: {normalizar(r.stdout)!r}"
+                )
+                fallo = True
+
+        esperado_ast = prog.with_suffix(".ast")
+        if esperado_ast.exists():
+            r = ejecutar(prog, "--ast")
+            esperado = normalizar(esperado_ast.read_text(encoding="utf-8"))
+            if r.returncode != 0:
+                errores.append(f"{nombre}: --ast terminó con {r.returncode}")
+                fallo = True
+            elif normalizar(r.stdout) != esperado:
+                errores.append(
+                    f"{nombre}: AST distinto\n"
+                    f"  esperado: {esperado}\n  obtenido: {normalizar(r.stdout)}"
+                )
+                fallo = True
+
+        esperado_err = prog.with_suffix(".err")
+        r = ejecutar(prog, "--check")
+        if esperado_err.exists():
+            if r.returncode != 1:
+                errores.append(f"{nombre}: --check debió salir con 1, salió con {r.returncode}")
+                fallo = True
+            else:
+                for linea in esperado_err.read_text(encoding="utf-8").splitlines():
+                    linea = linea.strip()
+                    if not linea:
+                        continue
+                    lin, codigo = linea.split()
+                    if not re.search(rf":{lin}:\d+: error {codigo}:", r.stdout):
+                        errores.append(
+                            f"{nombre}: se esperaba un diagnóstico '{codigo}' en la línea {lin}\n"
+                            f"  obtenido: {r.stdout!r}"
+                        )
+                        fallo = True
+        else:
+            if r.returncode != 0:
+                errores.append(
+                    f"{nombre}: --check debió salir con 0, salió con {r.returncode}\n"
+                    f"  obtenido: {r.stdout!r}"
+                )
+                fallo = True
+
+        if fallo:
+            fallos += 1
+    return len(casos), fallos
+
+
 def main() -> int:
     if not BIN.exists():
-        print(f"No existe {BIN}. Ejecuta `make` primero.")
+        print(f"❌ No existe {BIN}. Ejecuta `make` primero.")
         return 1
 
     errores: list[str] = []
-    total = 0
-    for prog in sorted(RAIZ.glob("*.lj")):
-        total += 1
-        archivo_tac = prog.with_suffix(".tac")
-        if archivo_tac.exists():
-            esperado = archivo_tac.read_text(encoding="utf-8")
-            r = ejecutar(prog, "--tac")
-            if r.returncode != 0:
-                errores.append(f"{prog.name}: --tac terminó con {r.returncode}")
-            elif r.stdout != esperado:
-                errores.append(
-                    f"{prog.name}: TAC distinto\n"
-                    f"  esperado: {esperado!r}\n  obtenido: {r.stdout!r}"
-                )
-            continue
-
-        archivo_err = prog.with_suffix(".err")
-        if archivo_err.exists():
-            linea, codigo = archivo_err.read_text(encoding="utf-8").split()
-            r = ejecutar(prog, "--check")
-            if r.returncode != 1 or not re.search(
-                rf":{linea}:\d+: error {codigo}:", r.stdout
-            ):
-                errores.append(
-                    f"{prog.name}: se esperaba {codigo} en la línea {linea}\n"
-                    f"  obtenido: {r.stdout!r} (código {r.returncode})"
-                )
-            continue
-
-        esperado = prog.with_suffix(".out").read_text(encoding="utf-8")
-        r = ejecutar(prog, "--run")
-        if r.returncode != 0:
-            errores.append(f"{prog.name}: --run terminó con {r.returncode}")
-        elif r.stdout != esperado:
-            errores.append(
-                f"{prog.name}: salida distinta\n"
-                f"  esperado: {esperado!r}\n  obtenido: {r.stdout!r}"
-            )
+    total, fallos = revisar(errores)
 
     for error in errores:
-        print(f"ERROR: {error}")
-    print(f"\nPruebas propias: {total - len(errores)}/{total} superadas")
+        print(f"❌ {error}")
+    print(f"\nHito 1 propias: {total - fallos}/{total} pruebas superadas")
     return 0 if not errores else 1
 
 

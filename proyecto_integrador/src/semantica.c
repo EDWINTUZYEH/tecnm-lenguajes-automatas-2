@@ -1,13 +1,37 @@
-/* semantica.c - análisis semántico de Lenguajito. */
+/* semantica.c - análisis semántico de Lenguajito (Hito 1).
+ *
+ * Alcance del Hito 1 (tal como lo pide la DoD del hito):
+ *   - Ámbitos anidados por bloque `{ }` con una pila propia. Al cerrar
+ *     el bloque, sus símbolos dejan de existir.
+ *   - Shadowing: un nombre declarado en un ámbito interno oculta al
+ *     externo mientras el bloque esté activo.
+ *   - E01 (variable no declarada): al leer o asignar un nombre que no
+ *     existe en ningún ámbito visible.
+ *   - E01 (leída antes de asignar valor): al leer un nombre declarado
+ *     que nunca ha recibido un valor. Es un análisis conservador por
+ *     ámbito: no distingue caminos de ejecución (si/while), así que
+ *     puede aceptar un programa donde un camino deja la variable sin
+ *     asignar. Esa precisión llega en el Hito 2.
+ *
+ * Queda para el Hito 2 (no se implementa aquí):
+ *   - E02: redeclaración de un nombre en el mismo ámbito.
+ *   - E04: división entre cero constante.
+ *   - Análisis por caminos para la lectura antes de asignar.
+ *
+ * Los diagnósticos siguen el formato de docs/gramatica.md, sección 6,
+ * y se acumulan hasta MAX_ERRORES (20) en una sola pasada.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "semantica.h"
 
+#define NOMBRE_MAX 128
+
 typedef struct {
-    char nombre[128];
-    int inicializada; /* ¿tiene valor asignado? */
+    char nombre[NOMBRE_MAX];
+    int inicializada;   /* 1 si tiene un valor asignado */
 } Simbolo;
 
 typedef struct {
@@ -43,15 +67,6 @@ static void ambito_apilar(Semantica *s) {
 static void ambito_desapilar(Semantica *s) {
     Ambito *a = &s->items[--s->n];
     free(a->items);
-}
-
-/* Busca solo en el ámbito más interno. */
-static Simbolo *buscar_local(Semantica *s, const char *nombre) {
-    Ambito *a = &s->items[s->n - 1];
-    for (int i = a->n - 1; i >= 0; i--) {
-        if (strcmp(a->items[i].nombre, nombre) == 0) return &a->items[i];
-    }
-    return NULL;
 }
 
 /* Busca del ámbito más interno al más externo (shadowing). */
@@ -98,18 +113,16 @@ static void revisar_sentencia(Semantica *s, const Nodo *n) {
             break;
 
         case N_DECLARAR: {
-            Simbolo *existente = buscar_local(s, n->nombre);
-            if (existente != NULL) {
-                error_agregar(s->errores, n->linea, n->columna, "E02",
-                              "redeclaración de '%s' en el mismo ámbito",
-                              n->nombre);
-            }
+            /* El inicializador se revisa antes de que el nombre entre al
+             * ámbito: `int x = x;` usa x sin declarar (E01), igual que
+             * manda una lectura arriba-abajo. */
             if (n->tiene_init && n->expr != NULL) {
                 revisar_expresion(s, n->expr);
             }
-            if (existente == NULL) {
-                declarar(s, n->nombre, n->tiene_init);
-            }
+            /* Si el nombre ya existe en este ámbito, la nueva declaración
+             * lo oculta para las búsquedas posteriores. E02 (redeclaración
+             * en el mismo ámbito) se reporta hasta el Hito 2. */
+            declarar(s, n->nombre, n->tiene_init);
             break;
         }
 
@@ -168,18 +181,10 @@ static void revisar_expresion(Semantica *s, const Nodo *n) {
             revisar_expresion(s, n->expr);
             break;
 
-        case N_BIN: {
+        case N_BIN:
             revisar_expresion(s, n->izq);
             revisar_expresion(s, n->der);
-            if (strcmp(n->operador, "/") == 0) {
-                int divisor = 0;
-                if (evaluar_constante(n->der, &divisor) && divisor == 0) {
-                    error_agregar(s->errores, n->der->linea, n->der->columna,
-                                  "E04", "división entre cero constante");
-                }
-            }
             break;
-        }
 
         default:
             break;

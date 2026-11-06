@@ -1,0 +1,5 @@
+// suma de 1 y 2
+int a = 1;   // primero
+int b = 2;
+
+print(a + b); // imprime 3
