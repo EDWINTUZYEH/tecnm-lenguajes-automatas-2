@@ -6,7 +6,7 @@
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
 **Estudiante:** Edwin Armando Tuz Yeh  
 **Matrícula:** 24531358  
-**Track:** C 
+**Track:** [C]
 
 ---
 
