@@ -1,37 +1,13 @@
-/* semantica.c - análisis semántico de Lenguajito (Hito 1).
- *
- * Alcance del Hito 1 (tal como lo pide la DoD del hito):
- *   - Ámbitos anidados por bloque `{ }` con una pila propia. Al cerrar
- *     el bloque, sus símbolos dejan de existir.
- *   - Shadowing: un nombre declarado en un ámbito interno oculta al
- *     externo mientras el bloque esté activo.
- *   - E01 (variable no declarada): al leer o asignar un nombre que no
- *     existe en ningún ámbito visible.
- *   - E01 (leída antes de asignar valor): al leer un nombre declarado
- *     que nunca ha recibido un valor. Es un análisis conservador por
- *     ámbito: no distingue caminos de ejecución (si/while), así que
- *     puede aceptar un programa donde un camino deja la variable sin
- *     asignar. Esa precisión llega en el Hito 2.
- *
- * Queda para el Hito 2 (no se implementa aquí):
- *   - E02: redeclaración de un nombre en el mismo ámbito.
- *   - E04: división entre cero constante.
- *   - Análisis por caminos para la lectura antes de asignar.
- *
- * Los diagnósticos siguen el formato de docs/gramatica.md, sección 6,
- * y se acumulan hasta MAX_ERRORES (20) en una sola pasada.
- */
+/* semantica.c - análisis semántico de Lenguajito. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "semantica.h"
 
-#define NOMBRE_MAX 128
-
 typedef struct {
-    char nombre[NOMBRE_MAX];
-    int inicializada;   /* 1 si tiene un valor asignado */
+    char nombre[128];
+    int inicializada; /* ¿tiene valor asignado? */
 } Simbolo;
 
 typedef struct {
@@ -46,6 +22,20 @@ typedef struct {
     int cap;
     ListaErrores *errores;
 } Semantica;
+
+/* Estado de inicialización de un símbolo visible, para comparar caminos. */
+typedef struct {
+    int ambito;
+    int indice;
+    int inicializada;
+} EstadoSimbolo;
+
+/* Fotografía de los estados de inicialización de todos los símbolos
+ * visibles en un punto del análisis. */
+typedef struct {
+    EstadoSimbolo *items;
+    int n;
+} Instantanea;
 
 static void ambito_apilar(Semantica *s) {
     if (s->n == s->cap) {
@@ -67,6 +57,15 @@ static void ambito_apilar(Semantica *s) {
 static void ambito_desapilar(Semantica *s) {
     Ambito *a = &s->items[--s->n];
     free(a->items);
+}
+
+/* Busca solo en el ámbito más interno. */
+static Simbolo *buscar_local(Semantica *s, const char *nombre) {
+    Ambito *a = &s->items[s->n - 1];
+    for (int i = a->n - 1; i >= 0; i--) {
+        if (strcmp(a->items[i].nombre, nombre) == 0) return &a->items[i];
+    }
+    return NULL;
 }
 
 /* Busca del ámbito más interno al más externo (shadowing). */
@@ -97,6 +96,63 @@ static void declarar(Semantica *s, const char *nombre, int inicializada) {
     simbolo->inicializada = inicializada;
 }
 
+/* Guarda el estado de inicialización de todos los símbolos visibles. */
+static void instantanea_capturar(const Semantica *s, Instantanea *snap) {
+    int total = 0;
+    for (int k = 0; k < s->n; k++) total += s->items[k].n;
+
+    snap->n = total;
+    snap->items = NULL;
+    if (total == 0) return;
+
+    snap->items = malloc((size_t)total * sizeof *snap->items);
+    if (snap->items == NULL) {
+        fprintf(stderr, "error: memoria insuficiente\n");
+        exit(2);
+    }
+
+    int p = 0;
+    for (int k = 0; k < s->n; k++) {
+        for (int i = 0; i < s->items[k].n; i++) {
+            snap->items[p].ambito = k;
+            snap->items[p].indice = i;
+            snap->items[p].inicializada = s->items[k].items[i].inicializada;
+            p++;
+        }
+    }
+}
+
+/* Restaura los estados guardados. Se usa antes de analizar la rama else y
+ * al terminar un while, porque el cuerpo pudo no ejecutarse. */
+static void instantanea_restaurar(Semantica *s, const Instantanea *snap) {
+    for (int i = 0; i < snap->n; i++) {
+        const EstadoSimbolo *e = &snap->items[i];
+        s->items[e->ambito].items[e->indice].inicializada = e->inicializada;
+    }
+}
+
+static void instantanea_liberar(Instantanea *snap) {
+    free(snap->items);
+    snap->items = NULL;
+    snap->n = 0;
+}
+
+/* Une los estados de las dos ramas de un if. Una variable queda
+ * definitivamente inicializada si ya lo estaba antes o si ambas ramas la
+ * inicializan. Si no hay else, la rama "no" conserva el estado anterior. */
+static void fusionar_caminos(Semantica *s, const Instantanea *antes,
+                             const Instantanea *rama_si,
+                             const Instantanea *rama_no) {
+    for (int i = 0; i < antes->n; i++) {
+        if (i >= rama_si->n || i >= rama_no->n) break;
+        const EstadoSimbolo *e = &antes->items[i];
+        int en_si = rama_si->items[i].inicializada;
+        int en_no = rama_no->items[i].inicializada;
+        int definitiva = e->inicializada || (en_si && en_no);
+        s->items[e->ambito].items[e->indice].inicializada = definitiva;
+    }
+}
+
 static void revisar_expresion(Semantica *s, const Nodo *n);
 
 static void revisar_sentencia(Semantica *s, const Nodo *n) {
@@ -113,16 +169,18 @@ static void revisar_sentencia(Semantica *s, const Nodo *n) {
             break;
 
         case N_DECLARAR: {
-            /* El inicializador se revisa antes de que el nombre entre al
-             * ámbito: `int x = x;` usa x sin declarar (E01), igual que
-             * manda una lectura arriba-abajo. */
+            Simbolo *existente = buscar_local(s, n->nombre);
+            if (existente != NULL) {
+                error_agregar(s->errores, n->linea, n->columna, "E02",
+                              "redeclaración de '%s' en el mismo ámbito",
+                              n->nombre);
+            }
             if (n->tiene_init && n->expr != NULL) {
                 revisar_expresion(s, n->expr);
             }
-            /* Si el nombre ya existe en este ámbito, la nueva declaración
-             * lo oculta para las búsquedas posteriores. E02 (redeclaración
-             * en el mismo ámbito) se reporta hasta el Hito 2. */
-            declarar(s, n->nombre, n->tiene_init);
+            if (existente == NULL) {
+                declarar(s, n->nombre, n->tiene_init);
+            }
             break;
         }
 
@@ -137,16 +195,46 @@ static void revisar_sentencia(Semantica *s, const Nodo *n) {
             break;
         }
 
-        case N_SI:
-            revisar_expresion(s, n->expr);
-            revisar_sentencia(s, n->cuerpo);
-            if (n->sino != NULL) revisar_sentencia(s, n->sino);
-            break;
+        case N_SI: {
+            Instantanea antes;
+            instantanea_capturar(s, &antes);
 
-        case N_MIENTRAS:
             revisar_expresion(s, n->expr);
+
             revisar_sentencia(s, n->cuerpo);
+            Instantanea fin_si;
+            instantanea_capturar(s, &fin_si);
+
+            /* La rama else debe analizarse con el estado previo al if. */
+            instantanea_restaurar(s, &antes);
+            if (n->sino != NULL) {
+                revisar_sentencia(s, n->sino);
+            }
+            Instantanea fin_no;
+            instantanea_capturar(s, &fin_no);
+
+            fusionar_caminos(s, &antes, &fin_si, &fin_no);
+
+            instantanea_liberar(&antes);
+            instantanea_liberar(&fin_si);
+            instantanea_liberar(&fin_no);
             break;
+        }
+
+        case N_MIENTRAS: {
+            revisar_expresion(s, n->expr);
+
+            Instantanea antes;
+            instantanea_capturar(s, &antes);
+
+            revisar_sentencia(s, n->cuerpo);
+
+            /* El cuerpo puede ejecutarse cero veces: al salir del while solo
+             * son definitivas las inicializaciones anteriores al ciclo. */
+            instantanea_restaurar(s, &antes);
+            instantanea_liberar(&antes);
+            break;
+        }
 
         case N_IMPRIMIR:
             revisar_expresion(s, n->expr);
@@ -181,10 +269,18 @@ static void revisar_expresion(Semantica *s, const Nodo *n) {
             revisar_expresion(s, n->expr);
             break;
 
-        case N_BIN:
+        case N_BIN: {
             revisar_expresion(s, n->izq);
             revisar_expresion(s, n->der);
+            if (strcmp(n->operador, "/") == 0) {
+                int divisor = 0;
+                if (evaluar_constante(n->der, &divisor) && divisor == 0) {
+                    error_agregar(s->errores, n->der->linea, n->der->columna,
+                                  "E04", "división entre cero constante");
+                }
+            }
             break;
+        }
 
         default:
             break;

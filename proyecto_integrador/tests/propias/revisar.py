@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
-"""Ejecuta las pruebas propias del Hito 1 de Lenguajito.
+"""Ejecuta las pruebas propias del equipo (Hitos 1 y 2) de Lenguajito.
 
 Uso (desde proyecto_integrador/):
     python3 tests/propias/revisar.py
+    make test-propias
 
 Convención de archivos, junto a cada `caso.lj`:
 
 - `caso.tokens` : salida exacta esperada de `./lenguajito caso.lj --tokens`
 - `caso.ast`    : salida exacta esperada de `./lenguajito caso.lj --ast`
+- `caso.out`    : salida exacta esperada de `./lenguajito caso.lj --run`
 - `caso.err`    : una línea `LINEA CODIGO` por diagnóstico esperado en
                   `./lenguajito caso.lj --check`; el programa debe salir
                   con código 1 y cada diagnóstico debe aparecer en stdout
+- `caso.diag`   : lista exacta de diagnósticos `LINEA CODIGO` que debe
+                  emitir `--check` (mismo orden); el programa sale con 1
 - (nada)        : `--check` debe terminar con código 0 y sin diagnósticos
 """
 from __future__ import annotations
@@ -22,6 +26,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent
 BIN = RAIZ.parent.parent / "lenguajito"
+DIAGNOSTICO = re.compile(r":(\d+):\d+: error ([A-Z]\d+):")
 
 
 def normalizar(texto: str) -> str:
@@ -34,6 +39,17 @@ def ejecutar(archivo: Path, modo: str) -> subprocess.CompletedProcess:
         capture_output=True,
         text=True,
     )
+
+
+def leer_diagnosticos(archivo: Path) -> list[tuple[int, str]]:
+    diagnosticos: list[tuple[int, str]] = []
+    for linea in archivo.read_text(encoding="utf-8").splitlines():
+        linea = linea.strip()
+        if not linea or linea.startswith("#"):
+            continue
+        numero, codigo = linea.split()
+        diagnosticos.append((int(numero), codigo))
+    return diagnosticos
 
 
 def revisar(errores: list[str]) -> tuple[int, int]:
@@ -71,25 +87,61 @@ def revisar(errores: list[str]) -> tuple[int, int]:
                 )
                 fallo = True
 
-        esperado_err = prog.with_suffix(".err")
-        r = ejecutar(prog, "--check")
-        if esperado_err.exists():
-            if r.returncode != 1:
-                errores.append(f"{nombre}: --check debió salir con 1, salió con {r.returncode}")
+        esperado_out = prog.with_suffix(".out")
+        if esperado_out.exists():
+            r = ejecutar(prog, "--run")
+            esperado = normalizar(esperado_out.read_text(encoding="utf-8"))
+            if r.returncode != 0:
+                errores.append(f"{nombre}: --run terminó con {r.returncode}")
                 fallo = True
+            elif normalizar(r.stdout) != esperado:
+                errores.append(
+                    f"{nombre}: salida de --run distinta\n"
+                    f"  esperado: {esperado!r}\n  obtenido: {normalizar(r.stdout)!r}"
+                )
+                fallo = True
+
+        esperado_err = prog.with_suffix(".err")
+        esperado_diag = prog.with_suffix(".diag")
+        if esperado_err.exists() or esperado_diag.exists():
+            r = ejecutar(prog, "--check")
+            if esperado_err.exists():
+                if r.returncode != 1:
+                    errores.append(
+                        f"{nombre}: --check debió salir con 1, salió con {r.returncode}"
+                    )
+                    fallo = True
+                else:
+                    for linea in esperado_err.read_text(encoding="utf-8").splitlines():
+                        linea = linea.strip()
+                        if not linea:
+                            continue
+                        lin, codigo = linea.split()
+                        if not re.search(rf":{lin}:\d+: error {codigo}:", r.stdout):
+                            errores.append(
+                                f"{nombre}: se esperaba un diagnóstico '{codigo}' en la línea {lin}\n"
+                                f"  obtenido: {r.stdout!r}"
+                            )
+                            fallo = True
             else:
-                for linea in esperado_err.read_text(encoding="utf-8").splitlines():
-                    linea = linea.strip()
-                    if not linea:
-                        continue
-                    lin, codigo = linea.split()
-                    if not re.search(rf":{lin}:\d+: error {codigo}:", r.stdout):
-                        errores.append(
-                            f"{nombre}: se esperaba un diagnóstico '{codigo}' en la línea {lin}\n"
-                            f"  obtenido: {r.stdout!r}"
-                        )
-                        fallo = True
+                esperados = leer_diagnosticos(esperado_diag)
+                obtenidos = [
+                    (int(numero), codigo)
+                    for numero, codigo in DIAGNOSTICO.findall(r.stdout)
+                ]
+                if r.returncode != 1:
+                    errores.append(
+                        f"{nombre}: --check debió salir con 1, salió con {r.returncode}"
+                    )
+                    fallo = True
+                elif obtenidos != esperados:
+                    errores.append(
+                        f"{nombre}: diagnósticos distintos\n"
+                        f"  esperado: {esperados}\n  obtenido: {obtenidos}"
+                    )
+                    fallo = True
         else:
+            r = ejecutar(prog, "--check")
             if r.returncode != 0:
                 errores.append(
                     f"{nombre}: --check debió salir con 0, salió con {r.returncode}\n"
@@ -112,7 +164,7 @@ def main() -> int:
 
     for error in errores:
         print(f"❌ {error}")
-    print(f"\nHito 1 propias: {total - fallos}/{total} pruebas superadas")
+    print(f"\nPruebas propias: {total - fallos}/{total} superadas")
     return 0 if not errores else 1
 
 

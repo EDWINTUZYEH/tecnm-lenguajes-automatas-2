@@ -1,0 +1,10 @@
+// Cada vuelta del while abre un ámbito nuevo para sus declaraciones.
+int i = 0;
+int suma = 0;
+while (i < 3) {
+    int doble = i * 2;
+    suma = suma + doble;
+    i = i + 1;
+}
+print(suma);
+print(i);

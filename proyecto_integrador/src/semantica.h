@@ -1,8 +1,10 @@
-/* semantica.h - análisis semántico de Lenguajito (Hito 1).
+/* semantica.h - análisis semántico de Lenguajito.
  *
- * Alcance del Hito 1: ámbitos anidados por bloque y diagnóstico E01
- * (variable no declarada o leída antes de asignar valor).
- * Los demás diagnósticos (E02, E04) llegan en el Hito 2.
+ * Tabla de símbolos con ámbitos anidados y shadowing. Diagnósticos:
+ *   E01  variable no declarada o leída antes de asignar valor
+ *   E02  redeclaración en el mismo ámbito
+ *   E04  división entre cero constante
+ * Se reportan varios errores por pasada (máximo MAX_ERRORES).
  */
 #ifndef SEMANTICA_H
 #define SEMANTICA_H
@@ -10,8 +12,8 @@
 #include "ast.h"
 #include "diagnosticos.h"
 
-/* Revisa el programa y acumula diagnósticos en `errores`.
- * Devuelve 1 si se encontró al menos un error, 0 en caso contrario. */
+/* Analiza `programa` y agrega los diagnósticos a `errores`.
+ * Devuelve 1 si hubo errores semánticos, 0 si no. */
 int semantica_analizar(const Nodo *programa, ListaErrores *errores);
 
 #endif /* SEMANTICA_H */

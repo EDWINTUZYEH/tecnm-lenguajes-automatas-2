@@ -1,8 +1,7 @@
 /* compilador.c - punto de entrada del compilador de Lenguajito.
  *
- * Hito 1: lectura del archivo, análisis léxico, análisis sintáctico,
- * AST y análisis semántico básico (E01, variable no declarada).
- * Los demás modos se habilitan en los hitos siguientes.
+ * Hito 1: lectura del archivo, análisis léxico, análisis sintáctico y AST.
+ * Hito 2: análisis semántico con ámbitos y ejecución con --run.
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,6 +10,7 @@
 #include "ast.h"
 #include "compilador.h"
 #include "diagnosticos.h"
+#include "interprete.h"
 #include "lexer.h"
 #include "parser.h"
 #include "semantica.h"
@@ -85,20 +85,8 @@ int compilar(const char *ruta, const char *modo) {
         return 0;
     }
 
-    /* De aquí en adelante solo queda --check; los demás modos llegan en
-     * los hitos siguientes. Si hubo errores de sintaxis ya se reportaron
-     * arriba y el AST no es confiable. */
-    if (strcmp(modo, "--check") == 0) {
-        if (errores.total == 0) {
-            semantica_analizar(programa, &errores);
-        }
-        if (errores.total > 0) {
-            errores_imprimir(&errores);
-            nodo_liberar(programa);
-            return 1;
-        }
-        nodo_liberar(programa);
-        return 0;
+    if (errores.total == 0) {
+        semantica_analizar(programa, &errores);
     }
 
     if (errores.total > 0) {
@@ -107,8 +95,18 @@ int compilar(const char *ruta, const char *modo) {
         return 1;
     }
 
-    fprintf(stderr, "modo %s aún no implementado (llega en un hito posterior)\n",
-            modo);
+    if (strcmp(modo, "--check") == 0) {
+        nodo_liberar(programa);
+        return 0;
+    }
+
+    if (strcmp(modo, "--run") == 0) {
+        int estado = interpretar(programa);
+        nodo_liberar(programa);
+        return estado;
+    }
+
+    fprintf(stderr, "modo %s aún no implementado\n", modo);
     nodo_liberar(programa);
     return 1;
 }

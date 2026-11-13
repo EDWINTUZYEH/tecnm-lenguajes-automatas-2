@@ -1,0 +1,6 @@
+// El cuerpo del while puede ejecutarse cero veces: no inicializa a nadie.
+int a;
+while (0) {
+    a = 1;
+}
+print(a);

@@ -188,3 +188,40 @@ char *ast_a_texto(const Nodo *nodo) {
     imprimir_nodo(&b, nodo);
     return buf_terminar(&b);
 }
+
+int evaluar_constante(const Nodo *n, int *valor) {
+    switch (n->tipo) {
+        case N_NUM:
+            *valor = n->numero;
+            return 1;
+        case N_NEG: {
+            int v;
+            if (!evaluar_constante(n->expr, &v)) return 0;
+            *valor = -v;
+            return 1;
+        }
+        case N_BIN: {
+            int a, b;
+            if (!evaluar_constante(n->izq, &a)) return 0;
+            if (!evaluar_constante(n->der, &b)) return 0;
+            const char *op = n->operador;
+            if (strcmp(op, "+") == 0) *valor = a + b;
+            else if (strcmp(op, "-") == 0) *valor = a - b;
+            else if (strcmp(op, "*") == 0) *valor = a * b;
+            else if (strcmp(op, "/") == 0) {
+                if (b == 0) return 0;
+                *valor = a / b;
+            }
+            else if (strcmp(op, "<") == 0) *valor = a < b;
+            else if (strcmp(op, "<=") == 0) *valor = a <= b;
+            else if (strcmp(op, ">") == 0) *valor = a > b;
+            else if (strcmp(op, ">=") == 0) *valor = a >= b;
+            else if (strcmp(op, "==") == 0) *valor = a == b;
+            else if (strcmp(op, "!=") == 0) *valor = a != b;
+            else return 0;
+            return 1;
+        }
+        default:
+            return 0;
+    }
+}

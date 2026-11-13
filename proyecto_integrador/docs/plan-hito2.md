@@ -2,7 +2,7 @@
 
 **Equipo:** Edwin, Blanca y Jimena
 **Tag objetivo:** `v0.2-hito2`
-**Estado:** pendiente (se ejecuta en la sesión 20; este documento es el
+**Estado:** ✅ completado (integrado en `main`; este documento queda como
 mapa de trabajo y de explicación)
 
 ---
@@ -11,17 +11,17 @@ mapa de trabajo y de explicación)
 
 Según `docs/guia-proyecto.md` §4 y `PROYECTO.md` §4:
 
-- [ ] El parser acepta la gramática completa y rechaza lo inválido con `S01`.
-- [ ] Tabla de símbolos con ámbitos anidados y shadowing (la interna oculta
+- [x] El parser acepta la gramática completa y rechaza lo inválido con `S01`.
+- [x] Tabla de símbolos con ámbitos anidados y shadowing (la interna oculta
       a la externa mientras el bloque esté activo).
-- [ ] Errores `E01` (no declarada / sin valor), `E02` (redeclaración en el
+- [x] Errores `E01` (no declarada / sin valor), `E02` (redeclaración en el
       mismo ámbito) y `E04` (división entre cero constante). El formato y los
       códigos son los de `docs/gramatica.md` §6.
-- [ ] Se reportan **varios** errores en una pasada (recuperación, máx. 20).
-- [ ] `--run` ejecuta los programas (interpretar el AST está permitido en
+- [x] Se reportan **varios** errores en una pasada (recuperación, máx. 20).
+- [x] `--run` ejecuta los programas (interpretar el AST está permitido en
       este hito).
-- [ ] `make test-hito2` en verde (14 pruebas: 9 válidos + 5 inválidos).
-- [ ] Tag `v0.2-hito2` y demo (3 minutos).
+- [x] `make test-hito2` en verde (14 pruebas: 9 válidos + 5 inválidos).
+- [x] Tag `v0.2-hito2` y demo (3 minutos).
 
 ## 2. Punto de partida real (qué ya existe y se reutiliza)
 

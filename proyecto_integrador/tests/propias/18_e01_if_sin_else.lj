@@ -1,0 +1,6 @@
+// La asignación ocurre solo si el if se cumple: no es definitiva.
+int a;
+if (1) {
+    a = 1;
+}
+print(a);

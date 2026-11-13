@@ -1,0 +1,7 @@
+// El inicializador de la variable interna ve a la variable externa.
+int x = 1;
+{
+    int x = x + 10;
+    print(x);
+}
+print(x);

@@ -2,7 +2,7 @@
 
 **Equipo:** Edwin, Blanca y Jimena
 **Repositorio:** https://github.com/EDWINTUZYEH/tecnm-lenguajes-automatas-2
-**Tag actual:** `v0.1-hito1`
+**Tag actual:** `v0.2-hito2`
 
 Completa una sección antes de cada clase de avance. Tres bullets y el commit.
 
@@ -39,11 +39,23 @@ Completa una sección antes de cada clase de avance. Tres bullets y el commit.
 
 ---
 
-## Avance 2 · Sesión 15
+## Avance 2 · Sesión 15 · Hito 2
 
-⏳ **Pendiente.** Se documentará en la sesión 15 (análisis semántico
-completo, `E02`/`E04`, ámbitos y recuperación). El Hito 2 no ha sido
-trabajado todavía.
+1. **Qué compila hoy** (comando exacto): `make` construye `./lenguajito`;
+   `make test-hito1` da 4/4, `make test-hito2` da 14/14 y
+   `make test-propias` da 21/21. `--check` reporta `E01`, `E02` y `E04`
+   (varios por pasada) y `--run` ejecuta los programas válidos:
+   `./lenguajito tests/validos/08_anidado.lj --run` imprime
+   `1 2 4 3 6 9` (un valor por línea).
+2. **Qué falla y por qué**: `make test` da 18/20 porque las pruebas
+   doradas de los Hitos 3 y 4 usan `--tac` y `--asm`, que todavía no
+   están implementados. `--run` es un intérprete del AST (lo permitido
+   en el Hito 2), no el binario del Hito 4.
+3. **Qué sigue**: el Hito 3 con TAC, plegado/propagación de constantes y
+   eliminación de código muerto; después el backend x86-64 del Hito 4.
+4. **Commit**: integración del Hito 2 en `main` (tag `v0.2-hito2`);
+   incluye la corrección de inicialización por caminos, 8 pruebas propias
+   nuevas (`14_*` a `21_*`) y la documentación de la entrega.
 
 ---
 
