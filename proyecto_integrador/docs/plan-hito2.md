@@ -7,7 +7,7 @@ mapa de trabajo y de explicación)
 
 ---
 
-## 1. Qué pide el profesor (DoD oficial)
+## 1. lo que se pide  (DoD oficial)
 
 Según `docs/guia-proyecto.md` §4 y `PROYECTO.md` §4:
 
