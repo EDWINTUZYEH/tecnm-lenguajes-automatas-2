@@ -9,10 +9,12 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 **Equipo:** Edwin, Blanca y Jimena
 
 - Reglas y rúbrica: [`../PROYECTO.md`](../PROYECTO.md)
+- Índice de documentación: [`docs/README.md`](docs/README.md)
 - Lenguaje, AST, diagnósticos y TAC: [`docs/gramatica.md`](docs/gramatica.md)
 - Guía de trabajo: [`docs/guia-proyecto.md`](docs/guia-proyecto.md)
 - Avances: [`docs/avances.md`](docs/avances.md)
-- Plan del Hito 2 (mapa de trabajo y de explicación): [`docs/plan-hito2.md`](docs/plan-hito2.md)
+- Plan del Hito 2 (mapa de trabajo y de explicación): [`docs/plan_hito2.md`](docs/plan_hito2.md)
+- Diseño del Hito 2 (cómo se implementó): [`docs/diseno_hito2.md`](docs/diseno_hito2.md)
 - Entrega del Hito 2: [`docs/entrega_hito2.md`](docs/entrega_hito2.md)
 - Pruebas: [`tests/`](tests/)
 
