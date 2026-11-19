@@ -6,7 +6,7 @@
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
 **Estudiante:** Edwin Armando Tuz Yeh  
 **Matrícula:** 24531358  
-**Track:** C 
+**Track:** C
 
 ---
 
@@ -16,10 +16,7 @@
 
 *Describe qué problema o restricción de memoria/sintaxis identificaste al codificar a mano:*
 
-> Al realizar el código manualmente, identifiqué que era necesario conocer el tamaño que ocupa cada tipo de dato para calcular correctamente
-> la memoria de un arreglo.
->  También tuve que considerar que no se deben aceptar cantidades negativas de elementos, porque no representan un tamaño válido.
->  Otro detalle fue comprobar los índices desde cero, ya que el último índice permitido siempre es el número de elementos menos uno.
+> Al realizar el código manualmente, identifiqué que era necesario conocer el tamaño que ocupa cada tipo de dato para calcular correctamente la memoria de un arreglo. También tuve que considerar que no se deben aceptar cantidades negativas de elementos, porque no representan un tamaño válido. Otro detalle fue comprobar los índices desde cero, ya que el último índice permitido siempre es el número de elementos menos uno.
 
 ---
 
@@ -31,10 +28,7 @@
 | :--- | :--- |
 | **Contexto (C)** | C11 / GCC sin bibliotecas no estándar. |
 | **Rol (R)** | Ingeniero de software de sistemas y compiladores. |
-| **Especificación (E)** | Calcular el tamaño de arreglos mediante el tipo de dato y la
-cantidad de elementos. Aceptar char, short, int, float, double y puntero.
-Rechazar tipos desconocidos, cantidades negativas e índices fuera del rango válido. 
-|
+| **Especificación (E)** | Calcular el tamaño de arreglos mediante el tipo de dato y la cantidad de elementos. Aceptar char, short, int, float, double y puntero. Rechazar tipos desconocidos, cantidades negativas e índices fuera del rango válido. |
 | **Output (O)** | Código modular en C, respetando las firmas establecidas en api_sesion18.h, sin función main(), con análisis de complejidad. |
 
 ### 2.2 Prompt Estructurado
@@ -168,9 +162,7 @@ TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion18.md
 
 *¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?*
 
-> Un detalle importante que debía revisarse era el manejo de índices negativos.
->  Si solamente se comprueba que el índice sea menor que la cantidad de elementos, se pueden aceptar posiciones negativas.
->  Para evitarlo, agregué la condición `indice < 0` y también comprobé que el índice no sea igual o mayor que el número de elementos.
+> Un detalle importante que debía revisarse era el manejo de índices negativos. Si solamente se comprueba que el índice sea menor que la cantidad de elementos, se pueden aceptar posiciones negativas. Para evitarlo, agregué la condición `indice < 0` y también comprobé que el índice no sea igual o mayor que el número de elementos.
 >
 > También consideré el desbordamiento de memoria al multiplicar la cantidad de elementos por el tamaño del tipo de dato, utilizando `LONG_MAX` para evitar superar el límite del tipo long.
 
