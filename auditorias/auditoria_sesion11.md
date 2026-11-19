@@ -122,7 +122,7 @@ RESULTADO: 6/6 pruebas superadas
 ```
 
 * [x] Caso base y límites superados sin *Crash*.
-* [ ] No existen accesos fuera de límites ni *Memory Leaks*. *
+* [x] No existen accesos fuera de límites ni *Memory Leaks*. *
 * [x] La complejidad teórica coincide con la implementada (O(1) promedio, O(n) peor caso).
 
 ### Reporte Crítico
