@@ -18,6 +18,8 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 - Entrega del Hito 2: [`docs/entrega_hito2.md`](docs/entrega_hito2.md)
 - Diseño del Hito 3 (TAC y optimización): [`docs/diseno_hito3.md`](docs/diseno_hito3.md)
 - Entrega del Hito 3: [`docs/entrega_hito3.md`](docs/entrega_hito3.md)
+- Diseño del Hito 4 (backend x86-64): [`docs/diseno_hito4.md`](docs/diseno_hito4.md)
+- Entrega del Hito 4: [`docs/entrega_hito4.md`](docs/entrega_hito4.md)
 - Pruebas: [`tests/`](tests/)
 
 ## Estado por hitos
@@ -27,7 +29,7 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 | 1 | Léxico, sintaxis y AST (`--tokens`, `--ast`, `--check`) | ✅ terminado (tag `v0.1-hito1`) |
 | 2 | Sentencias, ámbitos y diagnósticos completos (`E02`, `E04`, `--run`) | ✅ terminado (tag `v0.2-hito2`) |
 | 3 | TAC con plegado de constantes y código muerto | ✅ terminado (tag `v0.3-hito3`) |
-| 4 | Backend x86-64, enlace y binario ELF | ⏳ pendiente (sesión 40) |
+| 4 | Backend x86-64, enlace y binario ELF | ✅ terminado (tag `v1.0-hito4`) |
 
 > Esta tabla se actualiza en cada entrega. Ver `docs/entrega_hitoN.md`.
 
@@ -35,21 +37,21 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 
 ```bash
 make             # construye ./lenguajito
+make test        # toda la suite → 20/20
 make test-hito1  # pruebas del Hito 1 → 4/4
 make test-hito2  # pruebas del Hito 2 → 14/14
 make test-hito3  # pruebas del Hito 3 → 15/15
-make test-propias  # pruebas propias del equipo → 22/22
+make test-hito4  # pruebas del Hito 4 → 16/16
+make test-propias  # pruebas propias del equipo → 23/23
 ./lenguajito programa.lj --tokens
 ./lenguajito programa.lj --ast
 ./lenguajito programa.lj --check
 ./lenguajito programa.lj --tac
+./lenguajito programa.lj --asm
 ./lenguajito programa.lj --run
 ```
 
-> `make test` (toda la suite) da **19/20**: solo falla la prueba dorada del
-> Hito 4 (`--asm`), que todavía no está implementado. La evidencia de los
-> Hitos 1, 2 y 3 es `make test-hito1`, `make test-hito2`, `make test-hito3` y
-> `make test-propias`.
+> La suite completa (`make test`) incluye los 4 hitos y da **20/20**.
 
 ## Qué funciona hoy
 
@@ -82,19 +84,23 @@ make test-propias  # pruebas propias del equipo → 22/22
   `print` y bloques. Temporales `_t0`, `_t1`, ... únicos y etiquetas `L1`,
   `L2`, ... Plegado y propagación de constantes y eliminación de temporales
   sin usos.
-- `--run`: ejecuta los programas válidos interpretando el AST (el plan
-  permitido para el Hito 2). `print(e)` escribe un valor por línea. Una
-  división entre cero en tiempo de ejecución termina con código 1.
+- `--asm`: genera ensamblador **x86-64 AT&T** con `.text`, `.globl main`,
+  prólogo, cuerpo y epílogo. `print` usa `printf("%d\n", ...)`. El binario
+  generado es un ELF de 64 bits para Linux.
+- `--run`: escribe el ensamblador, lo ensambla con `as --64`, lo enlaza con
+  `gcc` y ejecuta el binario generado, reenviando su salida y su código de
+  salida. `print(e)` escribe un valor por línea.
 - Códigos de salida del compilador: `0` sin errores, `1` errores de
   compilación o de ejecución, `2` uso incorrecto de la línea de comandos.
-- `make test-hito1` → `4/4`, `make test-hito2` → `14/14`,
-  `make test-hito3` → `15/15`, `make test-propias` → `22/22`.
+- `make test` → `20/20`; `make test-hito1` → `4/4`, `make test-hito2` →
+  `14/14`, `make test-hito3` → `15/15`, `make test-hito4` → `16/16`,
+  `make test-propias` → `23/23`.
 
-## Qué no funciona todavía
+## Límites conocidos
 
-- `--asm` (Hito 4): responde `modo --asm aún no implementado`.
-- En el Hito 4, `--run` pasará a ejecutar el binario generado en lugar del
-  intérprete del AST.
+- El binario es para Linux x86-64; no se genera para otras plataformas.
+- La división entre cero en tiempo de ejecución no se detecta al compilar
+  salvo el caso constante `E04`.
 - Los literales enteros mayores que `INT_MAX` se truncan con `strtol`
   (el lenguaje base no exige otro comportamiento).
 
@@ -112,20 +118,21 @@ src/
 ├── parser.[ch]       # descendente recursivo, recuperación con ';' y '}'
 ├── semantica.[ch]    # ámbitos, shadowing, E01/E02/E04 y caminos
 ├── tac.[ch]          # generación de TAC y optimizaciones
-└── interprete.[ch]   # ejecución directa del AST para --run (Hito 2)
+└── codegen.[ch]      # ensamblador x86-64 AT&T para --asm y --run
 ```
 
 ## Reparto de trabajo
 
 | Integrante | Archivos / etapas | Entrega |
 | :--- | :--- | :--- |
-| Edwin | `util`, `lexer`, `parser`, `ast`, `tac`, `compilador` (léxico, sintaxis, AST, TAC, CLI, `--run`) | Hitos 1, 2 y 3 |
-| Blanca | `diagnosticos`, `semantica` (ámbitos, shadowing, E01/E02/E04, caminos) y revisión de optimizaciones | Hitos 1, 2 y 3 |
-| Jimena | `tests/propias/`, `revisar.py`, documentación y demo | Hitos 1, 2 y 3 |
+| Edwin | `util`, `lexer`, `parser`, `ast`, `tac`, `codegen`, `compilador` (léxico, sintaxis, AST, TAC, backend, CLI, `--run`) | Hitos 1 a 4 |
+| Blanca | `diagnosticos`, `semantica` (ámbitos, shadowing, E01/E02/E04, caminos), revisión de optimizaciones y ABI | Hitos 1 a 4 |
+| Jimena | `tests/propias/`, `revisar.py`, documentación y demo | Hitos 1 a 4 |
 
 ## Bitácora de IA
 
 Cada entrega incluye su bitácora C-R-E-O en `docs/entrega_hitoN.md`
 ([`docs/entrega_hito1.md`](docs/entrega_hito1.md),
-[`docs/entrega_hito2.md`](docs/entrega_hito2.md) y
-[`docs/entrega_hito3.md`](docs/entrega_hito3.md)).
+[`docs/entrega_hito2.md`](docs/entrega_hito2.md),
+[`docs/entrega_hito3.md`](docs/entrega_hito3.md) y
+[`docs/entrega_hito4.md`](docs/entrega_hito4.md)).

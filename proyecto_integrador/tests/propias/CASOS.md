@@ -1,8 +1,8 @@
-# Casos de prueba propios · Hitos 1, 2 y 3
+# Casos de prueba propios · Hitos 1, 2, 3 y 4
 
-Programas de prueba del equipo para los **Hitos 1, 2 y 3** (léxico, sintaxis,
-AST, semántica completa, `--run` y TAC). No tocan las pruebas doradas de
-`../validos/`, `../invalidos/`, `../hito1/` ni `../tac/`.
+Programas de prueba del equipo para los **Hitos 1 a 4** (léxico, sintaxis,
+AST, semántica completa, `--run`, TAC y backend). No tocan las pruebas doradas
+de `../validos/`, `../invalidos/`, `../hito1/` ni `../tac/`.
 
 Se ejecutan con (desde `proyecto_integrador/`):
 
@@ -14,10 +14,11 @@ make test-propias
 Convención (ver `revisar.py` para el detalle): junto a cada `caso.lj` puede
 haber un `caso.tokens` (salida exacta de `--tokens`), un `caso.ast` (salida
 exacta de `--ast`), un `caso.out` (salida exacta de `--run`), un `caso.tac`
-(salida exacta de `--tac`), un `caso.err` (una línea `LINEA CODIGO` por
-diagnóstico esperado en `--check`, que debe salir con código 1) o un
-`caso.diag` (lista exacta y ordenada de todos los diagnósticos de una pasada).
-Si no hay `.err` ni `.diag`, `--check` debe salir con 0.
+(salida exacta de `--tac`), un `caso.asm` (salida exacta de `--asm`), un
+`caso.err` (una línea `LINEA CODIGO` por diagnóstico esperado en `--check`,
+que debe salir con código 1) o un `caso.diag` (lista exacta y ordenada de
+todos los diagnósticos de una pasada). Si no hay `.err` ni `.diag`, `--check`
+debe salir con 0.
 
 | Caso | Qué cubre |
 | :--- | :--- |
@@ -43,3 +44,4 @@ Si no hay `.err` ni `.diag`, `--check` debe salir con 0.
 | `20_multiples_errores` | `--check`: `E01`, `E01` y `E04` en una sola pasada |
 | `21_sintaxis_multiples` | `--check`: recuperación sintáctica con dos `S01` |
 | `22_optimizacion` | `--tac`: plegado, propagación y eliminación de código muerto |
+| `23_asm_suma` | `--asm` exacto y `--run` sobre el binario generado |

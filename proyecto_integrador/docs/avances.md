@@ -2,7 +2,7 @@
 
 **Equipo:** Edwin, Blanca y Jimena
 **Repositorio:** https://github.com/EDWINTUZYEH/tecnm-lenguajes-automatas-2
-**Tag actual:** `v0.3-hito3`
+**Tag actual:** `v1.0-hito4`
 
 Completa una sección antes de cada clase de avance. Tres bullets y el commit.
 
@@ -76,7 +76,20 @@ Completa una sección antes de cada clase de avance. Tres bullets y el commit.
 
 ---
 
-## Avance 4 · Sesión 35
+## Avance 4 · Sesión 35 · Hito 4
 
-⏳ **Pendiente.** Se documentará en la sesión 35 (`--asm` de una
-expresión y primer binario). El Hito 4 no ha sido trabajado todavía.
+1. **Qué compila hoy** (comando exacto): `make` construye `./lenguajito`;
+   `make test` da 20/20, `make test-hito4` da 16/16 y `make test-propias`
+   da 23/23. `./lenguajito tests/validos/08_anidado.lj --run` ejecuta el
+   binario generado e imprime `1 2 4 3 6 9`; `--asm` muestra AT&T con
+   `.globl main` y `ret`.
+2. **Qué falla y por qué**: nada del alcance del hito. El binario es para
+   Linux x86-64 y la división entre cero en tiempo de ejecución depende del
+   sistema; la compilación solo detecta el caso constante `E04`.
+3. **Qué sigue**: cierre del proyecto y demo final de 5 minutos con un
+   programa anidado, uno con errores y uno con optimización visible.
+4. **Commit**: integración del Hito 4 en `main` (tag `v1.0-hito4`); incluye
+   `codegen.[ch]`, `--asm`, `--run` sobre el binario, la prueba propia
+   `23_asm_suma` y la documentación de la entrega.
+
+---

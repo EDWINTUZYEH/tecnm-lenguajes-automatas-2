@@ -11,6 +11,7 @@ Convención de archivos, junto a cada `caso.lj`:
 - `caso.ast`    : salida exacta esperada de `./lenguajito caso.lj --ast`
 - `caso.out`    : salida exacta esperada de `./lenguajito caso.lj --run`
 - `caso.tac`    : salida exacta esperada de `./lenguajito caso.lj --tac`
+- `caso.asm`    : salida exacta esperada de `./lenguajito caso.lj --asm`
 - `caso.err`    : una línea `LINEA CODIGO` por diagnóstico esperado en
                   `./lenguajito caso.lj --check`; el programa debe salir
                   con código 1 y cada diagnóstico debe aparecer en stdout
@@ -105,6 +106,7 @@ def revisar(errores: list[str]) -> tuple[int, int]:
         esperado_err = prog.with_suffix(".err")
         esperado_diag = prog.with_suffix(".diag")
         esperado_tac = prog.with_suffix(".tac")
+        esperado_asm = prog.with_suffix(".asm")
         if esperado_tac.exists():
             r = ejecutar(prog, "--tac")
             esperado = normalizar(esperado_tac.read_text(encoding="utf-8"))
@@ -114,6 +116,19 @@ def revisar(errores: list[str]) -> tuple[int, int]:
             elif normalizar(r.stdout) != esperado:
                 errores.append(
                     f"{nombre}: TAC distinto\n"
+                    f"  esperado: {esperado!r}\n  obtenido: {normalizar(r.stdout)!r}"
+                )
+                fallo = True
+
+        if esperado_asm.exists():
+            r = ejecutar(prog, "--asm")
+            esperado = normalizar(esperado_asm.read_text(encoding="utf-8"))
+            if r.returncode != 0:
+                errores.append(f"{nombre}: --asm terminó con {r.returncode}")
+                fallo = True
+            elif normalizar(r.stdout) != esperado:
+                errores.append(
+                    f"{nombre}: ensamblador distinto\n"
                     f"  esperado: {esperado!r}\n  obtenido: {normalizar(r.stdout)!r}"
                 )
                 fallo = True

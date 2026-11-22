@@ -11,6 +11,7 @@ lo esperado:
 - `.ast` para la salida exacta de `--ast`
 - `.out` para la salida exacta de `--run`
 - `.tac` para la salida exacta de `--tac`
+- `.asm` para la salida exacta de `--asm`
 - `.err` para exigir al menos un diagnóstico concreto de `--check`
 - `.diag` para exigir la lista exacta de diagnósticos de `--check`
 

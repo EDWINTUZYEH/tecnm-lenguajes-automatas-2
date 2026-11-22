@@ -45,8 +45,10 @@ guiones bajos.
 
 ## 6. Hito 4 · Backend x86-64 y binario ELF
 
-Todavía no tiene documentos: se crearán al trabajarlo, siguiendo el mismo
-patrón (`diseno_hitoN.md`, `entrega_hitoN.md`).
+| Documento | Para qué sirve |
+| :--- | :--- |
+| [`diseno_hito4.md`](diseno_hito4.md) | Diseño técnico: generación de ensamblador, `--asm`, `--run` con binario y ELF. |
+| [`entrega_hito4.md`](entrega_hito4.md) | Entrega del Hito 4: qué funciona, pruebas, reparto y bitácora C-R-E-O. |
 
 ## 7. Pruebas
 
