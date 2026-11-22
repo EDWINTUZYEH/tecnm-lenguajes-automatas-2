@@ -27,10 +27,10 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 
 | Hito | Tema | Estado |
 | :--- | :--- | :--- |
-| 1 | Léxico, sintaxis y AST (`--tokens`, `--ast`, `--check`) | ✅ terminado (tag `v0.1-hito1`) |
-| 2 | Sentencias, ámbitos y diagnósticos completos (`E02`, `E04`, `--run`) | ✅ terminado (tag `v0.2-hito2`) |
-| 3 | TAC con plegado de constantes y código muerto | ✅ terminado (tag `v0.3-hito3`) |
-| 4 | Backend x86-64, enlace y binario ELF | ✅ terminado (tag `v1.0-hito4`) |
+| 1 | Léxico, sintaxis y AST (`--tokens`, `--ast`, `--check`) |  terminado (tag `v0.1-hito1`) |
+| 2 | Sentencias, ámbitos y diagnósticos completos (`E02`, `E04`, `--run`) |  terminado (tag `v0.2-hito2`) |
+| 3 | TAC con plegado de constantes y código muerto | terminado (tag `v0.3-hito3`) |
+| 4 | Backend x86-64, enlace y binario ELF |  terminado (tag `v1.0-hito4`) |
 
 > Esta tabla se actualiza en cada entrega. Ver `docs/entrega_hitoN.md`.
 
