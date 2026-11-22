@@ -10,6 +10,7 @@ Convención de archivos, junto a cada `caso.lj`:
 - `caso.tokens` : salida exacta esperada de `./lenguajito caso.lj --tokens`
 - `caso.ast`    : salida exacta esperada de `./lenguajito caso.lj --ast`
 - `caso.out`    : salida exacta esperada de `./lenguajito caso.lj --run`
+- `caso.tac`    : salida exacta esperada de `./lenguajito caso.lj --tac`
 - `caso.err`    : una línea `LINEA CODIGO` por diagnóstico esperado en
                   `./lenguajito caso.lj --check`; el programa debe salir
                   con código 1 y cada diagnóstico debe aparecer en stdout
@@ -103,6 +104,20 @@ def revisar(errores: list[str]) -> tuple[int, int]:
 
         esperado_err = prog.with_suffix(".err")
         esperado_diag = prog.with_suffix(".diag")
+        esperado_tac = prog.with_suffix(".tac")
+        if esperado_tac.exists():
+            r = ejecutar(prog, "--tac")
+            esperado = normalizar(esperado_tac.read_text(encoding="utf-8"))
+            if r.returncode != 0:
+                errores.append(f"{nombre}: --tac terminó con {r.returncode}")
+                fallo = True
+            elif normalizar(r.stdout) != esperado:
+                errores.append(
+                    f"{nombre}: TAC distinto\n"
+                    f"  esperado: {esperado!r}\n  obtenido: {normalizar(r.stdout)!r}"
+                )
+                fallo = True
+
         if esperado_err.exists() or esperado_diag.exists():
             r = ejecutar(prog, "--check")
             if esperado_err.exists():

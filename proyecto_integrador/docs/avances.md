@@ -2,7 +2,7 @@
 
 **Equipo:** Edwin, Blanca y Jimena
 **Repositorio:** https://github.com/EDWINTUZYEH/tecnm-lenguajes-automatas-2
-**Tag actual:** `v0.2-hito2`
+**Tag actual:** `v0.3-hito3`
 
 Completa una sección antes de cada clase de avance. Tres bullets y el commit.
 
@@ -59,10 +59,20 @@ Completa una sección antes de cada clase de avance. Tres bullets y el commit.
 
 ---
 
-## Avance 3 · Sesión 25
+## Avance 3 · Sesión 25 · Hito 3
 
-⏳ **Pendiente.** Se documentará en la sesión 25 (TAC de expresiones y de
-un `if`). El Hito 3 no ha sido trabajado todavía.
+1. **Qué compila hoy** (comando exacto): `make` construye `./lenguajito`;
+   `make test-hito3` da 15/15 y `make test-propias` da 22/22.
+   `./lenguajito tests/tac/01_folding.lj --tac` imprime `print 10`:
+   el plegado de constantes y la eliminación de temporales ya funcionan.
+2. **Qué falla y por qué**: `make test` da 19/20 porque la prueba dorada de
+   `--asm` es del Hito 4 y todavía no está implementado. La propagación de
+   constantes se limpia en etiquetas y `goto` para no ser incorrecta en ciclos.
+3. **Qué sigue**: el backend x86-64 del Hito 4 (`--asm`, binario ELF y
+   `--run` usando el binario generado).
+4. **Commit**: integración del Hito 3 en `main` (tag `v0.3-hito3`); incluye
+   `tac.[ch]`, `ast_plegar_constantes()`, la prueba propia `22_optimizacion`
+   y la documentación de la entrega.
 
 ---
 

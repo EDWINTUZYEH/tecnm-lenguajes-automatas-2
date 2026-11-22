@@ -36,12 +36,19 @@ guiones bajos.
 | [`diseno_hito2.md`](diseno_hito2.md) | Diseño técnico: tabla de símbolos, inicialización por caminos y diagnósticos. |
 | [`entrega_hito2.md`](entrega_hito2.md) | Entrega del Hito 2: qué funciona, pruebas, reparto y bitácora C-R-E-O. |
 
-## 5. Hitos 3 y 4
+## 5. Hito 3 · TAC y optimización
 
-Todavía no tienen documentos: se crearán al trabajarlos, siguiendo el mismo
-patrón (`plan_hitoN.md`, `diseno_hitoN.md`, `entrega_hitoN.md`).
+| Documento | Para qué sirve |
+| :--- | :--- |
+| [`diseno_hito3.md`](diseno_hito3.md) | Diseño técnico: generación de TAC, plegado, propagación y código muerto. |
+| [`entrega_hito3.md`](entrega_hito3.md) | Entrega del Hito 3: qué funciona, pruebas, reparto y bitácora C-R-E-O. |
 
-## 6. Pruebas
+## 6. Hito 4 · Backend x86-64 y binario ELF
+
+Todavía no tiene documentos: se crearán al trabajarlo, siguiendo el mismo
+patrón (`diseno_hitoN.md`, `entrega_hitoN.md`).
+
+## 7. Pruebas
 
 | Documento | Para qué sirve |
 | :--- | :--- |

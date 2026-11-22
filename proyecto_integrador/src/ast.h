@@ -64,4 +64,8 @@ char *ast_a_texto(const Nodo *nodo);
  * cero constante no es evaluable: devuelve 0. */
 int evaluar_constante(const Nodo *expr, int *valor);
 
+/* Plegado de constantes: sustituye en el árbol, in situ, toda subexpresión
+ * constante por un nodo N_NUM con su valor. */
+void ast_plegar_constantes(Nodo *nodo);
+
 #endif /* AST_H */
