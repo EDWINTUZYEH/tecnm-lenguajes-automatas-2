@@ -4,6 +4,10 @@
 **Archivo principal:** `src/semantica.c`
 **Pruebas:** `make test-hito2` y `make test-propias`
 
+> **Nota de contexto:** este documento describe el diseño tal como quedó en el
+> tag `v0.2-hito2`. Los modos `--tac` y `--asm` se implementaron después, en
+> los Hitos 3 y 4.
+
 ---
 
 ## 1. Objetivo

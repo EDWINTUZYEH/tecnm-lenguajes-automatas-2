@@ -149,3 +149,8 @@ Pruebas propias agregadas (ruta y qué cubren), en `tests/propias/`:
 | Hito 1: parser descendente y AST exacto. | Ingeniero de compiladores experto en C. | `docs/gramatica.md` §3 (EBNF LL(1)) y §4 (formato del AST); sin flex/bison. | `parser.[ch]`, `ast.[ch]` | **Rechazada** la primera versión que imprimía el AST con saltos/espacios extra (las pruebas doradas comparan la cadena exacta). **Aceptada** tras comparar la salida con `tests/hito1/*.ast` (3/3 exactos) y `04_invalida.err` (`S01` en línea 1). |
 | Hito 1: `--check` semántico básico. | Ingeniero de compiladores experto en C. | `docs/gramatica.md` §5–6 (declaración obligatoria, ámbitos, formato de diagnósticos). | `semantica.[ch]` (pila de ámbitos, shadowing, `E01`) | **Aceptada** tras comprobar que los 9 programas de `tests/validos/` pasan `--check` sin errores; se limitó el alcance a `E01` y se documentó que `E02`/`E04` y el análisis por caminos llegan en el Hito 2. |
 | Cierre del entregable. | Auditor. | Rúbrica del hito y checklist de 10 puntos; `tests/` intocable. | `make`, `make test-hito1` (4/4), `tests/propias/revisar.py` (13/13) | **Aceptada** la entrega: sin warnings con `-Werror`, doradas sin modificar (`git status`), diagnósticos con el formato exacto de `docs/gramatica.md` §6. |
+
+## 6. Demo
+
+- [x] Preparada para 3 minutos.
+- [x] Cualquier integrante puede explicar cualquier parte.

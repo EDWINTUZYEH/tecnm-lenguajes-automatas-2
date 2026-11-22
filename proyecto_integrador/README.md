@@ -13,6 +13,7 @@ Compilador para **Lenguajito**, el lenguaje del Proyecto Integrador de
 - Lenguaje, AST, diagnósticos y TAC: [`docs/gramatica.md`](docs/gramatica.md)
 - Guía de trabajo: [`docs/guia-proyecto.md`](docs/guia-proyecto.md)
 - Avances: [`docs/avances.md`](docs/avances.md)
+- Entrega del Hito 1: [`docs/entrega_hito1.md`](docs/entrega_hito1.md)
 - Plan del Hito 2 (mapa de trabajo y de explicación): [`docs/plan_hito2.md`](docs/plan_hito2.md)
 - Diseño del Hito 2 (cómo se implementó): [`docs/diseno_hito2.md`](docs/diseno_hito2.md)
 - Entrega del Hito 2: [`docs/entrega_hito2.md`](docs/entrega_hito2.md)

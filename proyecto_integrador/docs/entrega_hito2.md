@@ -5,6 +5,10 @@
 **Tag:** `v0.2-hito2`
 **Fecha:** 2026-11-13
 
+> **Nota de contexto:** este documento describe la entrega del tag `v0.2-hito2`.
+> En ese momento `--tac` y `--asm` todavía no existían; se implementaron después,
+> en los Hitos 3 y 4. El estado actual del proyecto está en el `README` principal.
+
 ---
 
 ## 1. Qué funciona
