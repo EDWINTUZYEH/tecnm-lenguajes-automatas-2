@@ -1,123 +1,54 @@
-# Bitácora de Requerimientos y Auditoría IA — Sesión 01
-**Materia:** Lenguajes y Autómatas II (SCD-1016)
-**Tema:** Encuadre, Diagnóstico de Punteros y Metodología IA
-**Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)
-**Estudiante:** [EDWIN ARMANDO TUZ YEH]
-**Matrícula:** [24531358]
-**Track:** [ C ]
+# Auditoría Sesión 01 - Inversión de buffer in-place
 
----
+**Materia:** Lenguajes y Autómatas II (SCD-1016)  
+**Docente:** MCC. Iván Márquez Larios  
+**Estudiante:** Edwin Armando Tuz Yeh  
+**Número de control:** 24531358  
+**Track:** C
 
-## 1. Fase 1: El Artesano (Dificultad Manual)
-*Reto:* Inversión de buffer in-place (char*)
-*Describe qué problema o restricción de memoria/sintaxis identificaste al codificar a mano:*
-> Lo más importante era hacerlo sin reservar memoria nueva, así que solo podía
-> usar dos índices y un `char` temporal. Lo que tuve que cuidar fue:
-> - Revisar que la cadena no fuera `NULL`, porque si la recorría directamente
->   el programa se caía.
-> - Qué pasaba con la cadena vacía: como la longitud se guarda en `size_t`,
->   restarle 1 cuando vale 0 da un número enorme, así que debía revisarlo antes.
-> - Dónde terminaba la cadena: el último carácter real está antes del `'\0'`,
->   y no debía intercambiarlo.
-> - Cuándo detener el ciclo: cuando los dos índices se encuentran o se cruzan,
->   para no volver a invertir lo que ya estaba invertido.
->
+## 1. Objetivo
 
----
+Implementar una función en C capaz de invertir una cadena de caracteres directamente en su memoria original, sin utilizar memoria adicional.
 
-## 2. Fase 2: El Científico (Ingeniería de Requerimientos C-R-E-O)
+## 2. Implementación
 
-### 2.1 Matriz de Especificación Formal
-| Elemento C-R-E-O | Definición Técnica |
-| :--- | :--- |
-| **Contexto (C)** | C99 / GCC o Rust 2021 sin bibliotecas no estándar |
-| **Rol (R)** | Ingeniero de software de sistemas y compiladores |
-| **Especificación (E)** | Punteros, O(n) tiempo, O(1) memoria |
-| **Output (O)** | Solo código modular y análisis de complejidad |
+Se desarrolló la función `invertir(char *s)`, utilizando dos índices para recorrer la cadena desde ambos extremos.
 
-### 2.2 Prompt Estructurado
-```texto
-Necesito entender cómo se recorre un buffer en memoria con punteros o
-índices sin salirme de él. El código se compila con
-gcc -std=c11 -Wall -Wextra -Werror y se prueba con un harness que ya
-incluye api_sesion01.h, cuya única declaración es: void invertir(char *s);
+Se utilizó una variable temporal para intercambiar los caracteres hasta llegar al centro de la cadena.
 
-ROL:
-Actúa como programador de sistemas en C, experto en manejo seguro de
-memoria, que escribe código sin asignación dinámica.
+También se agregó una condición para comprobar si el puntero recibido es NULL y evitar errores durante la ejecución.
 
-ESPECIFICACIÓN:
-- Implementa void invertir(char *s) con la firma EXACTA indicada.
-- Invierte la cadena in-place: sin malloc, sin arreglos auxiliares,
-  solo dos índices (o punteros) y un char temporal.
-- No devuelvas una copia: la misma dirección debe quedar invertida.
-- invertir(NULL) debe terminar sin fallo.
-- Debe funcionar con cadena vacía, de 1 carácter, de 2 y de longitud impar.
-- No incluyas main().
-- No debe generar advertencias con -Wall -Wextra -Werror.
+## 3. Pruebas realizadas
 
-OUTPUT:
-Entrega solo el contenido de ia_sesion01_c.c en un único bloque de código
-C, con #include "api_sesion01.h", y sin explicaciones fuera del código.
-```
+Se ejecutó el harness proporcionado por el docente con los seis casos establecidos.
 
----
+| Caso | Descripción | Resultado |
+|---|---|---|
+| 1 | Invertir HOLA | OK |
+| 2 | Invertir abc | OK |
+| 3 | Cadena vacía | OK |
+| 4 | Invertir AB | OK |
+| 5 | Cadena de un carácter | OK |
+| 6 | Recibir NULL | OK |
 
-## 3. Código Devuelto por el Modelo
-```c
-// Código devuelto por el LLM
-#include "api_sesion01.h"
-#include <stddef.h>
+**Resultado final: 6/6 pruebas superadas.**
 
-void invertir(char *s) {
-    if (s == NULL) return;
+## 4. Análisis crítico de la propuesta de IA
 
-    char *fin = s;
-    while (*fin != '\0') fin++;      /* fin apunta al '\0' */
-    if (fin == s) return;            /* cadena vacia */
-    fin--;                           /* ultimo caracter real */
+Uno de los casos importantes que se debe revisar en una propuesta generada por inteligencia artificial es el manejo de punteros nulos.
 
-    while (s < fin) {
-        char tmp = *s;
-        *s = *fin;
-        *fin = tmp;
-        s++;
-        fin--;
-    }
-}
-```
+Si una implementación intenta calcular la longitud de una cadena sin comprobar primero si el puntero es NULL, puede provocar un error de segmentación.
 
----
+Para detectar este problema se utilizó el sexto caso del harness, que ejecuta `invertir(NULL)`.
 
+La implementación final incluye una condición de protección que permite terminar la función sin intentar acceder a una dirección inválida.
 
-## 4. Fase 3: El Auditor (Resultados del Test Harness)
-*Pruebas ejecutadas:* Valores NULL, buffers vacios y longitudes impares
+También se comprobaron las cadenas vacías y las cadenas de un solo carácter para verificar que los índices no provoquen accesos fuera del buffer.
 
-### Salida del harness
-```text
-=== AUDITORIA SESION 01 - Inversion de buffer in-place ===
-Caso                               esperado:              obtenido:              resultado
-[ 1] invertir("HOLA")                   esperado: ALOH         obtenido: ALOH         OK
-[ 2] invertir("abc")                    esperado: cba          obtenido: cba          OK
-[ 3] invertir("")                       esperado:              obtenido:              OK
-[ 4] invertir("AB")                     esperado: BA           obtenido: BA           OK
-[ 5] invertir("a")                      esperado: a            obtenido: a            OK
-[ 6] invertir(NULL)                     esperado: sin crash    obtenido: sin crash    OK
+## 5. Conclusión
 
-RESULTADO: 6/6 pruebas superadas
-TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion01.md
-```
+La práctica permitió comprender cómo se puede recorrer y modificar una cadena directamente en memoria mediante punteros e índices.
 
-* [x] Caso base y límites superados sin *Crash*.
-* [x] No existen accesos fuera de límites ni *Memory Leaks*.
-* [x] La complejidad teórica coincide con la implementada.
+Se comprobó que es posible invertir una cadena sin crear otra copia y utilizando únicamente una variable temporal para intercambiar caracteres.
 
-### Reporte Crítico
-*¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?*
-> La IA no omitió ningún caso borde: pasó los 6 casos del harness. Su problema
-> fue que incluyó código de más que no era necesario para la función. Lo
-> solucioné revisando el código línea por línea y eliminando lo innecesario
-> hasta dejar solo lo que pide el contrato.
-
----
-**Firma digital:** [EDWINTUZYEH]
+Las seis pruebas del harness fueron superadas, por lo que la implementación cumple con los requisitos establecidos para esta sesión.
