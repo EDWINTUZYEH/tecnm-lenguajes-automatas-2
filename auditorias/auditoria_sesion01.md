@@ -1,54 +1,163 @@
-# Auditoría Sesión 01 - Inversión de buffer in-place
+Bitácora de Requerimientos y Auditoría IA — Sesión 01
 
-**Materia:** Lenguajes y Autómatas II (SCD-1016)  
-**Docente:** MCC. Iván Márquez Larios  
-**Estudiante:** Edwin Armando Tuz Yeh  
-**Número de control:** 24531358  
-**Track:** C
+Materia: Lenguajes y Autómatas II (SCD-1016)
+Tema: Encuadre, Diagnóstico de Punteros y Metodología IA
+Docente Titular: MCC. Iván Márquez Larios (ijmarquezl)
+Estudiante: Edwin Armando Tuz Yeh
+Matrícula: 24531358
+Track: C (el harness evalúa C; la versión en Rust es opcional y no se califica con este harness)
 
-## 1. Objetivo
+1. Fase 1: El Artesano (Dificultad Manual)
 
-Implementar una función en C capaz de invertir una cadena de caracteres directamente en su memoria original, sin utilizar memoria adicional.
+Reto: Inversión de buffer in-place (char*).
 
-## 2. Implementación
+Describe qué problema o restricción de memoria/sintaxis identificaste al codificar a mano:
 
-Se desarrolló la función `invertir(char *s)`, utilizando dos índices para recorrer la cadena desde ambos extremos.
+La principal dificultad fue recorrer la cadena desde ambos extremos sin salirme de los límites del buffer. También tuve que considerar que en C las cadenas terminan con el carácter nulo \0, por lo que no debía intercambiarlo como si fuera un carácter normal.
 
-Se utilizó una variable temporal para intercambiar los caracteres hasta llegar al centro de la cadena.
+Para resolverlo utilicé dos índices: uno que comienza en la posición cero y otro que comienza en el último carácter de la cadena. Después intercambié los caracteres utilizando una variable temporal de tipo char.
 
-También se agregó una condición para comprobar si el puntero recibido es NULL y evitar errores durante la ejecución.
+Otra restricción importante fue no utilizar memoria adicional, por lo que la inversión se realizó directamente sobre la cadena original. También agregué una condición para comprobar si el puntero es NULL y evitar errores de ejecución.
 
-## 3. Pruebas realizadas
+2. Fase 2: El Científico (Ingeniería de Requerimientos C-R-E-O)
 
-Se ejecutó el harness proporcionado por el docente con los seis casos establecidos.
+2.1 Matriz de Especificación Formal
 
-| Caso | Descripción | Resultado |
-|---|---|---|
-| 1 | Invertir HOLA | OK |
-| 2 | Invertir abc | OK |
-| 3 | Cadena vacía | OK |
-| 4 | Invertir AB | OK |
-| 5 | Cadena de un carácter | OK |
-| 6 | Recibir NULL | OK |
+Elemento C-R-E-O
 
-**Resultado final: 6/6 pruebas superadas.**
+Definición Técnica
 
-## 4. Análisis crítico de la propuesta de IA
+Contexto (C)
 
-Uno de los casos importantes que se debe revisar en una propuesta generada por inteligencia artificial es el manejo de punteros nulos.
+C99 / GCC o Rust 2021 sin bibliotecas no estándar.
 
-Si una implementación intenta calcular la longitud de una cadena sin comprobar primero si el puntero es NULL, puede provocar un error de segmentación.
+Rol (R)
 
-Para detectar este problema se utilizó el sexto caso del harness, que ejecuta `invertir(NULL)`.
+Ingeniero de software de sistemas y compiladores.
 
-La implementación final incluye una condición de protección que permite terminar la función sin intentar acceder a una dirección inválida.
+Especificación (E)
 
-También se comprobaron las cadenas vacías y las cadenas de un solo carácter para verificar que los índices no provoquen accesos fuera del buffer.
+Utilizar punteros e índices, complejidad temporal O(n) y memoria auxiliar O(1).
 
-## 5. Conclusión
+Output (O)
 
-La práctica permitió comprender cómo se puede recorrer y modificar una cadena directamente en memoria mediante punteros e índices.
+Código modular en C y análisis de complejidad.
 
-Se comprobó que es posible invertir una cadena sin crear otra copia y utilizando únicamente una variable temporal para intercambiar caracteres.
+2.2 Prompt Estructurado
 
-Las seis pruebas del harness fueron superadas, por lo que la implementación cumple con los requisitos establecidos para esta sesión.
+CONTEXTO:
+Estoy desarrollando una práctica de Lenguajes y Autómatas II
+en lenguaje C. Necesito implementar una función que invierta
+una cadena de caracteres directamente en su memoria original.
+
+ROL:
+Actúa como un ingeniero de software especializado en C,
+manejo de punteros y desarrollo de compiladores.
+
+ESPECIFICACIÓN:
+Implementa una función llamada invertir que reciba un puntero
+de tipo char.
+
+La función debe cumplir los siguientes requisitos:
+
+1. Invertir los caracteres directamente en el buffer original.
+2. No utilizar malloc ni reservar memoria adicional.
+3. Utilizar dos índices y una variable temporal de tipo char.
+4. Comprobar si el puntero recibido es NULL.
+5. Manejar correctamente cadenas vacías y de un carácter.
+6. No modificar el carácter terminador '\0'.
+7. Mantener exactamente la firma void invertir(char *s).
+8. No incluir la función main().
+9. Utilizar complejidad temporal O(n) y espacial O(1).
+10. El código debe compilar con GCC utilizando:
+    -std=c11 -Wall -Wextra -Werror.
+
+OUTPUT:
+Proporciona el código completo de la función en C,
+con comentarios breves y una explicación de su complejidad.
+No cambies la firma de la función ni agregues archivos
+o dependencias innecesarias.
+
+3. Código Devuelto por el Modelo
+
+/* ia_sesion01_c.c - Fase 2: El Cientifico
+ * Inversión de buffer in-place.
+ */
+
+#include "api_sesion01.h"
+#include <string.h>
+
+void invertir(char *s) {
+
+    if (s == NULL) {
+        return;
+    }
+
+    size_t inicio = 0;
+    size_t fin = strlen(s);
+
+    if (fin == 0) {
+        return;
+    }
+
+    fin--;
+
+    while (inicio < fin) {
+
+        char temporal = s[inicio];
+
+        s[inicio] = s[fin];
+        s[fin] = temporal;
+
+        inicio++;
+        fin--;
+    }
+}
+
+Análisis de complejidad:
+
+Tiempo: O(n), porque se recorre la cadena para obtener su longitud y después se realizan los intercambios hasta llegar al centro.
+
+Espacio auxiliar: O(1), porque solamente se utilizan dos índices y una variable temporal.
+
+Memoria dinámica: No se utiliza malloc ni se crea una copia de la cadena.
+
+4. Fase 3: El Auditor (Resultados del Test Harness)
+
+Pruebas ejecutadas: Valores NULL, buffers vacíos y longitudes impares y pares.
+
+Salida del harness
+
+=== AUDITORIA SESION 01 - Inversion de buffer in-place ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] invertir("HOLA")                   esperado: ALOH         obtenido: ALOH         OK
+[ 2] invertir("abc")                    esperado: cba          obtenido: cba          OK
+[ 3] invertir("")                       esperado:              obtenido:              OK
+[ 4] invertir("AB")                     esperado: BA           obtenido: BA           OK
+[ 5] invertir("a")                      esperado: a            obtenido: a            OK
+[ 6] invertir(NULL)                     esperado: sin crash    obtenido: sin crash    OK
+
+RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion01.md
+
+Criterios de aceptación
+
+Caso base y límites superados sin Crash.
+
+No existen accesos fuera de límites en los casos probados ni se utiliza memoria dinámica.
+
+La complejidad teórica coincide con la implementada.
+
+Reporte Crítico
+
+¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?
+
+Al revisar la implementación, el caso más importante que debía comprobar era cuando la función recibía un puntero NULL. Si se intenta calcular la longitud de una cadena sin verificar primero el puntero, se puede producir un error de segmentación.
+
+Para evitarlo se agregó una condición al inicio de la función que comprueba si s == NULL y termina inmediatamente cuando no existe una cadena válida.
+
+También se verificó el comportamiento con una cadena vacía y otra de un solo carácter. Estos casos permiten comprobar que los índices no intenten acceder a posiciones inexistentes.
+
+Después de ejecutar el harness, los seis casos terminaron correctamente. La implementación cumplió con el contrato y no necesitó reservar memoria adicional.
+
+Firma digital: [EDWINTUZYEH]
