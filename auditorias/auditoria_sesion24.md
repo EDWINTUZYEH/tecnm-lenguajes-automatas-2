@@ -4,9 +4,9 @@
 **Tema:** Control de Flujo: Sentencia if-else  
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
 **Estudiante:** Edwin Armando Tuz Yeh  
-**Matrícula:** [No. de Control]  
-**Track:** C (el harness evalúa C; la versión en Rust es opcional y no se califica con este harness).
+**Matrícula:** [24531358]  
 
+**Track:** (C)
 ---
 
 ## 1. Fase 1: El Artesano (Dificultad Manual)
@@ -181,4 +181,4 @@ La función conserva la interfaz establecida por el docente y está diseñada pa
 
 ---
 
-**Firma digital:** [Usuario de GitHub]
+**Firma digital:** [EDWINTUZYEH]
