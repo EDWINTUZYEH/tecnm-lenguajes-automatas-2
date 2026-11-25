@@ -4,8 +4,8 @@
 **Tema:** Control de Flujo: Bucles while y for  
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
 **Estudiante:** Edwin Armando Tuz Yeh  
-**Matrícula:** [24531358]  
-**Track:** (C)
+**Matrícula:** 24531358  
+**Track:** C
 
 ---
 
@@ -15,81 +15,162 @@
 
 **Describe qué problema o restricción de memoria/sintaxis identificaste al codificar a mano:**
 
-> Al implementar los ciclos identifiqué que era necesario controlar correctamente las etiquetas de inicio y fin para evitar que dos ciclos utilizaran los mismos nombres. También tuve que considerar el tamaño máximo de 64 caracteres por instrucción y la posición del contador `n` para evitar escribir fuera del arreglo. Otro detalle fue colocar la actualización del iterador antes del salto GOTO en el ciclo for.
+> Al realizar esta parte me di cuenta de que tenía que llevar un buen control de las etiquetas para que los ciclos no utilizaran los mismos nombres. También tuve que cuidar que las instrucciones no pasaran del límite de 64 caracteres y que el contador indicara correctamente la siguiente posición del arreglo. En el ciclo for, una de las partes que más debía cuidar era colocar la actualización del iterador antes del GOTO, porque de lo contrario el ciclo no seguiría el orden esperado.
+
+---
 
 ## 2. Fase 2: El Científico (Ingeniería de Requerimientos C-R-E-O)
 
 ### 2.1 Matriz de Especificación Formal
 
 | Elemento C-R-E-O | Definición Técnica |
-|---|---|
-| **Contexto (C)** | Lenguaje C11, GCC y biblioteca estándar. |
-| **Rol (R)** | Ingeniero de software especializado en sistemas y compiladores. |
-| **Especificación (E)** | Implementar `emitir_while()` y `emitir_for()`, respetando las firmas originales, generando etiquetas únicas, validando límites y permitiendo argumentos NULL opcionales. |
-| **Output (O)** | Código modular en C, sin función main, compatible con el harness y análisis de complejidad. |
+| :--- | :--- |
+| **Contexto (C)** | Lenguaje C11 utilizando GCC y bibliotecas estándar. |
+| **Rol (R)** | Programador con conocimientos de C y desarrollo de compiladores. |
+| **Especificación (E)** | Crear las funciones while y for, controlar las etiquetas, respetar el orden de las instrucciones y permitir argumentos NULL cuando corresponda. |
+| **Output (O)** | Código en C, separado por funciones, sin main() y que pueda compilar con el harness. |
 
 ### 2.2 Prompt Estructurado
 
 ```text
-Actúa como un ingeniero de software especializado en C y compiladores.
+Actúa como un programador con experiencia en lenguaje C
+y desarrollo de compiladores.
 
 CONTEXTO:
-Estoy desarrollando un generador de código de tres direcciones (TAC)
-para la materia Lenguajes y Autómatas II.
+Estoy trabajando en la Sesión 25 de Lenguajes y Autómatas II.
+Necesito generar instrucciones TAC para los ciclos while y for.
 
 ROL:
-Actúa como un programador experto en C11 y manejo seguro de memoria.
+Ayúdame como un programador que conoce C11 y el manejo de arreglos.
 
 ESPECIFICACIÓN:
 Implementa las funciones emitir_while() y emitir_for()
-respetando exactamente las firmas declaradas en api_sesion25.h.
+respetando las firmas del archivo api_sesion25.h.
 
-El while debe generar cuatro instrucciones:
-1. Etiqueta de inicio.
-2. Salto condicional IFFALSE hacia el fin.
-3. GOTO hacia el inicio.
-4. Etiqueta de fin.
+Para while necesito:
+- Etiqueta de inicio.
+- Condición con IFFALSE.
+- GOTO para regresar al inicio.
+- Etiqueta de fin.
 
-El for debe generar:
-1. Inicialización, si no es NULL.
-2. Etiqueta de inicio.
-3. Salto condicional.
-4. Actualización, si no es NULL.
-5. GOTO hacia el inicio.
-6. Etiqueta de fin.
+Para for necesito:
+- Inicialización si no es NULL.
+- Etiqueta de inicio.
+- Evaluación de la condición.
+- Actualización si no es NULL.
+- GOTO de regreso.
+- Etiqueta de fin.
 
+Cada ciclo debe utilizar dos etiquetas nuevas.
 Utiliza snprintf para generar las instrucciones.
-Valida los límites del arreglo y evita escrituras fuera de memoria.
-Cada ciclo debe consumir dos etiquetas únicas.
-No agregues main().
+Comprueba que exista espacio en el arreglo antes de escribir.
+Evita modificar las firmas y no agregues main().
+
 El código debe compilar con:
 -std=c11 -Wall -Wextra -Werror
 
 OUTPUT:
-Entrega únicamente código C modular y funcional,
-sin modificar las firmas originales.
+Dame el código completo de las funciones, de manera
+ordenada y sin agregar explicaciones innecesarias.
 ```
+
+---
 
 ## 3. Código Devuelto por el Modelo
 
-Se generaron las funciones `emitir_while()` y `emitir_for()` utilizando C11.
+El modelo proporcionó una implementación de las dos funciones solicitadas. El código utiliza `snprintf()` para formar las instrucciones y `memcpy()` para agregarlas al arreglo.
 
-La implementación utiliza:
-- `snprintf()` para construir las instrucciones TAC.
-- `memcpy()` para copiar las instrucciones al arreglo.
-- Validaciones de punteros y límites.
-- Dos etiquetas por ciclo.
-- Control de argumentos NULL.
+Se conservaron las firmas originales y se agregaron validaciones para revisar los punteros, el espacio disponible y el contador de etiquetas.
 
-Archivos utilizados:
+```c
+#include "api_sesion25.h"
+#include <stdio.h>
+#include <string.h>
+#include <limits.h>
 
-- `artesano_sesion25_c.c`
-- `ia_sesion25_c.c`
-- `api_sesion25.h`
+void emitir_while(char lineas[][64], int max, int *n,
+                  const char *cond, int *etiquetas) {
+    char temp[4][64];
+    int inicio, fin;
+
+    if (!lineas || !n || !cond || !etiquetas ||
+        max < 0 || *n < 0 || *n > max ||
+        max - *n < 4 || *etiquetas < 0 ||
+        *etiquetas > INT_MAX - 2)
+        return;
+
+    inicio = *etiquetas;
+    fin = inicio + 1;
+
+    if (snprintf(temp[0], 64, "L%d:", inicio) >= 64 ||
+        snprintf(temp[1], 64, "IFFALSE %s GOTO L%d", cond, fin) >= 64 ||
+        snprintf(temp[2], 64, "GOTO L%d", inicio) >= 64 ||
+        snprintf(temp[3], 64, "L%d:", fin) >= 64)
+        return;
+
+    memcpy(lineas + *n, temp, sizeof(temp));
+    *n += 4;
+    *etiquetas += 2;
+}
+
+void emitir_for(char lineas[][64], int max, int *n,
+                const char *inicio, const char *cond,
+                const char *post, int *etiquetas) {
+    char temp[6][64];
+    int total = 0, etiqueta_inicio, etiqueta_fin;
+
+    if (!lineas || !n || !cond || !etiquetas ||
+        max < 0 || *n < 0 || *n > max ||
+        *etiquetas < 0 || *etiquetas > INT_MAX - 2)
+        return;
+
+    etiqueta_inicio = *etiquetas;
+    etiqueta_fin = etiqueta_inicio + 1;
+
+    if (inicio != NULL) {
+        if (snprintf(temp[total], 64, "%s", inicio) >= 64)
+            return;
+        total++;
+    }
+
+    if (snprintf(temp[total], 64, "L%d:", etiqueta_inicio) >= 64)
+        return;
+    total++;
+
+    if (snprintf(temp[total], 64, "IFFALSE %s GOTO L%d",
+                 cond, etiqueta_fin) >= 64)
+        return;
+    total++;
+
+    if (post != NULL) {
+        if (snprintf(temp[total], 64, "%s", post) >= 64)
+            return;
+        total++;
+    }
+
+    if (snprintf(temp[total], 64, "GOTO L%d",
+                 etiqueta_inicio) >= 64)
+        return;
+    total++;
+
+    if (snprintf(temp[total], 64, "L%d:", etiqueta_fin) >= 64)
+        return;
+    total++;
+
+    if (max - *n < total)
+        return;
+
+    memcpy(lineas + *n, temp, (size_t)total * sizeof(temp[0]));
+    *n += total;
+    *etiquetas += 2;
+}
+```
+
+---
 
 ## 4. Fase 3: El Auditor (Resultados del Test Harness)
 
-**Pruebas ejecutadas:** Validación de etiquetas, condiciones, inicialización, actualización y argumento NULL.
+**Pruebas ejecutadas:** Comprobación de las etiquetas, condiciones, inicialización, actualización del iterador y uso de NULL en el argumento `post`.
 
 ### Salida del harness
 
@@ -111,16 +192,20 @@ TODO EN VERDE.
 
 ### Lista de verificación
 
-
-- [x] Caso base y límites superados sin Crash 
-- [x] No existen accesos fuera de límites ni Memory Leaks.
-- [x] La complejidad de generación es O(1), ya que cada ciclo genera una cantidad fija de instrucciones.
+- [x] Las funciones while y for generan las instrucciones solicitadas.
+- [x] Se utilizan etiquetas diferentes para evitar que los ciclos se repitan con los mismos nombres.
+- [x] Se contempla el caso donde `post` tiene valor NULL.
+- [x] Se utiliza `snprintf()` para formar las instrucciones.
+- [x] Se comprueba el espacio disponible antes de copiar las instrucciones.
+- [ ] Se probaron todos los casos de límites y entradas incorrectas sin provocar errores.
+- [ ] Se comprobó la ausencia de accesos fuera de los límites mediante pruebas adicionales.
+- [x] Se revisó la complejidad de las funciones.
 
 ### Reporte Crítico
 
 **¿Qué caso borde o problema omitió la IA y cómo lo solucionaste?**
 
-> Un caso importante fue cuando el argumento post tiene valor NULL. Si no se controla correctamente, se puede generar una instrucción vacía o alterar la posición de las demás instrucciones. Se solucionó agregando una condición que verifica si post es diferente de NULL antes de generar la actualización. También se agregaron validaciones para comprobar que exista espacio suficiente en el arreglo y evitar escrituras fuera de sus límites.
+> Uno de los casos que había que cuidar era cuando el argumento `post` llegaba como NULL. En ese caso no se debe agregar la actualización del iterador, pero tampoco se deben alterar las demás instrucciones del ciclo. Para solucionarlo se agregó una condición que revisa si `post` tiene un valor antes de escribirlo en el arreglo. También se agregaron comprobaciones para revisar que exista espacio suficiente antes de copiar las instrucciones. De esta manera se evita modificar posiciones que no corresponden y se mantiene el orden correcto del ciclo.
 
 ---
 
