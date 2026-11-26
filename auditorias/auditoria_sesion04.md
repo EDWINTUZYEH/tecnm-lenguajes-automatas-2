@@ -2,7 +2,7 @@
 **Materia:** Lenguajes y Autómatas II (SCD-1016)  
 **Tema:** Anatomía de un Árbol Sintáctico (AST)  
 **Docente Titular:** MCC. Iván Márquez Larios (`ijmarquezl`)  
-**Estudiante:** [edwin armnado tuz yeh ]  
+**Estudiante:** [edwin armando tuz yeh ]  
 **Matrícula:** [24531358]  
 **Track:** [ C]  
 
@@ -160,4 +160,4 @@ Solución: Agregué comprobaciones para devolver -1 si el nodo es nulo o si falt
 Complejidad: Tiempo O(n) y espacio O(h), donde n es el número de nodos y h la altura del árbol.
 
 ---
-**Firma digital:** [EDWINTUZYE]
+**Firma digital:** [EDWINTUZYEH]
