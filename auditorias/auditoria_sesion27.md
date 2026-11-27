@@ -210,17 +210,6 @@ RESULTADO: 6/6 pruebas superadas
 TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion27.md
 ```
 
-### Comprobaciones realizadas
-
-| Prueba | Resultado esperado | Estado |
-| :--- | :--- | :--- |
-| Acceso unidimensional | `_t0 = i * 4` | Correcto |
-| Lectura del arreglo | `_t1 = A[_t0]` | Correcto |
-| Cálculo de fila | `_t0 = i * 3` | Correcto |
-| Cálculo de posición bidimensional | `_t1 = _t0 + j` | Correcto |
-| Cálculo del desplazamiento y lectura | `_t2 = _t1 * 4` y `_t3 = M[_t2]` | Correcto |
-| Validación de base NULL | Devolver 0 | Correcto |
-
 * [x] Se verificó que los casos probados se ejecutaran sin provocar un Crash.
 * [x] Se comprobaron los límites de las instrucciones y los temporales en los casos ejecutados.
 * [x] La complejidad teórica coincide con la cantidad fija de instrucciones generadas.
@@ -258,4 +247,4 @@ La comparación entre mi implementación manual y la propuesta de la IA me ayud�
 
 ---
 
-**Firma digital:** EDWINTUZYEH
+**Firma digital:** [EDWINTUZYEH]
