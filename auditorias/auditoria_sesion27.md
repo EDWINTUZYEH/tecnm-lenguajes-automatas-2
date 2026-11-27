@@ -223,28 +223,6 @@ TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion27.md
 > Para evitar problemas, se agregaron validaciones antes de generar las instrucciones. También se utilizaron arreglos auxiliares para construir primero todas las líneas y copiarlas al arreglo de salida solamente cuando la generación fue correcta.
 >
 > De esta manera, si ocurre un error, la función devuelve 0 y no modifica el contador de temporales. Con estas medidas se busca evitar instrucciones incompletas y escrituras fuera de los límites disponibles.
-
----
-
-## Análisis de complejidad
-
-Las dos funciones generan una cantidad fija de instrucciones, sin importar el tamaño del arreglo original.
-
-| Función | Instrucciones | Tiempo | Espacio auxiliar |
-| :--- | :---: | :---: | :---: |
-| `emitir_acceso()` | 2 | O(1) | O(1) |
-| `emitir_acceso_2d()` | 4 | O(1) | O(1) |
-
-La complejidad es constante porque cada función realiza un número limitado de operaciones: generar instrucciones, validar datos y actualizar los temporales. No necesita recorrer el arreglo completo.
-
----
-
-**Conclusión personal**
-
-En esta actividad comprendí mejor cómo se realiza el cálculo de direcciones para acceder a los elementos de arreglos mediante código de tres direcciones. También pude identificar que en los arreglos de dos dimensiones primero se necesita convertir los índices en una posición lineal y después calcular el desplazamiento en memoria.
-
-La comparación entre mi implementación manual y la propuesta de la IA me ayudó a revisar aspectos que pueden pasar desapercibidos, como las validaciones de punteros, los límites de memoria y el manejo de temporales. Finalmente, las pruebas del harness permitieron comprobar que las instrucciones generadas respetan el formato solicitado.
-
 ---
 
 **Firma digital:** [EDWINTUZYEH]
