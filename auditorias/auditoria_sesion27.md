@@ -193,7 +193,21 @@ También se utilizan validaciones para comprobar los punteros, la capacidad disp
 ### Salida del harness
 
 ```text
+
+=== AUDITORIA SESION 27 - Desplazamientos para arreglos 1D y 2D ===
+Caso                               esperado:              obtenido:              resultado
+[ 1] 1D: i * 4                          esperado: _t0 = i * 4  obtenido: _t0 = i * 4  OK
+[ 2] 1D: A[_t0]                         esperado: _t1 = A[_t0] obtenido: _t1 = A[_t0] OK
+[ 3] 2D: i * 3                          esperado: _t0 = i * 3  obtenido: _t0 = i * 3  OK
+[ 4] 2D: offset por ancho
+     esperado: _t2 = _t1 * 4
+     obtenido: _t2 = _t1 * 4
+     -> OK
+[ 5] 2D: M[_t2]                         esperado: _t3 = M[_t2] obtenido: _t3 = M[_t2] OK
+[ 6] base NULL (sin acceso)             esperado: 0            obtenido: 0            OK
+
 RESULTADO: 6/6 pruebas superadas
+TODO EN VERDE. Documenta tu auditoria en auditorias/auditoria_sesion27.md
 ```
 
 ### Comprobaciones realizadas
